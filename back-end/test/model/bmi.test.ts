@@ -1,0 +1,1 @@
+import { Bmi} from "../../model/bmi";

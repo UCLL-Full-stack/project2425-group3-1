@@ -1,0 +1,1 @@
+import { Workout } from "../../model/workout";
