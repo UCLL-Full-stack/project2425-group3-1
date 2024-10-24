@@ -23,7 +23,7 @@ export class Profile {
     }
 
     getEmail(): string {
-        return this.lastName;
+        return this.email;
     }
 
     equals(profile: Profile): boolean {
