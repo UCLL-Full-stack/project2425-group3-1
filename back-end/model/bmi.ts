@@ -3,10 +3,10 @@ export class Bmi {
     private length: number;
     private weight: number;
 
-    constructor(bmi: { id?: number; length: number; weigth: number }) {
+    constructor(bmi: { id?: number; length: number; weight: number }) {
         this.id = bmi.id;
         this.length = bmi.length;
-        this.weight = bmi.weigth;
+        this.weight = bmi.weight;
     }
 
     getId(): number | undefined {
