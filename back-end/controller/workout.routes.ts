@@ -41,7 +41,7 @@ const workoutRouter = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Lecturer'
+ *                 $ref: '#/components/schemas/Workout'
  *       500:
  *         description: Internal server error.
  */
