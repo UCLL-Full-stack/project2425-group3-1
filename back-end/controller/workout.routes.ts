@@ -1,3 +1,25 @@
+/**
+ * @swagger
+ *   components:
+ *    securitySchemes:
+ *     bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT
+ *    schemas:
+ *      Lecturer:
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: number
+ *              format: int64
+ *            name:
+ *              type: string
+ *              description: Lecturer name.
+ *            expertise:
+ *              type: string
+ *              description: Lecturer expertise.
+ */
 import express, { NextFunction, Request, Response } from 'express';
 import workoutService from '../service/workout.service';
 
@@ -5,19 +27,25 @@ const workoutRouter = express.Router();
 
 /**
  * @swagger
- * /lecturers:
- *   get:
- *     summary: Get a list of all Workouts.
+ * /workouts:
+ *    get:
+ *     summary: Get a list of all workouts.
+ *     description: Returns an array of the workouts.
+ *     tags:
+ *       - Workouts
  *     responses:
  *       200:
- *         description: A list of workouts.
+ *         description: Successfully retrieved list of workouts.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                  $ref: '#/components/schemas/Workout'
+ *                 $ref: '#/components/schemas/Lecturer'
+ *       500:
+ *         description: Internal server error.
  */
+
 workoutRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const lecturers = await workoutService.getAllWorkouts();
