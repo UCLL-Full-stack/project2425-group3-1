@@ -5,9 +5,13 @@ import * as bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
+import { workoutRouter } from './controller/workout.routes';
+
 const app = express();
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
+
+app.use('/workouts', workoutRouter);
 
 app.use(cors());
 app.use(bodyParser.json());
