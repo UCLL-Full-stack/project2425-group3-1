@@ -13,22 +13,14 @@ const Workouts: React.FC = () => {
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
   const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(null);
 
-
-  const getWorkouts = async () => {
-    try {
-      const response = await workoutService.getAllWorkouts();
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const workouts = await response.json();
-      setWorkoutsData(workouts); 
-    } catch (error) {
-      console.error("Failed to fetch workouts:", error);
-    }
-  };
-
   useEffect(() => {
-    getWorkouts(); 
+    const fetchWorkouts = async () => {
+        const response = await workoutService.getAllWorkouts();
+        const workouts = await response.json();
+        setWorkoutsData(workouts);
+    };
+
+    fetchWorkouts();
   }, []);
 
   const handleCheckboxChange = (id: number) => {

@@ -30,9 +30,7 @@ const workouts = [
     }),
 ];
 
-const getAllWorkouts = (): Workout[] => {
-    return workouts; // or some async call if fetching from an API
-};
+const getAllWorkouts = (): Workout[] => workouts;
 
 export default {
     getAllWorkouts,

@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import '@/styles/Workouts.module.css'; // Ensure this imports if you have styles in it
+import '@/styles/workouts.module.css'; 
 
 import type { AppProps } from "next/app";
 
