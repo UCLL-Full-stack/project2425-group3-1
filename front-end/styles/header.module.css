@@ -1,0 +1,29 @@
+  /* Header styling */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #153a65; /* Keep header background color */
+    color: white; /* Keep text color in header white */
+  }
+  
+  .title {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 20px; /* Space between links */
+  }
+  
+  .link {
+    color: white; /* Keep link color white for contrast against header */
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .link:hover {
+    text-decoration: underline; /* Add underline on hover for links */
+  }

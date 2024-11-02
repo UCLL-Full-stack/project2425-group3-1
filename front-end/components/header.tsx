@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 import React from 'react';
 import Link from 'next/link';
-import styles from '../styles/workouts.module.css'; // Make sure this path is correct
+import styles from '../styles/header.module.css'; // Make sure this path is correct
 
 const Header: React.FC = () => {
   return (
