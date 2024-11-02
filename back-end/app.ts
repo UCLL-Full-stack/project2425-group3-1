@@ -11,11 +11,11 @@ const app = express();
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
 
-app.use('/workouts', workoutRouter);
-app.use('/schedules', scheduleRouter);
-
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use('/workouts', workoutRouter);
+app.use('/schedules', scheduleRouter);
 
 const swaggerOpts = {
     definition: {
