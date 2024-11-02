@@ -1,0 +1,107 @@
+/* styles/Workouts.module.css */
+
+/* Container styling */
+.container {
+    display: flex;
+    flex-direction: row; /* Change to column to stack header and content */
+    padding: 20px;
+}
+
+.content {
+    flex: 1; /* Allow the table to take up remaining space */
+    padding-bottom: 20px; 
+}
+
+
+
+/* Header styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #0070f3; /* Header background color */
+    color: white;
+}
+
+.title {
+    font-size: 24px;
+    margin: 0;
+}
+
+.nav {
+    display: flex;
+    gap: 20px; /* Space between links */
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.link:hover {
+    text-decoration: underline; /* Add underline on hover for links */
+}
+
+/* Table styling */
+.workoutsTable {
+    width: 70%; /* Make the table wider */
+    border-collapse: collapse;
+    margin-right: 40px; /* Add some extra space between the table and the image */
+    margin-bottom: 20px; 
+
+}
+
+.workoutsTable th,
+.workoutsTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px; /* Add margin on top to space it from the table */
+}
+
+
+.inactiveButton {
+    background-color: grey;
+    color: white;
+    cursor: not-allowed;
+}
+
+.activeButton {
+    background-color: #0070f3;
+    color: white;
+}
+
+/* Button container styling */
+.buttonContainer {
+    margin-top: 20px; /* Add margin to create space above the button */
+    text-align: center; /* Center the button if desired */
+}
+
+
+
+
+.imageSection {
+    width: 30%; /* Set the width of the image section */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the image section */
+    padding-left: 20px; /* Add some space between the table and image */
+}
+
+.image {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
