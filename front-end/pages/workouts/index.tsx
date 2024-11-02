@@ -1,55 +1,35 @@
 // src/pages/workouts.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import styles from "../../styles/workouts.module.css";
+import styles from "@/styles/workouts.module.css";
 import classNames from "classnames";
 import Header from "@/components/header";
-
-type Workout = {
-  id: number;
-  name: string;
-  location: string;
-  time: string;
-  level: string;
-  muscle: string;
-  muscleImage: string;
-};
-
-const workoutsData: Workout[] = [
-  {
-    id: 1,
-    name: "Yoga",
-    location: "Studio 1",
-    time: "10:00 AM",
-    level: "Beginner",
-    muscle: "Core",
-    muscleImage: "/images/core.png",
-  },
-  {
-    id: 2,
-    name: "HIIT",
-    location: "Gym",
-    time: "12:00 PM",
-    level: "Intermediate",
-    muscle: "Full Body",
-    muscleImage: "/images/fullbody.png",
-  },
-  {
-    id: 3,
-    name: "Pilates",
-    location: "Studio 2",
-    time: "2:00 PM",
-    level: "Advanced",
-    muscle: "Legs",
-    muscleImage: "/images/legs.png",
-  },
-];
+import WorkoutsTable from "@/components/workouts/workoutsTable";
+import { Workout } from "@/types"; 
+import workoutService from "@/services/workoutService";
 
 const Workouts: React.FC = () => {
+  const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
-  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
-    null
-  );
+  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(null);
+
+
+  const getWorkouts = async () => {
+    try {
+      const response = await workoutService.getAllWorkouts();
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const workouts = await response.json();
+      setWorkoutsData(workouts); 
+    } catch (error) {
+      console.error("Failed to fetch workouts:", error);
+    }
+  };
+
+  useEffect(() => {
+    getWorkouts(); 
+  }, []);
 
   const handleCheckboxChange = (id: number) => {
     setSelectedWorkouts((prevSelected) =>
@@ -61,7 +41,7 @@ const Workouts: React.FC = () => {
 
   const handleAddToSchedule = () => {
     if (selectedWorkouts.length > 0) {
-      console.log("Toegevoegd aan schema:", selectedWorkouts);
+      console.log("Added to schedule:", selectedWorkouts);
       setSelectedWorkouts([]);
     }
   };
@@ -72,45 +52,15 @@ const Workouts: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Header /> {/* Using the Header component here */}
+      <Header />
       <div className={styles.content}>
         <h1>Workouts</h1>
-        <table className={styles.workoutsTable}>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Location</th>
-              <th>Time</th>
-              <th>Level</th>
-              <th>Muscle</th>
-            </tr>
-          </thead>
-          <tbody>
-            {workoutsData.map((workout) => (
-              <tr key={workout.id}>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={selectedWorkouts.includes(workout.id)}
-                    onChange={() => handleCheckboxChange(workout.id)}
-                  />
-                </td>
-                <td>{workout.name}</td>
-                <td>{workout.location}</td>
-                <td>{workout.time}</td>
-                <td>{workout.level}</td>
-                <td>
-                  <button
-                    onClick={() => handleShowMuscleImage(workout.muscleImage)}
-                  >
-                    Show
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <WorkoutsTable
+          workouts={workoutsData}
+          selectedWorkouts={selectedWorkouts}
+          onCheckboxChange={handleCheckboxChange}
+          onShowMuscleImage={handleShowMuscleImage}
+        />
       </div>
       <div className={styles.imageSection}>
         {selectedMuscleImage ? (
@@ -122,7 +72,7 @@ const Workouts: React.FC = () => {
             height={300}
           />
         ) : (
-          <p>Selecteer een workout om de spiergroep te bekijken</p>
+          <p>Select a workout to view the muscle group</p>
         )}
       </div>
       <div className={styles.buttonContainer}>

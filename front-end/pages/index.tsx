@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import styles from "../styles/workouts.module.css";
+import styles from "@/styles/workouts.module.css";
 import Header from "@/components/header";
 
 const Home: React.FC = () => {
