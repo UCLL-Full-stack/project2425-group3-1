@@ -6,7 +6,7 @@ import styles from '@styles/Header.module.css';
 const Header: React.FC = () => {
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>Nestfit</h1>
+      <h1 className={styles.title}>Fitnest</h1>
       <nav className={styles.nav}>
         <Link href="/" className={styles.link}>Home</Link>
         <Link href="/workouts" className={styles.link}>Workouts</Link>

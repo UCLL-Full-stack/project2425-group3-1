@@ -1,17 +1,18 @@
-/* styles/Workouts.module.css */
 
-/* Container styling */
+/* Ensure the container takes the full height */
 .container {
     display: flex;
-    flex-direction: row; /* Change to column to stack header and content */
-    padding: 20px;
+    flex-direction: column; /* Stack header and content vertically */
+    height: 100%; /* Full height of the viewport */
 }
+
+/* Adjust content to take remaining space */
 
 .content {
-    flex: 1; /* Allow the table to take up remaining space */
-    padding-bottom: 20px; 
+    flex: 1; /* Allow the content to grow and fill the available space */
+    padding: 20px; /* Add padding around content */
+    overflow-y: auto; /* Enable scrolling if content overflows */
 }
-
 
 
 /* Header styling */
@@ -20,8 +21,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #0070f3; /* Header background color */
-    color: white;
+    background-color: #153a65; /* Keep header background color */
+    color: white; /* Keep text color in header white */
 }
 
 .title {
@@ -35,7 +36,7 @@
 }
 
 .link {
-    color: white;
+    color: white; /* Keep link color white for contrast against header */
     text-decoration: none;
     font-size: 18px;
 }
@@ -46,11 +47,9 @@
 
 /* Table styling */
 .workoutsTable {
-    width: 70%; /* Make the table wider */
+    width: 100%; /* Make the table take the full width */
     border-collapse: collapse;
-    margin-right: 40px; /* Add some extra space between the table and the image */
-    margin-bottom: 20px; 
-
+    margin-bottom: 40px; 
 }
 
 .workoutsTable th,
@@ -58,8 +57,10 @@
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
+    color: black; /* Ensure table text color is black */
 }
 
+/* Button styling */
 .button {
     padding: 10px 20px;
     font-size: 16px;
@@ -68,7 +69,6 @@
     border-radius: 5px;
     margin-top: 20px; /* Add margin on top to space it from the table */
 }
-
 
 .inactiveButton {
     background-color: grey;
@@ -83,19 +83,16 @@
 
 /* Button container styling */
 .buttonContainer {
-    margin-top: 20px; /* Add margin to create space above the button */
+
     text-align: center; /* Center the button if desired */
 }
 
-
-
-
 .imageSection {
-    width: 30%; /* Set the width of the image section */
+    width: 100%; /* Full width for image section */
     display: flex;
     align-items: center;
     justify-content: center; /* Center the image section */
-    padding-left: 20px; /* Add some space between the table and image */
+    padding: 20px 0; /* Add padding above and below */
 }
 
 .image {
