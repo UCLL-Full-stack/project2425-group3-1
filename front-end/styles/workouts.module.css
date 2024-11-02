@@ -1,112 +1,105 @@
 
-  
-/* Ensure the container takes the full height */
 .container {
-    display: flex;
-    flex-direction: column; /* Stack header and content vertically */
-    height: 100vh; /* Full height of the viewport */
-    background-color: white; 
-  }
-  
-  /* Adjust content to take remaining space */
-  
-  .content {
-    flex: 1; /* Allow the content to grow and fill the available space */
-    padding: 20px; /* Add padding around content */
-    overflow-y: auto; /* Enable scrolling if content overflows */
-  }
-  
-  .imageSection p {
-    color: black; /* Ensure the paragraph text is black */
+  display: flex;
+  flex-direction: column; 
+  height: 100vh;
+  background-color: white;
 }
-  
-  
-  /* Table styling */
-  .workoutsTable {
-    width: 100%; /* Make the table take the full width */
-    border-collapse: collapse;
-  }
-  
-  .workoutsTable th,
-  .workoutsTable td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-    color: black; /* Ensure table text color is black */
-    
-  }
-
-  
-  
-  /* Remove any existing specific alignment that might affect checkboxes */
-  .workoutsTable td input[type="checkbox"] {
-    margin: 0; /* Reset any margins */
-  }
-  
-  /* Button styling */
-  .button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-
-  }
-  
-  .inactiveButton {
-    background-color: grey;
-    color: white;
-    cursor: not-allowed;
-  }
-  
-  .activeButton {
-    background-color: #0070f3;
-    color: white;
-  }
-  
-  /* Button container styling */
-  .buttonContainer {
-    margin: 20px 0; 
-    text-align: center; /* Center the button if desired */
-  }
-  
-  .imageSection {
-    width: 100%; /* Full width for image section */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the image section */
-    padding: 40px 0; /* Add padding above and below */
-  }
-  
-  .image {
-    max-width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border: 1px solid #ccc;
- 
-  }
-  
-  .tableContainer { /* Assuming this is the class wrapping your table */
-    /* Styles can be added here if needed */
-  }
-
-  .tableContainer input[type="checkbox"] {
-    /* Default styling for checkboxes */
-    width: 20px; /* Customize size if necessary */
-    height: 20px;
-    cursor: pointer; /* Show pointer on hover */
-    accent-color: #0070f3; /* Change the color of the checked state */
-  }
-  
-  /* Style for unchecked checkboxes */
-  .tableContainer input[type="checkbox"]:not(:checked) {
-    background-color: rgba(231, 237, 236, 0.912); /* Light background color */
-    border: 1px solid #ccc; /* Lighter border */
-  }
-  
-  /* Style for checked checkboxes (optional) */
-  .tableContainer input[type="checkbox"]:checked {
-    background-color: #0070f3; /* Change color for checked state */
-  }
 
 
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; 
+}
+
+.imageSection p {
+  color: black; 
+}
+
+
+.workoutsTable {
+  width: 100%; 
+  border-collapse: collapse;
+}
+
+.workoutsTable th,
+.workoutsTable td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  color: black; 
+}
+
+
+.button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.inactiveButton {
+  background-color: grey;
+  color: white;
+  cursor: not-allowed;
+}
+
+.activeButton {
+  background-color: #0070f3;
+  color: white;
+}
+
+
+.buttonContainer {
+  margin: 20px 0;
+  text-align: center; 
+}
+
+.imageSection {
+  width: 100%; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  padding: 40px 0;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+
+.tableContainer input[type="checkbox"] {
+
+  width: 20px; 
+  height: 20px;
+  cursor: pointer; 
+  accent-color: #0070f3; 
+}
+
+
+.tableContainer input[type="checkbox"]:not(:checked) {
+  background-color: rgba(205, 191, 191, 0.1); 
+  border: 1px solid #ccc; 
+}
+
+
+.tableContainer input[type="checkbox"]:checked {
+  background-color: #0070f3; 
+}
+
+.description {
+  max-width: 95vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 30vh;
+  color: black;
+  margin: 0 auto;
+}

@@ -6,12 +6,13 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 import { workoutRouter } from './controller/workout.routes';
-
+import { scheduleRouter } from './controller/schedule.routes';
 const app = express();
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
 
 app.use('/workouts', workoutRouter);
+app.use('/schedules', scheduleRouter);
 
 app.use(cors());
 app.use(bodyParser.json());

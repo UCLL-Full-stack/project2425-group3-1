@@ -17,15 +17,18 @@ const Home: React.FC = () => {
         <Header />
 
         <main>
-          <span>
-            <Image
-              src="/images/Homepage_Pic.png"
-              alt="Muscular man"
-              width={50}
-              height={50}
-            />
-            <h1>Welcome!</h1>
-          </span>
+          <div className={styles.description}>
+            <p>
+              Welcome to FitNest! Your Personalized Fitness Journey Starts Here
+              At FitNest, we believe that fitness should be accessible,
+              enjoyable, and tailored to your individual goals. Whether you’re
+              looking to lose weight, gain strength, or maintain a healthy
+              lifestyle, our app is designed to help you every step of the way.
+            </p>
+          </div>
+          <div className={styles.description}>
+            <p>add picture here</p>
+          </div>
         </main>
       </div>
     </>

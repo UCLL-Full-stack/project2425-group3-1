@@ -1,25 +1,24 @@
-// Schedule.ts
-import { Workout } from './workout'; // Adjust the path as necessary
+import { Workout } from './workout';
 
 export class Schedule {
     private id?: number;
     private date: Date;
     private calorieBurn: number;
     private totalTime: number;
-    private workouts: Workout[]; 
+    private workouts: Workout[];
 
     constructor(schedule: {
         date: Date;
         calorieBurn: number;
         totalTime: number;
         id?: number;
-        workouts?: Workout[]; 
+        workouts?: Workout[];
     }) {
         this.date = schedule.date;
         this.calorieBurn = schedule.calorieBurn;
         this.totalTime = schedule.totalTime;
         this.id = schedule.id;
-        this.workouts = schedule.workouts || []; 
+        this.workouts = schedule.workouts || []; // Initialize with empty array if workouts is undefined
     }
 
     getId(): number | undefined {
@@ -39,11 +38,11 @@ export class Schedule {
     }
 
     getWorkouts(): Workout[] {
-        return this.workouts; // Getter for workouts
+        return this.workouts;
     }
 
     addWorkout(workout: Workout): void {
-        this.workouts.push(workout); // Add a workout to the list
+        this.workouts.push(workout);
     }
 
     equals(schedule: Schedule): boolean {
@@ -53,7 +52,7 @@ export class Schedule {
             this.calorieBurn === schedule.getCalorieBurn() &&
             this.totalTime === schedule.getTotalTime() &&
             this.workouts.length === schedule.getWorkouts().length && // Compare workout lengths
-            this.workouts.every((workout, index) => workout.getId() === schedule.getWorkouts()[index].getId()) // Compare workouts
+            this.workouts.every((workout, index) => workout.getId() === schedule.getWorkouts()[index].getId()) // Compare workout IDs
         );
     }
 }
