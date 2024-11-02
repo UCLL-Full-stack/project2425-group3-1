@@ -3,11 +3,19 @@ export class Workout {
     private location: string;
     private level: number;
     private time: number;
-    private name: string; 
+    private name: string;
     private calorie: number;
     private muscle: string;
- 
-    constructor(workout: {location: string; level: number; time: number; name: string;  calorie: number;  muscle: string; id?: number }) {
+
+    constructor(workout: {
+        location: string;
+        level: number;
+        time: number;
+        name: string;
+        calorie: number;
+        muscle: string;
+        id?: number;
+    }) {
         this.id = workout.id;
         this.location = workout.location;
         this.level = workout.level;
@@ -21,11 +29,9 @@ export class Workout {
         return this.id;
     }
 
-    
     getLocation(): string {
         return this.location;
     }
-
 
     getName(): string {
         return this.name;
@@ -47,10 +53,9 @@ export class Workout {
         return this.calorie;
     }
 
-
     equals(workout: Workout): boolean {
         return (
-            this.id === workout.getId() && 
+            this.id === workout.getId() &&
             this.location === workout.getLocation() &&
             this.level === workout.getLevel() &&
             this.time === workout.getTime() &&
@@ -59,5 +64,4 @@ export class Workout {
             this.muscle === workout.getMuscle()
         );
     }
-
 }
