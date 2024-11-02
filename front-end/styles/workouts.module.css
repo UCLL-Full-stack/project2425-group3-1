@@ -1,104 +1,107 @@
 
+  
 /* Ensure the container takes the full height */
 .container {
     display: flex;
     flex-direction: column; /* Stack header and content vertically */
-    height: 100%; /* Full height of the viewport */
-}
-
-/* Adjust content to take remaining space */
-
-.content {
+    height: 100vh; /* Full height of the viewport */
+    background-color: white; 
+  }
+  
+  /* Adjust content to take remaining space */
+  
+  .content {
     flex: 1; /* Allow the content to grow and fill the available space */
     padding: 20px; /* Add padding around content */
     overflow-y: auto; /* Enable scrolling if content overflows */
-}
-
-
-/* Header styling */
-.header {
+  }
+  
+  
+  /* Header styling */
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     background-color: #153a65; /* Keep header background color */
     color: white; /* Keep text color in header white */
-}
-
-.title {
+  }
+  
+  .title {
     font-size: 24px;
     margin: 0;
-}
-
-.nav {
+  }
+  
+  .nav {
     display: flex;
     gap: 20px; /* Space between links */
-}
-
-.link {
+  }
+  
+  .link {
     color: white; /* Keep link color white for contrast against header */
     text-decoration: none;
     font-size: 18px;
-}
-
-.link:hover {
+  }
+  
+  .link:hover {
     text-decoration: underline; /* Add underline on hover for links */
-}
-
-/* Table styling */
-.workoutsTable {
+  }
+  
+  /* Table styling */
+  .workoutsTable {
     width: 100%; /* Make the table take the full width */
     border-collapse: collapse;
     margin-bottom: 40px; 
-}
-
-.workoutsTable th,
-.workoutsTable td {
+  }
+  
+  .workoutsTable th,
+  .workoutsTable td {
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
     color: black; /* Ensure table text color is black */
-}
-
-/* Button styling */
-.button {
+  }
+  
+  /* Button styling */
+  .button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
     margin-top: 20px; /* Add margin on top to space it from the table */
-}
-
-.inactiveButton {
+  }
+  
+  .inactiveButton {
     background-color: grey;
     color: white;
     cursor: not-allowed;
-}
-
-.activeButton {
+  }
+  
+  .activeButton {
     background-color: #0070f3;
     color: white;
-}
-
-/* Button container styling */
-.buttonContainer {
-
+  }
+  
+  /* Button container styling */
+  .buttonContainer {
+  
     text-align: center; /* Center the button if desired */
-}
-
-.imageSection {
+  }
+  
+  .imageSection {
     width: 100%; /* Full width for image section */
     display: flex;
     align-items: center;
     justify-content: center; /* Center the image section */
     padding: 20px 0; /* Add padding above and below */
-}
-
-.image {
+  }
+  
+  .image {
     max-width: 100%;
     max-height: 300px;
     object-fit: cover;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
+  }
+  

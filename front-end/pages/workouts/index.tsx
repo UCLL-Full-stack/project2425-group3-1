@@ -1,8 +1,9 @@
+// src/pages/workouts.tsx
 import React, { useState } from 'react';
 import Image from 'next/image';
-import styles from '@styles/Workouts.module.css';
+import styles from '../../styles/workouts.module.css';
 import classNames from 'classnames';
-import Link from 'next/link';
+import Header from '@/components/header';
 
 type Workout = {
   id: number;
@@ -45,14 +46,7 @@ const Workouts: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Nestfit</h1>
-        <nav className={styles.nav}>
-          <Link href="/" className={styles.link}>Home</Link>
-          <Link href="/workouts" className={styles.link}>Workouts</Link>
-        </nav>
-      </header>
-
+      <Header /> {/* Using the Header component here */}
       <div className={styles.content}>
         <h1>Workouts</h1>
         <table className={styles.workoutsTable}>
@@ -89,7 +83,6 @@ const Workouts: React.FC = () => {
         </table>
       </div>
 
-
       <div className={styles.imageSection}>
         {selectedMuscleImage ? (
           <Image
@@ -102,7 +95,6 @@ const Workouts: React.FC = () => {
         ) : (
           <p>Selecteer een workout om de spiergroep te bekijken</p>
         )}
-        
       </div>
       <div className={styles.buttonContainer}>
         <button
@@ -116,8 +108,6 @@ const Workouts: React.FC = () => {
           Add to Schedule
         </button>
       </div>
-
-    
     </div>
   );
 };
