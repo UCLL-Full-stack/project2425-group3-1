@@ -1,29 +1,29 @@
-  /* Header styling */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #153a65; /* Keep header background color */
-    color: white; /* Keep text color in header white */
-  }
-  
-  .title {
-    font-size: 24px;
-    margin: 0;
-  }
-  
-  .nav {
-    display: flex;
-    gap: 20px; /* Space between links */
-  }
-  
-  .link {
-    color: white; /* Keep link color white for contrast against header */
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  .link:hover {
-    text-decoration: underline; /* Add underline on hover for links */
-  }
+.header {
+  display: flex;
+  align-items: center; /* Center the contents vertically */
+  padding: 20px;
+  background-color: #153a65; /* Header background color */
+  color: white; /* Text color in header */
+}
+
+.title {
+  font-size: 24px;
+  margin: 0;
+}
+
+.nav {
+  display: flex; /* Align items in a row */
+  justify-content: center; /* Center nav items */
+  flex: 1; /* Allow nav to take the available space */
+}
+
+.link {
+  color: white; /* Link color for contrast */
+  text-decoration: none; /* Remove underline */
+  font-size: 18px; /* Font size for links */
+  margin: 0 20px; /* Add some spacing between links */
+}
+
+.link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
