@@ -33,6 +33,14 @@
     padding: 10px;
     text-align: left;
     color: black; /* Ensure table text color is black */
+    
+  }
+
+  
+  
+  /* Remove any existing specific alignment that might affect checkboxes */
+  .workoutsTable td input[type="checkbox"] {
+    margin: 0; /* Reset any margins */
   }
   
   /* Button styling */
@@ -78,7 +86,6 @@
  
   }
   
-
   .tableContainer { /* Assuming this is the class wrapping your table */
     /* Styles can be added here if needed */
   }
@@ -93,7 +100,7 @@
   
   /* Style for unchecked checkboxes */
   .tableContainer input[type="checkbox"]:not(:checked) {
-    background-color: rgba(205, 191, 191, 0.1); /* Light background color */
+    background-color: rgba(231, 237, 236, 0.912); /* Light background color */
     border: 1px solid #ccc; /* Lighter border */
   }
   
@@ -101,3 +108,5 @@
   .tableContainer input[type="checkbox"]:checked {
     background-color: #0070f3; /* Change color for checked state */
   }
+
+
