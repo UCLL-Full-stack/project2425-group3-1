@@ -32,6 +32,10 @@
   color: black; /* Ensure table text color is black */
 }
 
+.workoutsTable tr:hover {
+  background-color: lightgrey; /* Change to your desired light grey color */
+}
+
 /* Button styling */
 .button {
   padding: 10px 20px;
