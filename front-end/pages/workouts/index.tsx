@@ -1,9 +1,9 @@
 // src/pages/workouts.tsx
-import React, { useState } from 'react';
-import Image from 'next/image';
-import styles from '../../styles/workouts.module.css';
-import classNames from 'classnames';
-import Header from '@/components/header';
+import React, { useState } from "react";
+import Image from "next/image";
+import styles from "../../styles/workouts.module.css";
+import classNames from "classnames";
+import Header from "@/components/header";
 
 type Workout = {
   id: number;
@@ -16,14 +16,40 @@ type Workout = {
 };
 
 const workoutsData: Workout[] = [
-  { id: 1, name: 'Yoga', location: 'Studio 1', time: '10:00 AM', level: 'Beginner', muscle: 'Core', muscleImage: '/images/core.png' },
-  { id: 2, name: 'HIIT', location: 'Gym', time: '12:00 PM', level: 'Intermediate', muscle: 'Full Body', muscleImage: '/images/fullbody.png' },
-  { id: 3, name: 'Pilates', location: 'Studio 2', time: '2:00 PM', level: 'Advanced', muscle: 'Legs', muscleImage: '/images/legs.png' },
+  {
+    id: 1,
+    name: "Yoga",
+    location: "Studio 1",
+    time: "10:00 AM",
+    level: "Beginner",
+    muscle: "Core",
+    muscleImage: "/images/core.png",
+  },
+  {
+    id: 2,
+    name: "HIIT",
+    location: "Gym",
+    time: "12:00 PM",
+    level: "Intermediate",
+    muscle: "Full Body",
+    muscleImage: "/images/fullbody.png",
+  },
+  {
+    id: 3,
+    name: "Pilates",
+    location: "Studio 2",
+    time: "2:00 PM",
+    level: "Advanced",
+    muscle: "Legs",
+    muscleImage: "/images/legs.png",
+  },
 ];
 
 const Workouts: React.FC = () => {
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
-  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(null);
+  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
+    null
+  );
 
   const handleCheckboxChange = (id: number) => {
     setSelectedWorkouts((prevSelected) =>
@@ -35,7 +61,7 @@ const Workouts: React.FC = () => {
 
   const handleAddToSchedule = () => {
     if (selectedWorkouts.length > 0) {
-      console.log('Toegevoegd aan schema:', selectedWorkouts);
+      console.log("Toegevoegd aan schema:", selectedWorkouts);
       setSelectedWorkouts([]);
     }
   };
@@ -75,14 +101,17 @@ const Workouts: React.FC = () => {
                 <td>{workout.time}</td>
                 <td>{workout.level}</td>
                 <td>
-                  <button onClick={() => handleShowMuscleImage(workout.muscleImage)}>Show</button>
+                  <button
+                    onClick={() => handleShowMuscleImage(workout.muscleImage)}
+                  >
+                    Show
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
       <div className={styles.imageSection}>
         {selectedMuscleImage ? (
           <Image
@@ -100,7 +129,9 @@ const Workouts: React.FC = () => {
         <button
           className={classNames(
             styles.button,
-            selectedWorkouts.length > 0 ? styles.activeButton : styles.inactiveButton
+            selectedWorkouts.length > 0
+              ? styles.activeButton
+              : styles.inactiveButton
           )}
           onClick={handleAddToSchedule}
           disabled={selectedWorkouts.length === 0}
