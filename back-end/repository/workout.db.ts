@@ -1,6 +1,6 @@
 import { Workout } from '../model/workout';
 
-const workouts = [
+export const workouts = [
     new Workout({
         id: 1,
         location: 'test 1',

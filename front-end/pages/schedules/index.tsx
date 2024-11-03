@@ -20,7 +20,7 @@ const Schedules: React.FC = () => {
 
   useEffect(() => {
     getSchedules();
-  }, []);
+  }, [schedules]);
 
   return (
     <>

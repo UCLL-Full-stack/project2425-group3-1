@@ -8,11 +8,16 @@ import WorkoutsTable from "@/components/workouts/workoutsTable";
 import { Workout } from "@/types"; 
 import workoutService from "@/services/workoutService";
 import Head from "next/head";
+import ScheduleService from "@/services/ScheduleService";
+import { useRouter } from "next/router";
 
 const Workouts: React.FC = () => {
   const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
   const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(null);
+
+  // voor router push te laten werken
+  const router = useRouter()
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -32,10 +37,22 @@ const Workouts: React.FC = () => {
     );
   };
 
-  const handleAddToSchedule = () => {
+  const handleAddToSchedule = async () => {
     if (selectedWorkouts.length > 0) {
-      console.log("Added to schedule:", selectedWorkouts);
-      setSelectedWorkouts([]);
+      try {
+        const workoutsToAdd = selectedWorkouts
+          .map((id) => workoutsData.find((workout) => workout.id === id))
+          .filter((workout): workout is Workout => workout !== undefined);
+  
+        await ScheduleService.addWorkoutsToSchedule(1, workoutsToAdd);
+
+        // navigeer naar schedules pagina als add gelukt is
+        router.push("/schedules")
+  
+        setSelectedWorkouts([]);
+      } catch (error) {
+        console.error("Failed to add workouts to schedule:", error);
+      }
     }
   };
 
@@ -52,6 +69,7 @@ const Workouts: React.FC = () => {
       <div className={styles.content}>
         <h1>Workouts</h1>
         <WorkoutsTable
+          // fix deze error -> iets met types
           workouts={workoutsData}
           selectedWorkouts={selectedWorkouts}
           onCheckboxChange={handleCheckboxChange}
@@ -68,7 +86,7 @@ const Workouts: React.FC = () => {
             height={300}
           />
         ) : (
-          <p>Select a workout to view the muscle group</p>
+          <p>Click on 'show' to view a picture of the muscle group</p>
         )}
       </div>
       <div className={styles.buttonContainer}>

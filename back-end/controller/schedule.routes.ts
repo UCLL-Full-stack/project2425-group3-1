@@ -55,6 +55,18 @@ scheduleRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
 });
 
 
+scheduleRouter.post('/add/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = Number(req.params.id);
+        const body = req.body
+        const schedule = scheduleService.addWorkoutsToSchedule(id, body);
+        res.status(200).json(schedule);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 export { scheduleRouter };
 
 
