@@ -5,8 +5,12 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/workouts.module.css";
 import ScheduleService from "@/services/ScheduleService";
+import WorkoutOverviewTable from "@/components/workouts/WorkoutOverviewTable";
 const Schedules: React.FC = () => {
   const [schedules, setSchedules] = useState<Array<Schedule>>();
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
+    null
+  );
 
   const getSchedules = async () => {
     const response = await ScheduleService.getAllSchedules();
@@ -25,10 +29,24 @@ const Schedules: React.FC = () => {
       </Head>
       <Header></Header>
       <main className={styles.container}>
-        <h1>Schedules</h1>
         <section>
-          {schedules && <ScheduleTable schedules={schedules} />}
+          <h2 className={styles.description}>Schedules Overview</h2>
+          {schedules && (
+            <ScheduleTable
+              schedules={schedules}
+              selectedSchedule={setSelectedSchedule} // Pass the function to handle selection
+            />
+          )}
         </section>
+        {selectedSchedule && (
+          <section>
+            <h2 className={styles.description}>
+              Workouts planned on{" "}
+              {new Date(selectedSchedule.date).toLocaleDateString()}:
+            </h2>
+            <WorkoutOverviewTable schedule={selectedSchedule} />
+          </section>
+        )}
       </main>
     </>
   );
