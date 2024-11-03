@@ -6,6 +6,7 @@ export class Workout {
     private name: string;
     private calorie: number;
     private muscle: string;
+    private  muscleImage: string; 
 
     constructor(workout: {
         location: string;
@@ -15,6 +16,7 @@ export class Workout {
         calorie: number;
         muscle: string;
         id?: number;
+        muscleImage: string; 
     }) {
         this.id = workout.id;
         this.location = workout.location;
@@ -23,6 +25,7 @@ export class Workout {
         this.name = workout.name;
         this.calorie = workout.calorie;
         this.muscle = workout.muscle;
+        this.muscleImage = workout.muscleImage;
     }
 
     getId(): number | undefined {

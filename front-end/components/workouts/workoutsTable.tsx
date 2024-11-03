@@ -1,4 +1,3 @@
-// src/components/WorkoutsTable.tsx
 import React from "react";
 import styles from "@/styles/workouts.module.css";
 
@@ -19,7 +18,6 @@ type WorkoutsTableProps = {
   onShowMuscleImage: (image: string) => void;
 };
 
-
 const WorkoutsTable: React.FC<WorkoutsTableProps> = ({
   workouts,
   selectedWorkouts,
@@ -36,6 +34,7 @@ const WorkoutsTable: React.FC<WorkoutsTableProps> = ({
           <th>Time</th>
           <th>Level</th>
           <th>Muscle</th>
+          <th>Muscle Image</th>
         </tr>
       </thead>
       <tbody>
@@ -52,8 +51,12 @@ const WorkoutsTable: React.FC<WorkoutsTableProps> = ({
             <td>{workout.location}</td>
             <td>{workout.time}</td>
             <td>{workout.level}</td>
+            <td>{workout.muscle}</td>
             <td>
-              <button onClick={() => onShowMuscleImage(workout.muscleImage)}>
+              <button
+                onClick={() => onShowMuscleImage(workout.muscleImage)}
+                className={styles.showButton}
+              >
                 Show
               </button>
             </td>

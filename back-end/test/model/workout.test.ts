@@ -8,9 +8,10 @@ test('given: valid values for workout, when: workout is created, then: workout i
     const name = 'Upperbody';
     const calorie = 500;
     const muscle = 'Chest';
+    const muscleImage= '/path/to/image1.jpg'
   
     // when
-    const workout = new Workout({location, level, time, name, calorie, muscle});
+    const workout = new Workout({location, level, time, name, calorie, muscle, muscleImage});
   
     // then
     expect(workout.getLocation()).toEqual(location);

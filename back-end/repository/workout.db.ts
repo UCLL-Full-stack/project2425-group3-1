@@ -9,6 +9,7 @@ const workouts = [
         name: 'test workout 1',
         calorie: 200,
         muscle: 'test muscle 1',
+        muscleImage: '/images/Benen.jpg',
     }),
     new Workout({
         id: 2,
@@ -18,6 +19,7 @@ const workouts = [
         name: 'test workout 2',
         calorie: 500,
         muscle: 'test muscle 2',
+        muscleImage: '/images/homepagepic.png',
     }),
     new Workout({
         id: 3,
@@ -27,6 +29,7 @@ const workouts = [
         name: 'test workout 3',
         calorie: 785,
         muscle: 'test muscle 3',
+        muscleImage: '/images/Benen.jpg',
     }),
 ];
 
