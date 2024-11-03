@@ -31,6 +31,9 @@ const Schedules: React.FC = () => {
       <main className={styles.container}>
         <section>
           <h2 className={styles.description}>Schedules Overview</h2>
+          <p className={styles.instructionText}>
+           Click on a schedule in the table below to view the workouts.
+          </p>
           {schedules && (
             <ScheduleTable
               schedules={schedules}

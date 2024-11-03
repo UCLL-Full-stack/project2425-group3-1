@@ -104,6 +104,12 @@
   transform: translateZ(0);
 }
 
+
+.homepageImage {
+  margin-top: 20px; 
+
+}
+
 .logo {
   position: relative;
 }

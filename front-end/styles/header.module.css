@@ -1,9 +1,9 @@
 .header {
   display: flex;
-  align-items: center; /* Center the contents vertically */
+  align-items: center; 
   padding: 20px;
-  background-color: #153a65; /* Header background color */
-  color: white; /* Text color in header */
+  background-color: #153a65; 
+  color: white; 
 }
 
 .title {
@@ -12,18 +12,18 @@
 }
 
 .nav {
-  display: flex; /* Align items in a row */
-  justify-content: center; /* Center nav items */
-  flex: 1; /* Allow nav to take the available space */
+  display: flex; 
+  justify-content: center; 
+  flex: 1;
 }
 
 .link {
-  color: white; /* Link color for contrast */
-  text-decoration: none; /* Remove underline */
-  font-size: 18px; /* Font size for links */
-  margin: 0 20px; /* Add some spacing between links */
-}
+  color: white; 
+  text-decoration: none; 
+  font-size: 18px; 
+  margin: 0 45px; 
 
+}
 .link:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline; 
 }

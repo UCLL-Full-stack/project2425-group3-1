@@ -19,20 +19,23 @@
 
 
 .workoutsTable {
-  width: 100%; 
+  width: 90%; 
+  max-width: 1200px; 
+  margin: 0 auto; 
   border-collapse: collapse;
 }
 
 .workoutsTable th,
 .workoutsTable td {
-  border: 1px solid #ccc;
+  border: 1px solid #b0aeae;
   padding: 10px;
-  text-align: left;
-  color: black; /* Ensure table text color is black */
+  text-align: center;
+  color: black; 
+  vertical-align: middle;
 }
 
 .workoutsTable tr:hover {
-  background-color: lightgrey; /* Change to your desired light grey color */
+  background-color: lightgrey; 
 }
 
 
@@ -94,6 +97,7 @@
 
 .tableContainer input[type="checkbox"]:checked {
   background-color: #0070f3; 
+  
 }
 
 .description {
@@ -103,7 +107,20 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  height: 30vh;
+  height: 22vh;
   color: black;
-  margin: 0 auto;
+  margin:  auto;
+}
+
+
+.instructionText {
+  text-align: center;
+  font-size: 14px; 
+  color: #555; 
+  margin-bottom: 20px; 
+  margin-top: -55px;
+}
+
+.homepageImage {
+  margin-top: 80px;
 }

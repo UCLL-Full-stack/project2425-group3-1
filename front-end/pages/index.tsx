@@ -26,7 +26,13 @@ const Home: React.FC = () => {
             </p>
           </div>
           <div className={styles.description}>
-            <p>add picture here</p>
+          <Image
+           src="/homepagepic.png"
+           alt="Homepage Picture"
+           width={350}
+            height={350}
+            className={styles.homepageImage} 
+          />
           </div>
         </main>
       </div>
