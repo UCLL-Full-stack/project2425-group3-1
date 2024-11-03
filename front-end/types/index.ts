@@ -21,6 +21,7 @@ export type Schedule = {
   date: Date;
   calorieBurn: number;
   totalTime: number;
+  workouts: Workout[];
 };
 
 export type User = {
@@ -38,7 +39,6 @@ export type Workout = {
   calorie: number;
   muscle: string;
 };
-
 
 //TypeScript geeft een waarschuwing als je probeert een object te maken dat niet aan deze structuur voldoet,
 // wat veel typefouten voorkomt en je code betrouwbaarder maakt.
