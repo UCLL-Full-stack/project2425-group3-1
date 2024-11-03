@@ -3,4 +3,7 @@ import { Schedule } from '../model/schedule';
 
 const getAllSchedules = (): Schedule[] => scheduleDb.getAllSchedules();
 
+
+
+
 export default { getAllSchedules };

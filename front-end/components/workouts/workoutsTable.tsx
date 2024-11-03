@@ -1,18 +1,10 @@
+// WorkoutsTable.tsx
 import React from "react";
 import styles from "@/styles/workouts.module.css";
-
-type Workout = {
-  id: number;
-  name: string;
-  location: string;
-  time: string;
-  level: string;
-  muscle: string;
-  muscleImage: string;
-};
+import { Workout } from "@/types"; 
 
 type WorkoutsTableProps = {
-  workouts: Workout[];
+  workouts: Workout[]; 
   selectedWorkouts: number[];
   onCheckboxChange: (id: number) => void;
   onShowMuscleImage: (image: string) => void;

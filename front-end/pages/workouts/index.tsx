@@ -7,6 +7,7 @@ import Header from "@/components/header";
 import WorkoutsTable from "@/components/workouts/workoutsTable";
 import { Workout } from "@/types"; 
 import workoutService from "@/services/workoutService";
+import Head from "next/head";
 
 const Workouts: React.FC = () => {
   const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
@@ -44,6 +45,9 @@ const Workouts: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Workouts</title>
+      </Head>
       <Header />
       <div className={styles.content}>
         <h1>Workouts</h1>

@@ -31,13 +31,14 @@ export type User = {
 };
 
 export type Workout = {
-  id?: number;
+  id: number;
   location: string;
   level: number;
   time: number;
   name: string;
   calorie: number;
   muscle: string;
+  muscleImage: string;
 };
 
 //TypeScript geeft een waarschuwing als je probeert een object te maken dat niet aan deze structuur voldoet,

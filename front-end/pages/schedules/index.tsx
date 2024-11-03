@@ -34,7 +34,7 @@ const Schedules: React.FC = () => {
           {schedules && (
             <ScheduleTable
               schedules={schedules}
-              selectedSchedule={setSelectedSchedule} // Pass the function to handle selection
+              selectedSchedule={setSelectedSchedule} 
             />
           )}
         </section>
