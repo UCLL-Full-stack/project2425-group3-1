@@ -1,5 +1,5 @@
 import { Workout } from './workout';
-
+import { Schedule as SchedulePrisma, Workout as WorkoutPrisma } from '@prisma/client';
 export class Schedule {
     private id?: number;
     private date: Date;
@@ -21,9 +21,24 @@ export class Schedule {
         this.workouts = schedule.workouts;
     }
 
+    static from({
+        id,
+        date,
+        calorieBurn,
+        totalTime,
+        workouts,
+    }: SchedulePrisma & { workouts: WorkoutPrisma[] }) {
+        return new Schedule({
+            id,
+            date,
+            calorieBurn,
+            totalTime,
+            workouts: workouts.map((workout) => Workout.from(workout)),
+        });
+    }
 
     addWorkoutToSchedule(workout: Workout): void {
-        this.workouts.push(workout)
+        this.workouts.push(workout);
     }
 
     getId(): number | undefined {

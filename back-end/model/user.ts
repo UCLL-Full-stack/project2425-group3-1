@@ -1,3 +1,4 @@
+import { User as UserPrisma } from '@prisma/client';
 export class User {
     private id?: number;
     private name: string;
@@ -9,10 +10,13 @@ export class User {
         this.password = user.password;
     }
 
+    static from({ id, name, password }: UserPrisma) {
+        return new User({ id, name, password });
+    }
+
     getId(): number | undefined {
         return this.id;
     }
-
 
     getName(): string {
         return this.name;
@@ -23,9 +27,6 @@ export class User {
     }
 
     equals(user: User): boolean {
-        return (
-            this.name === user.getName() &&
-            this.password === user.getPassword()
-        );
+        return this.name === user.getName() && this.password === user.getPassword();
     }
 }

@@ -1,3 +1,4 @@
+import { Bmi as BmiPrisma } from '@prisma/client';
 export class Bmi {
     private id?: number;
     private length: number;
@@ -7,6 +8,10 @@ export class Bmi {
         this.id = bmi.id;
         this.length = bmi.length;
         this.weight = bmi.weight;
+    }
+
+    static from({ id, length, weight }: BmiPrisma) {
+        return new Bmi({ id, length, weight });
     }
 
     getId(): number | undefined {

@@ -1,3 +1,4 @@
+import { Profile as ProfilePrisma } from '@prisma/client';
 export class Profile {
     private id?: number;
     private lastName: string;
@@ -8,6 +9,10 @@ export class Profile {
         this.lastName = profile.lastName;
         this.firstName = profile.firstName;
         this.email = profile.email;
+    }
+
+    static from({ id, lastName, firstName, email }: Profile) {
+        return new Profile({ id, lastName, firstName, email });
     }
 
     getId(): number | undefined {
