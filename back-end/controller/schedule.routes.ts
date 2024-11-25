@@ -55,6 +55,61 @@ scheduleRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
 });
 
 
+/**
+ * @swagger
+ * /schedules/add/{id}:
+ *    post:
+ *     summary: Add workouts to a schedule.
+ *     description: Adds one or more workouts to a schedule specified by ID.
+ *     tags:
+ *       - Schedules
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           format: int64
+ *         description: The ID of the schedule to which workouts will be added.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               workouts:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *                 description: Array of workout IDs to add to the schedule.
+ *             required:
+ *               - workouts
+ *     responses:
+ *       200:
+ *         description: Successfully added workouts to the schedule.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 scheduleId:
+ *                   type: integer
+ *                   format: int64
+ *                   description: ID of the updated schedule.
+ *                 addedWorkouts:
+ *                   type: array
+ *                   items:
+ *                     type: integer
+ *                   description: List of added workout IDs.
+ *       400:
+ *         description: Bad request, possibly due to invalid data.
+ *       404:
+ *         description: Schedule not found.
+ *       500:
+ *         description: Internal server error.
+ */
+
 scheduleRouter.post('/add/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = Number(req.params.id);
