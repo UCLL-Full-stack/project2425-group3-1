@@ -1,3 +1,6 @@
+import { Prisma } from '@prisma/client';
+import { Workout as WorkoutPrisma } from '@prisma/client';
+
 export class Workout {
     private id?: number;
     private location: string;
@@ -6,7 +9,7 @@ export class Workout {
     private name: string;
     private calorie: number;
     private muscle: string;
-    private  muscleImage: string; 
+    private muscleImage: string;
 
     constructor(workout: {
         location: string;
@@ -16,7 +19,7 @@ export class Workout {
         calorie: number;
         muscle: string;
         id?: number;
-        muscleImage: string; 
+        muscleImage: string;
     }) {
         this.id = workout.id;
         this.location = workout.location;
@@ -28,6 +31,18 @@ export class Workout {
         this.muscleImage = workout.muscleImage;
     }
 
+    static from({ id, location, level, time, name, calorie, muscle, muscleImage }: WorkoutPrisma) {
+        return new Workout({
+            id,
+            location,
+            level,
+            time,
+            name,
+            calorie,
+            muscle,
+            muscleImage,
+        });
+    }
     getId(): number | undefined {
         return this.id;
     }
