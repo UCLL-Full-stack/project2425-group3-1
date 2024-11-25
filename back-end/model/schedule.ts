@@ -21,6 +21,7 @@ export class Schedule {
         this.workouts = schedule.workouts;
     }
 
+
     addWorkoutToSchedule(workout: Workout): void {
         this.workouts.push(workout)
     }

@@ -28,6 +28,7 @@ export class Workout {
         this.muscleImage = workout.muscleImage;
     }
 
+
     getId(): number | undefined {
         return this.id;
     }

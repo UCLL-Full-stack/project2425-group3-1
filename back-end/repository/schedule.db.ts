@@ -1,5 +1,8 @@
 import { Schedule } from '../model/schedule';
 import { Workout } from '../model/workout';
+import datebase from './database';
+
+
 // const testWorkouts1 = [
 //     new Workout({
 //         id: 1,
@@ -23,17 +26,17 @@ import { Workout } from '../model/workout';
 //     }),
 // ];
 
-const testSchedules = [
-    new Schedule({
-        id: 1,
-        date: new Date('2024-11-01'),
-        calorieBurn: 150,
-        totalTime: 500,
-        workouts: [],
-    }),
-];
+// const testSchedules = [
+//     new Schedule({
+//         id: 1,
+//         date: new Date('2024-11-01'),
+//         calorieBurn: 150,
+//         totalTime: 500,
+//         workouts: [],
+//     }),
+// ];
 
-const getAllSchedules = (): Schedule[] => testSchedules;
+// const getAllSchedules = (): Schedule[] => testSchedules;
 
 // const getScheduleById = (scheduleId: number): Schedule => {
 //     let schedule = null
@@ -46,14 +49,36 @@ const getAllSchedules = (): Schedule[] => testSchedules;
 //     return schedule
 // }
 
-const getScheduleById = (scheduleId: number): Schedule => {
-    const schedule = testSchedules.find((s) => s.getId() === scheduleId);
+// const getScheduleById = (scheduleId: number): Schedule => {
+//     const schedule = testSchedules.find((s) => s.getId() === scheduleId);
+
+//     if (!schedule) {
+//         throw new Error(`No schedule found with ID ${scheduleId}`);
+//     }
+
+//     return schedule;
+// };
+
+
+const getAllSchedules = async (): Promise<Schedule[]> => {
+    const schedules = await datebase.schedule.findMany({
+        include: { workouts: true },
+    });
+
+    return schedules.map(Schedule.from);
+};
+
+const getScheduleById = async (scheduleId: number): Promise<Schedule> => {
+    const schedule = await datebase.schedule.findUnique({
+        where: { id: scheduleId },
+        include: { workouts: true },
+    });
 
     if (!schedule) {
         throw new Error(`No schedule found with ID ${scheduleId}`);
     }
 
-    return schedule;
+    return Schedule.from(schedule);
 };
 
 
