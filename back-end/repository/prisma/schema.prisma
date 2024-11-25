@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Bmi {
+  id     Int   @id @default(autoincrement())
+  length Float
+  weight Float
+}
+
+model Goal {
+  id       Int    @id @default(autoincrement())
+  goalType String
+}
+
+model Profile {
+  id        Int    @id @default(autoincrement())
+  lastName  String
+  firstName String
+  email     String @unique
+}
+
+model Workout {
+  id          Int       @id @default(autoincrement())
+  location    String
+  level       Int
+  time        Int
+  name        String
+  calorie     Int
+  muscle      String
+  muscleImage String
+  Schedule    Schedule? @relation(fields: [scheduleId], references: [id])
+  scheduleId  Int?
+}
+
+model Schedule {
+  id          Int       @id @default(autoincrement())
+  date        DateTime
+  calorieBurn Int
+  totalTime   Int
+  workouts    Workout[]
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  password String
+}
