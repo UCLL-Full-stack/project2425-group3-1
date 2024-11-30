@@ -1,6 +1,4 @@
 import { Workout } from '../model/workout';
-import database from './database';
-
 
 // export const workouts = [
 //     new Workout({
@@ -37,22 +35,6 @@ import database from './database';
 
 // const getAllWorkouts = (): Workout[] => workouts;
 
-const getAllWorkouts = async (): Promise<Workout[]> => {
-    const workoutsFromDb = await database.workout.findMany(); 
-
-
-    return workoutsFromDb.map(workout => new Workout({
-        id: workout.id,
-        location: workout.location,
-        level: workout.level,
-        time: workout.time,
-        name: workout.name,
-        calorie: workout.calorie,
-        muscle: workout.muscle,
-        muscleImage: workout.muscleImage,
-    }));
-};
-
-export default {
-    getAllWorkouts,
-};
+// export default {
+//     getAllWorkouts,
+// };

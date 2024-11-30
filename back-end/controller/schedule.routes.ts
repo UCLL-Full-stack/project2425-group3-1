@@ -119,7 +119,7 @@ scheduleRouter.post('/add/:id', async (req: Request, res: Response, next: NextFu
     } catch (error) {
         next(error);
     }
-});
+}); //werkt niet 
 
 
 export { scheduleRouter };

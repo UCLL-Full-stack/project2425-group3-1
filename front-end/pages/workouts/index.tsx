@@ -69,7 +69,7 @@ const Workouts: React.FC = () => {
       <div className={styles.content}>
         <h1>Workouts</h1>
         <WorkoutsTable
-          // fix deze error -> iets met types
+       
           workouts={workoutsData}
           selectedWorkouts={selectedWorkouts}
           onCheckboxChange={handleCheckboxChange}
