@@ -1,4 +1,3 @@
-
 import React from "react";
 import Link from "next/link";
 import styles from "../styles/header.module.css"; 
@@ -16,6 +15,9 @@ const Header: React.FC = () => {
         </Link>
         <Link href="/schedules" className={styles.link}>
           Schedules
+        </Link>
+        <Link href="/bmi" className={styles.link}>
+          BMI Calculator
         </Link>
       </nav>
     </header>

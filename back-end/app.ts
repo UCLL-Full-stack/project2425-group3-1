@@ -7,6 +7,8 @@ import swaggerUi from 'swagger-ui-express';
 
 import { workoutRouter } from './controller/workout.routes';
 import { scheduleRouter } from './controller/schedule.routes';
+import { bmiRouter } from './controller/bmi.routes'; // Import the BMI routes
+
 const app = express();
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
@@ -16,6 +18,8 @@ app.use(bodyParser.json());
 
 app.use('/workouts', workoutRouter);
 app.use('/schedules', scheduleRouter);
+app.use('/bmi', bmiRouter); 
+
 
 const swaggerOpts = {
     definition: {
@@ -25,7 +29,7 @@ const swaggerOpts = {
             version: '1.0.0',
         },
     },
-    apis: ['./controller/*.routes.ts'],
+    apis: ['./controller/*.routes.ts'], 
 };
 const swaggerSpec = swaggerJSDoc(swaggerOpts);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -34,6 +38,6 @@ app.get('/status', (req, res) => {
     res.json({ message: 'Back-end is running...' });
 });
 
-app.listen(port || 3000, () => {
+app.listen(port, () => {
     console.log(`Back-end is running on port ${port}.`);
 });

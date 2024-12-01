@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 const main = async () => {
-    // Verwijder bestaande data in juiste volgorde om afhankelijkheden te vermijden
+
     await prisma.schedule.deleteMany();
     await prisma.workout.deleteMany();
     await prisma.bmi.deleteMany();
@@ -12,7 +12,7 @@ const main = async () => {
     await prisma.profile.deleteMany();
     await prisma.user.deleteMany();
 
-    // Maak een gebruiker aan
+  
     const user1 = await prisma.user.create({
         data: {
             name: 'fituser',
@@ -20,7 +20,7 @@ const main = async () => {
         },
     });
 
-    // Maak een profiel aan
+
     const profile1 = await prisma.profile.create({
         data: {
             firstName: 'John',
@@ -29,7 +29,7 @@ const main = async () => {
         },
     });
 
-    // Voeg BMI-data toe
+
     const bmi1 = await prisma.bmi.create({
         data: {
             length: 1.75,
@@ -37,14 +37,13 @@ const main = async () => {
         },
     });
 
-    // Voeg een doel toe
     const goal1 = await prisma.goal.create({
         data: {
             goalType: 'Lose Weight',
         },
     });
 
-    // Voeg Workouts toe
+
     const workout1 = await prisma.workout.create({
         data: {
             location: 'Gym',
@@ -81,7 +80,7 @@ const main = async () => {
         },
     });
 
-    // Voeg Schedules toe
+ 
     const schedule1 = await prisma.schedule.create({
         data: {
             date: new Date(),
