@@ -1,32 +1,45 @@
-
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "@/styles/workouts.module.css";
 import classNames from "classnames";
 import Header from "@/components/header";
 import WorkoutsTable from "@/components/workouts/workoutsTable";
-import { Workout } from "@/types"; 
+import { Schedule, Workout } from "@/types";
 import workoutService from "@/services/workoutService";
 import Head from "next/head";
 import ScheduleService from "@/services/ScheduleService";
 import { useRouter } from "next/router";
+import ScheduleDropdown from "@/components/workouts/ScheduleDropdown";
 
 const Workouts: React.FC = () => {
   const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
-  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(null);
+  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
+    null
+  );
+  const [schedulesData, setSchedulesData] = useState<Schedule[]>([]);
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
+    null
+  );
 
   // voor router push te laten werken
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-        const response = await workoutService.getAllWorkouts();
-        const workouts = await response.json();
-        setWorkoutsData(workouts);
+      const response = await workoutService.getAllWorkouts();
+      const workouts = await response.json();
+      setWorkoutsData(workouts);
+    };
+
+    const fetchSchedules = async () => {
+      const response = await ScheduleService.getAllSchedules();
+      const schedules = await response.json();
+      setSchedulesData(schedules);
     };
 
     fetchWorkouts();
+    fetchSchedules();
   }, []);
 
   const handleCheckboxChange = (id: number) => {
@@ -43,17 +56,21 @@ const Workouts: React.FC = () => {
         const workoutsToAdd = selectedWorkouts
           .map((id) => workoutsData.find((workout) => workout.id === id))
           .filter((workout): workout is Workout => workout !== undefined);
-  
+
         await ScheduleService.addWorkoutsToSchedule(1, workoutsToAdd);
 
         // navigeer naar schedules pagina als add gelukt is
-        router.push("/schedules")
-  
+        router.push("/schedules");
+
         setSelectedWorkouts([]);
       } catch (error) {
         console.error("Failed to add workouts to schedule:", error);
       }
     }
+  };
+
+  const handleScheduleChange = (schedule: Schedule) => {
+    setSelectedSchedule(schedule); // Update the selected schedule
   };
 
   const handleShowMuscleImage = (image: string) => {
@@ -69,7 +86,6 @@ const Workouts: React.FC = () => {
       <div className={styles.content}>
         <h1>Workouts</h1>
         <WorkoutsTable
-       
           workouts={workoutsData}
           selectedWorkouts={selectedWorkouts}
           onCheckboxChange={handleCheckboxChange}
@@ -88,6 +104,13 @@ const Workouts: React.FC = () => {
         ) : (
           <p>Click on 'show' to view a picture of the muscle group</p>
         )}
+      </div>
+      <div className={styles.dropDown}>
+        <ScheduleDropdown
+          schedules={schedulesData}
+          selectedSchedule={selectedSchedule}
+          onChange={handleScheduleChange}
+        ></ScheduleDropdown>
       </div>
       <div className={styles.buttonContainer}>
         <button
