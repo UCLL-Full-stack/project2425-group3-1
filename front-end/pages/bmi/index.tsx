@@ -19,6 +19,7 @@ const BMICalculator: React.FC = () => {
   useEffect(() => {
     const storedBMI = sessionStorage.getItem("bmi");
     const storedCategory = sessionStorage.getItem("bmiCategory");
+    
     if (storedBMI) setBMI(parseFloat(storedBMI));
     if (storedCategory) setCategory(storedCategory);
   }, []);

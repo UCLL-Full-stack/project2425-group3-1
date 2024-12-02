@@ -11,6 +11,7 @@ model Bmi {
   id     Int   @id @default(autoincrement())
   length Float
   weight Float
+  bmiValue  Float
 }
 
 model Goal {
