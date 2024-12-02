@@ -1,15 +1,10 @@
-import { PrismaClient, Workout } from '@prisma/client'; 
-const prisma = new PrismaClient();
-
+import workoutDb from '../repository/workout.db';
+import { Workout } from '@prisma/client';
 
 const getAllWorkouts = async (): Promise<Workout[]> => {
-    try {
-        const workouts = await prisma.workout.findMany(); 
-        return workouts;
-    } catch (error) {
-        console.error("Error fetching workouts:", error);
-        throw new Error("Failed to fetch workouts");
-    }
+    return await workoutDb.getAllWorkouts();
 };
 
-export default { getAllWorkouts };
+export default {
+    getAllWorkouts,
+};

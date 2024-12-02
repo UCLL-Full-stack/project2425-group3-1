@@ -1,23 +1,12 @@
-import { PrismaClient } from '@prisma/client';
+import bmiDb from '../repository/bmi.db';
+import { Bmi } from '@prisma/client';
 
-const prisma = new PrismaClient();
-
-const addBmi = async (data: { length: number; weight: number; bmiValue: number }) => {
-    return await prisma.bmi.create({
-        data: {
-            length: data.length,
-            weight: data.weight,
-        },
-    });
+const addBmi = async (data: { length: number; weight: number; bmiValue: number }): Promise<Bmi> => {
+    return await bmiDb.addBmi(data);
 };
 
-const getAllBmi = async () => {
-    return await prisma.bmi.findMany();
+const getAllBmi = async (): Promise<Bmi[]> => {
+    return await bmiDb.getAllBmi();
 };
 
-const bmiService = {
-    addBmi,
-    getAllBmi,
-};
-
-export default bmiService;
+export default { addBmi, getAllBmi };
