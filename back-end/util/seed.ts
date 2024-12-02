@@ -30,6 +30,7 @@ const main = async () => {
         data: {
             length: 1.75,
             weight: 70,
+            bmiValue: 19,
         },
     });
 

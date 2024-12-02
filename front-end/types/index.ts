@@ -41,5 +41,9 @@ export type Workout = {
   muscleImage: string;
 };
 
-//TypeScript geeft een waarschuwing als je probeert een object te maken dat niet aan deze structuur voldoet,
-// wat veel typefouten voorkomt en je code betrouwbaarder maakt.
+export type StatusMessage = {
+  message: string;
+  type: "error" | "success";
+};
+
+

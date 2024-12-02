@@ -27,3 +27,7 @@
 .link:hover {
   text-decoration: underline; 
 }
+
+.welcomeMessage {
+  margin-left: 1rem; 
+}

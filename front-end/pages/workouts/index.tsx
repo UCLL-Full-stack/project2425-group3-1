@@ -53,7 +53,7 @@ const Workouts: React.FC = () => {
   const handleAddToSchedule = async () => {};
 
   const handleScheduleChange = (schedule: Schedule) => {
-    setSelectedSchedule(schedule); // Update the selected schedule
+    setSelectedSchedule(schedule); 
   };
 
   const handleShowMuscleImage = (image: string) => {
