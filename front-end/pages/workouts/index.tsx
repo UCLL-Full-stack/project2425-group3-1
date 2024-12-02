@@ -50,24 +50,7 @@ const Workouts: React.FC = () => {
     );
   };
 
-  const handleAddToSchedule = async () => {
-    if (selectedWorkouts.length > 0) {
-      try {
-        const workoutsToAdd = selectedWorkouts
-          .map((id) => workoutsData.find((workout) => workout.id === id))
-          .filter((workout): workout is Workout => workout !== undefined);
-
-        await ScheduleService.addWorkoutsToSchedule(1, workoutsToAdd);
-
-        // navigeer naar schedules pagina als add gelukt is
-        router.push("/schedules");
-
-        setSelectedWorkouts([]);
-      } catch (error) {
-        console.error("Failed to add workouts to schedule:", error);
-      }
-    }
-  };
+  const handleAddToSchedule = async () => {};
 
   const handleScheduleChange = (schedule: Schedule) => {
     setSelectedSchedule(schedule); // Update the selected schedule
@@ -105,6 +88,9 @@ const Workouts: React.FC = () => {
           <p>Click on 'show' to view a picture of the muscle group</p>
         )}
       </div>
+      <p className={styles.p}>
+        Select the schedule you want the workout to be in:
+      </p>
       <div className={styles.dropDown}>
         <ScheduleDropdown
           schedules={schedulesData}

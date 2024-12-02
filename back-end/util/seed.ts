@@ -75,6 +75,30 @@ const main = async () => {
         },
     });
 
+    const workout4 = await prisma.workout.create({
+        data: {
+            location: 'Home',
+            level: 1,
+            time: 20,
+            name: 'Basic core',
+            calorie: 150,
+            muscle: 'Core Muscles',
+            muscleImage: '/images/homepagepic.png',
+        },
+    });
+
+    const workout5 = await prisma.workout.create({
+        data: {
+            location: 'Outside',
+            level: 5,
+            time: 120,
+            name: 'Interval run',
+            calorie: 600,
+            muscle: 'Legs/cardio',
+            muscleImage: '/images/homepagepic.png',
+        },
+    });
+
     const schedule1 = await prisma.schedule.create({
         data: {
             date: new Date('2024-12-01'),

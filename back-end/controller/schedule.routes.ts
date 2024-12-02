@@ -54,23 +54,12 @@ scheduleRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
     }
 });
 
-
 /**
  * @swagger
- * /schedules/add/{id}:
- *    post:
- *     summary: Add workouts to a schedule.
- *     description: Adds one or more workouts to a schedule specified by ID.
- *     tags:
- *       - Schedules
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           format: int64
- *         description: The ID of the schedule to which workouts will be added.
+ * /schedules/addWorkout:
+ *   post:
+ *     summary: Add selected workouts to a schedule
+ *     description: This endpoint adds a list of selected workouts to a schedule by its ID.
  *     requestBody:
  *       required: true
  *       content:
@@ -78,50 +67,39 @@ scheduleRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
  *           schema:
  *             type: object
  *             properties:
- *               workouts:
+ *               scheduleId:
+ *                 type: integer
+ *                 description: ID of the schedule to which workouts will be added.
+ *               workoutsId:
  *                 type: array
  *                 items:
  *                   type: integer
  *                 description: Array of workout IDs to add to the schedule.
- *             required:
- *               - workouts
  *     responses:
  *       200:
- *         description: Successfully added workouts to the schedule.
+ *         description: Workouts added to schedule successfully.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 scheduleId:
- *                   type: integer
- *                   format: int64
- *                   description: ID of the updated schedule.
- *                 addedWorkouts:
- *                   type: array
- *                   items:
- *                     type: integer
- *                   description: List of added workout IDs.
+ *                 message:
+ *                   type: string
+ *                   example: "Workouts added to schedule successfully"
  *       400:
- *         description: Bad request, possibly due to invalid data.
- *       404:
- *         description: Schedule not found.
+ *         description: Invalid request body or missing parameters.
  *       500:
  *         description: Internal server error.
  */
-
-scheduleRouter.post('/add/:id', async (req: Request, res: Response, next: NextFunction) => {
+scheduleRouter.post('/addWorkout', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const id = Number(req.params.id);
-        const body = req.body
-        const schedule = scheduleService.addWorkoutsToSchedule(id, body);
-        res.status(200).json(schedule);
+        const { scheduleId, workoutsId } = req.body;
+
+        const result = await scheduleService.addWorkoutsToSchedule(scheduleId, workoutsId);
+        return res.status(200).json(result);
     } catch (error) {
         next(error);
     }
-}); //werkt niet 
-
+});
 
 export { scheduleRouter };
-
-

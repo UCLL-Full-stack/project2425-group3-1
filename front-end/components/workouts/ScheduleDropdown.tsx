@@ -1,4 +1,5 @@
 import { Schedule } from "@/types";
+import styles from "../../styles/workouts.module.css";
 
 type Props = {
   schedules: Schedule[];
@@ -12,7 +13,7 @@ const ScheduleDropdown: React.FC<Props> = ({
   onChange,
 }) => {
   if (!schedules || schedules.length === 0) {
-    return <p>No schedules are available</p>;
+    return <p className={styles.p}>No schedules are available</p>;
   }
 
   return (
@@ -29,7 +30,7 @@ const ScheduleDropdown: React.FC<Props> = ({
       }}
     >
       <option value="" disabled>
-        Select the schedule you want to add to{" "}
+        select a schedule
       </option>
       {schedules.map((schedule) => (
         <option key={schedule.id} value={schedule.id}>

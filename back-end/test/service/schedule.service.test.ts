@@ -22,7 +22,6 @@ const testSchedule = new Schedule({
     workouts: [],
 });
 
-
 let mockGetScheduleById: jest.Mock<any, any, any>;
 
 beforeEach(() => {

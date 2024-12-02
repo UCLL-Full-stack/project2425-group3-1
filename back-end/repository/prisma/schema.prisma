@@ -26,7 +26,7 @@ model Profile {
 }
 
 model Workout {
-  id          Int       @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   location    String
   level       Int
   time        Int
@@ -34,16 +34,15 @@ model Workout {
   calorie     Int
   muscle      String
   muscleImage String
-  Schedule    Schedule? @relation(fields: [scheduleId], references: [id])
-  scheduleId  Int?
+  schedules   Schedule[] @relation("WorkoutSchedules")
 }
 
 model Schedule {
-  id          Int       @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   date        DateTime
   calorieBurn Int
   totalTime   Int
-  workouts    Workout[]
+  workouts    Workout[]  @relation("WorkoutSchedules")
 }
 
 model User {

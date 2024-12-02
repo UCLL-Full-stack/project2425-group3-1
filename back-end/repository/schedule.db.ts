@@ -56,6 +56,4 @@ const getScheduleById = (scheduleId: number): Schedule => {
     return schedule;
 };
 
-
-
 export default { getAllSchedules, getScheduleById };
