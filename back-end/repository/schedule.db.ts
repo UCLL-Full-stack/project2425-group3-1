@@ -1,59 +1,66 @@
-import { Schedule } from '../model/schedule';
-import { Workout } from '../model/workout';
-// const testWorkouts1 = [
-//     new Workout({
-//         id: 1,
-//         location: 'Gym',
-//         level: 2,
-//         time: 30,
-//         name: 'Running',
-//         calorie: 300,
-//         muscle: 'Legs',
-//         muscleImage: '/homepagepic.png',
-//     }),
-//     new Workout({
-//         id: 2,
-//         location: 'Park',
-//         level: 3,
-//         time: 45,
-//         name: 'Cycling',
-//         calorie: 400,
-//         muscle: 'Legs',
-//         muscleImage: '/homepagepic.png',
-//     }),
-// ];
+import { PrismaClient, Schedule, Workout } from '@prisma/client';
+const prisma = new PrismaClient();
 
-const testSchedules = [
-    new Schedule({
-        id: 1,
-        date: new Date('2024-11-01'),
-        calorieBurn: 150,
-        totalTime: 500,
-        workouts: [],
-    }),
-];
-
-const getAllSchedules = (): Schedule[] => testSchedules;
-
-// const getScheduleById = (scheduleId: number): Schedule => {
-//     let schedule = null
-//     testSchedules.forEach((s) => {
-//         if (scheduleId === s.getId()) {
-//             schedule = s
-//         }
-//     })
-//     if (schedule === null) throw new Error(`no schedule found!`)
-//     return schedule
-// }
-
-const getScheduleById = (scheduleId: number): Schedule => {
-    const schedule = testSchedules.find((s) => s.getId() === scheduleId);
-
-    if (!schedule) {
-        throw new Error(`No schedule found with ID ${scheduleId}`);
+const getAllSchedules = async (): Promise<Schedule[]> => {
+    try {
+        const schedules = await prisma.schedule.findMany({
+            include: {
+                workouts: true,
+            },
+        });
+        return schedules;
+    } catch (error) {
+        console.error('Error fetching schedules:', error);
+        throw new Error('Failed to fetch schedules');
     }
-
-    return schedule;
 };
 
-export default { getAllSchedules, getScheduleById };
+const getScheduleById = async (scheduleId: number): Promise<Schedule | null> => {
+    try {
+        const schedule = await prisma.schedule.findUnique({
+            where: { id: scheduleId },
+            include: {
+                workouts: true,
+            },
+        });
+        return schedule;
+    } catch (error) {
+        console.error(`Error fetching schedule with ID ${scheduleId}:`, error);
+        throw new Error(`Failed to fetch schedule with ID ${scheduleId}`);
+    }
+};
+
+const addWorkoutsToSchedule = async (scheduleId: number, workoutIds: number[]) => {
+    try {
+        const schedule = await prisma.schedule.findUnique({ where: { id: scheduleId } });
+
+        if (!schedule) {
+            throw new Error('No schedule has been found');
+        }
+
+        //basic debug logs van de dingen die we toevoegen/selecteren
+        console.log('Schedule ID:', scheduleId);
+        console.log("Workout Id's:", workoutIds);
+        console.log('Schedule found:', schedule);
+
+        //de workouts in de database loggen
+        // const workouts = await prisma.workout.findMany();
+        // console.log('All workouts in DB:', workouts);
+
+        await prisma.schedule.update({
+            where: { id: scheduleId },
+            data: {
+                workouts: {
+                    connect: workoutIds.map((id) => ({ id })),
+                },
+            },
+        });
+
+        return { message: 'the workout has been added to the schedule successfully!' };
+    } catch (error) {
+        console.log('error adding the workout to the schedule');
+        throw new Error('failed adding workouts to schedule');
+    }
+};
+
+export default { getAllSchedules, getScheduleById, addWorkoutsToSchedule };
