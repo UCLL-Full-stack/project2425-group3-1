@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import ScheduleDropdown from "@/components/workouts/ScheduleDropdown";
 
 const Workouts: React.FC = () => {
+  const [message, setMessage] = useState<string | null>(null);
   const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
   const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
@@ -21,6 +22,7 @@ const Workouts: React.FC = () => {
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
   );
+  const [loading, setLoading] = useState<Boolean>(false);
 
   // voor router push te laten werken
   const router = useRouter();
@@ -49,11 +51,49 @@ const Workouts: React.FC = () => {
         : [...prevSelected, id]
     );
   };
+  const handleAddToSchedule = async () => {
+    if (!selectedSchedule) {
+      setMessage("Please select a Schedule");
+      console.log("NO SCHEDULE SELECTED");
+      return;
+    }
+    setLoading(true);
+    console.log("Sending request to add workouts to schedule...");
 
-  const handleAddToSchedule = async () => {};
+    try {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_API_URL + "/schedules/addWorkout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            scheduleId: selectedSchedule.id,
+            workoutsId: selectedWorkouts,
+          }),
+        }
+      );
+
+      console.log("Response received:", response);
+
+      if (!response.ok) {
+        throw new Error("Failed to add workout to the selected schedule");
+      }
+      const data = await response.json();
+      console.log("Response data:", data);
+
+      setMessage(data.message);
+    } catch (error) {
+      setMessage("error adding workout to schedule");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleScheduleChange = (schedule: Schedule) => {
-    setSelectedSchedule(schedule); // Update the selected schedule
+    setSelectedSchedule(schedule);
   };
 
   const handleShowMuscleImage = (image: string) => {
@@ -111,6 +151,7 @@ const Workouts: React.FC = () => {
         >
           Add to Schedule
         </button>
+        <div>{message && <p className={styles.p}>{message}</p>}</div>
       </div>
     </div>
   );
