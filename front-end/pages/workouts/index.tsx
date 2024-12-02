@@ -84,6 +84,10 @@ const Workouts: React.FC = () => {
       const data = await response.json();
       console.log("Response data:", data);
 
+      setTimeout(() => {
+        router.push("/schedules");
+      }, 2000);
+
       setMessage(data.message);
     } catch (error) {
       setMessage("error adding workout to schedule");
