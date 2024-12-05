@@ -47,7 +47,12 @@ model Schedule {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  password String
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  firstName String
+  lastName  String
+  email     String    @unique
+  role      String
+  password  String
 }
+
