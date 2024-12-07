@@ -1,49 +1,77 @@
 import { StatusMessage } from "@/types";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import styles from "@/styles/login.module.css"; 
+import React, { useState } from "react";
+import styles from "@/styles/login.module.css";
 
 const UserLoginForm: React.FC = () => {
-  const router = useRouter();
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const [nameError, setNameError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const [statusMessages, setStatusMessages] = useState<StatusMessage[]>([]);
+  const router = useRouter();
 
   const clearErrors = () => {
     setNameError(null);
+    setPasswordError(null);
     setStatusMessages([]);
   };
 
   const validate = (): boolean => {
-    clearErrors();
-    let result = true;
+    let isValid = true;
 
     if (!name.trim()) {
       setNameError("Username is required.");
-      result = false;
+      isValid = false;
     }
 
-    return result;
+    if (!password.trim()) {
+      setPasswordError("Password is required.");
+      isValid = false;
+    }
+
+    return isValid;
   };
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); 
+    event.preventDefault();
+
     clearErrors();
 
-    if (!validate()) {
-      return; 
+    if (!validate()) return;
+
+    // Fetch users from localStorage
+    const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+
+    // Find the matching user
+    const user = users.find(
+      (user: { username: string; password: string }) =>
+        user.username === name && user.password === password
+    );
+
+    if (!user) {
+      setStatusMessages([
+        {
+          message: "User does not exist or password is incorrect.",
+          type: "error",
+        },
+      ]);
+      return;
     }
 
-    setStatusMessages([ 
-        ...statusMessages,
-        { message: "Login successful", type: "success" },
+    // If user exists, log them in
+    setStatusMessages([
+      {
+        message: "Login successful!",
+        type: "success",
+      },
     ]);
 
-    sessionStorage.setItem("loggedInUser", name);
+    localStorage.setItem("loggedInUser", name);
 
     setTimeout(() => {
-      router.push("/"); 
+      router.push("/");
     }, 2000);
   };
 
@@ -51,7 +79,7 @@ const UserLoginForm: React.FC = () => {
     <div className={styles.formContainer}>
       <h3 className={styles.title}>Login</h3>
       {statusMessages.length > 0 && (
-        <div className="row">
+        <div className={styles.statusMessageContainer}>
           <ul className={styles.statusMessageList}>
             {statusMessages.map(({ message, type }, index) => (
               <li
@@ -67,24 +95,32 @@ const UserLoginForm: React.FC = () => {
           </ul>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
-      <label htmlFor="nameInput" className={styles.label}>Username:</label>
-        <div className="block mb-2 text-sm font-medium">
-          <input
-            id="nameInput"
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            className={styles.inputField} 
-          />
-        </div>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label htmlFor="nameInput" className={styles.label}>
+          Username
+        </label>
+        <input
+          id="nameInput"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className={styles.inputField}
+        />
+        {nameError && <div className={styles.errorMessage}>{nameError}</div>}
 
-        {nameError && <p className={styles.errorMessage}>{nameError}</p>}
+        <label htmlFor="passwordInput" className={styles.label}>
+          Password
+        </label>
+        <input
+          id="passwordInput"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.inputField}
+        />
+        {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
 
-        <button
-          className={styles.submitButton} 
-          type="submit"
-        >
+        <button type="submit" className={styles.submitButton}>
           Login
         </button>
       </form>

@@ -7,7 +7,9 @@ import swaggerUi from 'swagger-ui-express';
 
 import { workoutRouter } from './controller/workout.routes';
 import { scheduleRouter } from './controller/schedule.routes';
-import { bmiRouter } from './controller/bmi.routes'; // Import the BMI routes
+import { bmiRouter } from './controller/bmi.routes'; 
+import { userRouter } from './controller/user.routes'; 
+import { expressjwt } from 'express-jwt';
 
 const app = express();
 dotenv.config();
@@ -16,10 +18,26 @@ const port = process.env.APP_PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(
+    expressjwt({
+      secret: process.env.JWT_SECRET || 'default_secret',  
+      algorithms: ['HS256'],
+    }).unless({
+      path: [
+        '/users/login',
+        '/users/signup',
+        '/status',
+        '/api-docs', 
+        /^\/api-docs\/.*/,  
+      ],  
+    })
+  );
+  
+
 app.use('/workouts', workoutRouter);
 app.use('/schedules', scheduleRouter);
 app.use('/bmi', bmiRouter); 
-
+app.use('/users', userRouter);
 
 const swaggerOpts = {
     definition: {

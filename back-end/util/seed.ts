@@ -11,13 +11,6 @@ const main = async () => {
     await prisma.profile.deleteMany();
     await prisma.user.deleteMany();
 
-    const user1 = await prisma.user.create({
-        data: {
-            name: 'fituser',
-            password: await bcrypt.hash('fituser123', 12),
-        },
-    });
-
     const profile1 = await prisma.profile.create({
         data: {
             firstName: 'John',

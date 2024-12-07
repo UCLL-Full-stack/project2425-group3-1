@@ -7,9 +7,8 @@ export class User {
     private firstName: string;
     private lastName: string;
     private email: string;
-    private role: Role;
     private password: string;
-    static findOne: any;
+    private role: Role;
 
     constructor(user: {
         id?: number;
@@ -17,8 +16,8 @@ export class User {
         firstName: string;
         lastName: string;
         email: string;
-        role: Role;
         password: string;
+        role: Role;
     }) {
         this.validate(user);
 
@@ -27,8 +26,8 @@ export class User {
         this.firstName = user.firstName;
         this.lastName = user.lastName;
         this.email = user.email;
-        this.role = user.role;
         this.password = user.password;
+        this.role = user.role;
     }
 
     getId(): number | undefined {
@@ -51,13 +50,12 @@ export class User {
         return this.email;
     }
 
-    getRole(): Role {
-        return this.role;
-    }
-
-    
     getPassword(): string {
         return this.password;
+    }
+
+    getRole(): Role {
+        return this.role;
     }
 
     validate(user: {
@@ -65,8 +63,8 @@ export class User {
         firstName: string;
         lastName: string;
         email: string;
-        role: Role;
         password: string;
+        role: Role;
     }) {
         if (!user.username?.trim()) {
             throw new Error('Username is required');
@@ -80,11 +78,11 @@ export class User {
         if (!user.email?.trim()) {
             throw new Error('Email is required');
         }
-        if (!user.role) {
-            throw new Error('Role is required');
-        }
         if (!user.password?.trim()) {
             throw new Error('Password is required');
+        }
+        if (!user.role) {
+            throw new Error('Role is required');
         }
     }
 
@@ -94,20 +92,20 @@ export class User {
             this.firstName === user.getFirstName() &&
             this.lastName === user.getLastName() &&
             this.email === user.getEmail() &&
-            this.role === user.getRole() &&
-            this.password === user.getPassword()
+            this.password === user.getPassword() &&
+            this.role === user.getRole()
         );
     }
 
-    static from({ id, username, firstName, lastName, email, role, password}: UserPrisma) {
+    static from({ id, username, firstName, lastName, email, password, role }: UserPrisma) {
         return new User({
             id,
             username,
             firstName,
             lastName,
             email,
-            role: role as Role,
             password,
+            role: role as Role,
         });
     }
 }

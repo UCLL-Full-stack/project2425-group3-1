@@ -2,12 +2,12 @@ type Role = 'admin' | 'guest' | 'user';
 
 type UserInput = {
     id?: number;
-    username?: string;
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    role?: Role;
-    password?: string;
+    username: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: Role;
 };
 
 type ScheduleInput = {
@@ -21,7 +21,7 @@ type EnrollmentInput = {
 };
 
 type AuthenticationResponse = {
-    role: string;
+    role: Role;
     token: string;
     username: string;
     fullname: string;

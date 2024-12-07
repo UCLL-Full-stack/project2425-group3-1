@@ -125,8 +125,8 @@ const Workouts: React.FC = () => {
             src={selectedMuscleImage}
             alt="Muscle Group"
             className={styles.image}
-            width={300}
-            height={300}
+            width={200}
+            height={200}
           />
         ) : (
           <p>Click on 'show' to view a picture of the muscle group</p>

@@ -25,9 +25,13 @@ export type Schedule = {
 };
 
 export type User = {
-  id?: number;
-  name: string;
-  password: string;
+  firstName?: string;
+  lastName?: string;
+  fullname?: string;
+  email?: string;
+  username?: string;
+  password?: string;
+  role?: string;
 };
 
 export type Workout = {
