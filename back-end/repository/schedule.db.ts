@@ -38,14 +38,11 @@ const addWorkoutsToSchedule = async (scheduleId: number, workoutIds: number[]) =
             throw new Error('No schedule has been found');
         }
 
-        //basic debug logs van de dingen die we toevoegen/selecteren
         console.log('Schedule ID:', scheduleId);
         console.log("Workout Id's:", workoutIds);
         console.log('Schedule found:', schedule);
 
-        //de workouts in de database loggen
-        // const workouts = await prisma.workout.findMany();
-        // console.log('All workouts in DB:', workouts);
+
 
         await prisma.schedule.update({
             where: { id: scheduleId },

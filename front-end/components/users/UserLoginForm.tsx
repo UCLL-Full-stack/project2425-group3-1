@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import styles from "@/styles/login.module.css";
+import UserService from "@/services/UserService"; 
 
 const UserLoginForm: React.FC = () => {
   const [name, setName] = useState("");
@@ -41,10 +42,10 @@ const UserLoginForm: React.FC = () => {
 
     if (!validate()) return;
 
-    // Fetch users from localStorage
+   
     const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
 
-    // Find the matching user
+ 
     const user = users.find(
       (user: { username: string; password: string }) =>
         user.username === name && user.password === password
@@ -60,7 +61,7 @@ const UserLoginForm: React.FC = () => {
       return;
     }
 
-    // If user exists, log them in
+   
     setStatusMessages([
       {
         message: "Login successful!",

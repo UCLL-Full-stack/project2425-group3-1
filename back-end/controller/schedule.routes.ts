@@ -47,8 +47,8 @@ const scheduleRouter = express.Router();
 
 scheduleRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const shcedules = await scheduleService.getAllSchedules();
-        res.status(200).json(shcedules);
+        const schedules = await scheduleService.getAllSchedules();
+        res.status(200).json(schedules);
     } catch (error) {
         next(error);
     }

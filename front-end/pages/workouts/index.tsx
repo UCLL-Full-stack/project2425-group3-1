@@ -54,43 +54,46 @@ const Workouts: React.FC = () => {
   const handleAddToSchedule = async () => {
     if (!selectedSchedule) {
       setMessage("Please select a Schedule");
-      console.log("NO SCHEDULE SELECTED");
       return;
     }
+  
     setLoading(true);
-    console.log("Sending request to add workouts to schedule...");
-
+    const token = localStorage.getItem('jwtToken');
+    
+    if (!token) {
+      setMessage("No authorization token found.");
+      setLoading(false);
+      return;
+    }
+  
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/schedules/addWorkout",
+        `${process.env.NEXT_PUBLIC_API_URL}/schedules/addWorkout`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,  
           },
-
           body: JSON.stringify({
             scheduleId: selectedSchedule.id,
             workoutsId: selectedWorkouts,
           }),
         }
       );
-
-      console.log("Response received:", response);
-
+  
       if (!response.ok) {
         throw new Error("Failed to add workout to the selected schedule");
       }
+      
       const data = await response.json();
-      console.log("Response data:", data);
-
+      setMessage(data.message);
+  
       setTimeout(() => {
         router.push("/schedules");
       }, 2000);
-
-      setMessage(data.message);
     } catch (error) {
-      setMessage("error adding workout to schedule");
+      setMessage("Error adding workout to schedule");
     } finally {
       setLoading(false);
     }

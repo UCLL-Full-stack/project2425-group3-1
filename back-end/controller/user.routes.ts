@@ -133,12 +133,19 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
     try {
         const userInput = <UserInput>req.body;
         const response = await userService.authenticate(userInput);
-        res.status(200).json({ message: 'Authentication succesful', ...response });
+        if (response.token) {
+            return res.status(200).json({
+                message: 'Authentication successful',
+                token: response.token,
+                username: response.username,
+                fullname: response.fullname,
+            });
+        }
+        return res.status(401).json({ message: 'Invalid credentials' });
     } catch (error) {
         next(error);
     }
 });
-
 /**
  * @swagger
  * /users/signup:
