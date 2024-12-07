@@ -1,5 +1,6 @@
 import { Workout } from "@/types";
 
+
 const getAllSchedules = () => {
   const token = localStorage.getItem('jwtToken'); 
 

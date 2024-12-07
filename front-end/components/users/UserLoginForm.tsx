@@ -35,46 +35,47 @@ const UserLoginForm: React.FC = () => {
     return isValid;
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     clearErrors();
 
     if (!validate()) return;
 
-   
-    const users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+    try {
+        const user = { username: name, password }; // Assuming the user object is structured like this
+        const response = await UserService.loginUser(user);
 
- 
-    const user = users.find(
-      (user: { username: string; password: string }) =>
-        user.username === name && user.password === password
-    );
-
-    if (!user) {
-      setStatusMessages([
-        {
-          message: "User does not exist or password is incorrect.",
-          type: "error",
-        },
-      ]);
-      return;
+        // Assuming the backend returns a token or user data on successful login
+        if (response.token) {
+            localStorage.setItem("jwtToken", response.token);
+            setStatusMessages([
+                {
+                    message: "Login successful!",
+                    type: "success",
+                },
+            ]);
+            localStorage.setItem("loggedInUser", name);
+            setTimeout(() => {
+                router.push("/"); // Redirect to the home page
+            }, 2000);
+        } else {
+            setStatusMessages([
+                {
+                    message: "Login failed. Please check your credentials.",
+                    type: "error",
+                },
+            ]);
+        }
+    } catch (error) {
+        setStatusMessages([
+            {
+                message: "An error occurred during login.",
+                type: "error",
+            },
+        ]);
     }
-
-   
-    setStatusMessages([
-      {
-        message: "Login successful!",
-        type: "success",
-      },
-    ]);
-
-    localStorage.setItem("loggedInUser", name);
-
-    setTimeout(() => {
-      router.push("/");
-    }, 2000);
-  };
+};
 
   return (
     <div className={styles.formContainer}>
