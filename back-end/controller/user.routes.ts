@@ -169,7 +169,10 @@ userRouter.post('/signup', async (req: Request, res: Response, next: NextFunctio
     try {
         const userInput = <UserInput>req.body;
         const user = await userService.createUser(userInput);
-        res.status(200).json(user);
+        res.status(200).json({
+            message: 'User created successfully',
+            user: user, 
+        });
     } catch (error) {
         next(error);
     }

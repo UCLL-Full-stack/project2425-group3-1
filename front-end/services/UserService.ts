@@ -35,20 +35,18 @@ const signupUser = async (user: User) => {
             body: JSON.stringify(user),
         });
 
-        
+        const responseData = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Signup failed');
+            throw new Error(responseData.message || 'Signup failed');
         }
 
-        const data = await response.json();
-        return data; 
+        return responseData;  
     } catch (error) {
         console.error('Signup error:', error);
         throw error;
     }
 };
-
 const UserService = {
     loginUser,
     signupUser,

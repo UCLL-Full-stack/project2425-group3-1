@@ -68,48 +68,39 @@ const UserSignUpForm: React.FC = () => {
     clearErrors();
 
     if (!validate()) {
-      return;
+        return;
     }
 
     try {
-      const user = {
-        username,
-        password,
-        firstName,
-        lastName,
-        email,
-        role, 
-      };
+        const user = {
+            username,
+            password,
+            firstName,
+            lastName,
+            email,
+            role,
+        };
 
-      const response = await UserService.signupUser(user); 
+        const response = await UserService.signupUser(user);
 
-      if (response.ok) {
-        const existingUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+        if (response && response.message) {
+            setStatusMessages([{
+                message: response.message,  
+                type: "success",
+            }]);
 
-       
-        const updatedUsers = [...existingUsers, user];
-        localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
-        
-        setStatusMessages([{
-          message: "Signup successful",
-          type: "success",
-        }]);
-
-       
-
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
-      } else {
-        throw new Error("Signup failed");
-      }
+            setTimeout(() => {
+                router.push("/login");
+            }, 2000);
+        }
     } catch (err) {
-      setStatusMessages([{
-        message: "Error: Unable to sign up. Please try again.",
-        type: "error",
-      }]);
+        console.error("Signup error:", err);
+        setStatusMessages([{
+            message: "Signup failed. Please try again.",
+            type: "error",
+        }]);
     }
-  };
+};
 
   return (
     <div className={styles.formContainer}>

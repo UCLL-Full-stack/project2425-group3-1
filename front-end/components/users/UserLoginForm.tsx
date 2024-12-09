@@ -57,7 +57,7 @@ const UserLoginForm: React.FC = () => {
             ]);
             localStorage.setItem("loggedInUser", name);
             setTimeout(() => {
-                router.push("/"); /
+                router.push("/"); 
             }, 2000);
         } else {
             setStatusMessages([
