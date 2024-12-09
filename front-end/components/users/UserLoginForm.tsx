@@ -43,10 +43,10 @@ const UserLoginForm: React.FC = () => {
     if (!validate()) return;
 
     try {
-        const user = { username: name, password }; // Assuming the user object is structured like this
+        const user = { username: name, password }; 
         const response = await UserService.loginUser(user);
 
-        // Assuming the backend returns a token or user data on successful login
+
         if (response.token) {
             localStorage.setItem("jwtToken", response.token);
             setStatusMessages([
@@ -57,7 +57,7 @@ const UserLoginForm: React.FC = () => {
             ]);
             localStorage.setItem("loggedInUser", name);
             setTimeout(() => {
-                router.push("/"); // Redirect to the home page
+                router.push("/"); /
             }, 2000);
         } else {
             setStatusMessages([
