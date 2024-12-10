@@ -10,13 +10,11 @@ const loginUser = async (user: User) => {
             body: JSON.stringify(user),
         });
 
-      
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.message || 'Login failed');
         }
 
-      
         const data = await response.json();
         return data; 
     } catch (error) {
@@ -41,12 +39,18 @@ const signupUser = async (user: User) => {
             throw new Error(responseData.message || 'Signup failed');
         }
 
+     
+        if (responseData.token) {
+            sessionStorage.setItem("jwtToken", responseData.token);
+        }
+
         return responseData;  
     } catch (error) {
         console.error('Signup error:', error);
         throw error;
     }
 };
+
 const UserService = {
     loginUser,
     signupUser,

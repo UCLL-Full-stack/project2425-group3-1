@@ -48,14 +48,14 @@ const UserLoginForm: React.FC = () => {
 
 
         if (response.token) {
-            localStorage.setItem("jwtToken", response.token);
+          sessionStorage.setItem("jwtToken", response.token);
             setStatusMessages([
                 {
                     message: "Login successful!",
                     type: "success",
                 },
             ]);
-            localStorage.setItem("loggedInUser", name);
+            sessionStorage.setItem("loggedInUser", name);
             setTimeout(() => {
                 router.push("/"); 
             }, 2000);

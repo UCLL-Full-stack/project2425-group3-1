@@ -2,7 +2,7 @@ import { Workout } from "@/types";
 
 
 const getAllSchedules = () => {
-  const token = localStorage.getItem('jwtToken'); 
+  const token = sessionStorage.getItem('jwtToken'); 
 
   if (!token) {
 
@@ -19,7 +19,7 @@ const getAllSchedules = () => {
 };
 
 const addWorkoutsToSchedule = (scheduleId: number, workouts: Workout[]) => {
-  const token = localStorage.getItem('jwtToken'); 
+  const token = sessionStorage.getItem('jwtToken'); 
   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedules/add/${scheduleId}`, {
     method: "POST",
     headers: {
