@@ -1,3 +1,5 @@
+import { Workout } from '@prisma/client';
+
 type Role = 'admin' | 'guest' | 'user';
 
 type UserInput = {
@@ -10,10 +12,23 @@ type UserInput = {
     role: Role;
 };
 
+type WorkoutInput = {
+    id?: number;
+    location?: string;
+    level?: number;
+    time?: number;
+    name?: string;
+    calorie?: number;
+    muscle?: string;
+    muscleImage?: string;
+};
+
 type ScheduleInput = {
     id?: number;
-    start?: Date;
-    end?: Date;
+    date: Date;
+    calorieBurn: number;
+    totalTime: number;
+    workouts: WorkoutInput[];
 };
 
 type EnrollmentInput = {
@@ -27,13 +42,4 @@ type AuthenticationResponse = {
     fullname: string;
 };
 
-
-export {
-    Role,
-    UserInput,
-    ScheduleInput,
-    EnrollmentInput,
-    AuthenticationResponse,
-    
-};
-
+export { Role, UserInput, WorkoutInput, ScheduleInput, EnrollmentInput, AuthenticationResponse };
