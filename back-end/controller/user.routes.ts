@@ -129,53 +129,53 @@ userRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
  *                schema:
  *                  $ref: '#/components/schemas/AuthenticationResponse'
  */
-userRouter.post('/login', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const userInput = <UserInput>req.body;
-        const response = await userService.authenticate(userInput);
-        if (response.token) {
-            return res.status(200).json({
-                message: 'Authentication successful',
-                token: response.token,
-                username: response.username,
-                fullname: response.fullname,
-            });
-        }
-        return res.status(401).json({ message: 'Invalid credentials' });
-    } catch (error) {
-        next(error);
-    }
-});
-/**
- * @swagger
- * /users/signup:
- *   post:
- *      summary: Create a user
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/UserInput'
- *      responses:
- *         200:
- *            description: The created user object
- *            content:
- *              application/json:
- *                schema:
- *                  $ref: '#/components/schemas/User'
- */
-userRouter.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const userInput = <UserInput>req.body;
-        const user = await userService.createUser(userInput);
-        res.status(200).json({
-            message: 'User created successfully',
-            user: user, 
-        });
-    } catch (error) {
-        next(error);
-    }
-});
+// userRouter.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//         const userInput = <UserInput>req.body;
+//         const response = await userService.authenticate(userInput);
+//         if (response.token) {
+//             return res.status(200).json({
+//                 message: 'Authentication successful',
+//                 token: response.token,
+//                 username: response.username,
+//                 fullname: response.fullname,
+//             });
+//         }
+//         return res.status(401).json({ message: 'Invalid credentials' });
+//     } catch (error) {
+//         next(error);
+//     }
+// });
+// /**
+//  * @swagger
+//  * /users/signup:
+//  *   post:
+//  *      summary: Create a user
+//  *      requestBody:
+//  *        required: true
+//  *        content:
+//  *          application/json:
+//  *            schema:
+//  *              $ref: '#/components/schemas/UserInput'
+//  *      responses:
+//  *         200:
+//  *            description: The created user object
+//  *            content:
+//  *              application/json:
+//  *                schema:
+//  *                  $ref: '#/components/schemas/User'
+//  */
+// userRouter.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//         const userInput = <UserInput>req.body;
+//         const user = await userService.createUser(userInput);
+//         res.status(200).json({
+//             message: 'User created successfully',
+//             user: user,
+//         });
+//     } catch (error) {
+//         next(error);
+//     }
+// });
 
 export { userRouter };

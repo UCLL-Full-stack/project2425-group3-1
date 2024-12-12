@@ -72,17 +72,14 @@ bmiRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { length, weight } = req.body;
 
-       
         if (!length || !weight || length <= 0 || weight <= 0) {
-            return res.status(400).json({ error: "Height and weight must be positive numbers." });
+            return res.status(400).json({ error: 'Height and weight must be positive numbers.' });
         }
 
-       
-        const bmiValue = parseFloat((weight / ((length / 100) ** 2)).toFixed(2));
+        const bmiValue = parseFloat((weight / (length / 100) ** 2).toFixed(2));
 
-       
         const savedBmi = await bmiService.addBmi({ length, weight, bmiValue });
-        res.status(201).json(savedBmi);
+        res.status(200).json(savedBmi);
     } catch (error) {
         next(error);
     }

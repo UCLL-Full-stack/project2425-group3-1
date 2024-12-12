@@ -1,28 +1,43 @@
 /**
  * @swagger
  *   components:
- *    securitySchemes:
- *     bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
  *    schemas:
- *      Lecturer:
+ *      Schedule:
  *          type: object
  *          properties:
  *            id:
  *              type: number
  *              format: int64
- *            name:
+ *            date:
  *              type: string
- *              description: Lecturer name.
- *            expertise:
+ *              format: date-time
+ *            calorieburn:
+ *              type: number
+ *            workouts:
+ *              type: array
+ *              items:
+ *                  $ref: '#/components/schemas/Workout'
+ *      ScheduleInput:
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: number
+ *              format: int64
+ *            date:
  *              type: string
- *              description: Lecturer expertise.
+ *              format: date-time
+ *            calorieburn:
+ *              type: number
+ *            workouts:
+ *              type: array
+ *              items:
+ *                  $ref: '#/components/schemas/Workout'
  */
 import express, { NextFunction, Request, Response } from 'express';
 import workoutService from '../service/workout.service';
 import scheduleService from '../service/schedule.service';
+import { error } from 'console';
+import { ScheduleInput } from '../types';
 
 const scheduleRouter = express.Router();
 
@@ -99,6 +114,35 @@ scheduleRouter.post('/addWorkout', async (req: Request, res: Response, next: Nex
         return res.status(200).json(result);
     } catch (error) {
         next(error);
+    }
+});
+
+/**
+ * @swagger
+ * /schedules:
+ *   post:
+ *      summary: Create a new schedule.
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/ScheduleInput'
+ *      responses:
+ *         200:
+ *            description: The created schedule.
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  $ref: '#/components/schemas/Schedule'
+ */
+scheduleRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const schedule = <ScheduleInput>req.body;
+        const result = await scheduleService.addSchedule(schedule);
+        res.status(200).json(result);
+    } catch (erorr) {
+        res.status(400).json({ status: 'error' });
     }
 });
 

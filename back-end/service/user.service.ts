@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import userDB from '../repository/user.db';
 import { AuthenticationResponse, UserInput } from '../types';
-import { generateJwtToken } from '../util/jwt';
+// import { generateJwtToken } from '../util/jwt';
 import { User } from '../model/user';
 
 const getAllUsers = async (): Promise<User[]> => userDB.getAllUsers();
@@ -14,21 +14,21 @@ const getUserByUsername = async ({ username }: { username: string }): Promise<Us
     return user;
 };
 
-const authenticate = async ({ username, password }: UserInput): Promise<AuthenticationResponse> => {
-    const user = await getUserByUsername({ username });
+// const authenticate = async ({ username, password }: UserInput): Promise<AuthenticationResponse> => {
+//     const user = await getUserByUsername({ username });
 
-    const isValidPassword = await bcrypt.compare(password, user.getPassword());
+//     const isValidPassword = await bcrypt.compare(password, user.getPassword());
 
-    if (!isValidPassword) {
-        throw new Error('Incorrect password.');
-    }
-    return {
-        token: generateJwtToken({ username, role: user.getRole() }),
-        username: username,
-        fullname: `${user.getFirstName()} ${user.getLastName()}`,
-        role: user.getRole(),
-    };
-};
+//     if (!isValidPassword) {
+//         throw new Error('Incorrect password.');
+//     }
+//     return {
+//         token: generateJwtToken({ username, role: user.getRole() }),
+//         username: username,
+//         fullname: `${user.getFirstName()} ${user.getLastName()}`,
+//         role: user.getRole(),
+//     };
+// };
 
 const createUser = async ({
     username,
@@ -50,4 +50,4 @@ const createUser = async ({
     return await userDB.createUser(user);
 };
 
-export default { getUserByUsername, authenticate, createUser, getAllUsers };
+export default { getUserByUsername, createUser, getAllUsers };
