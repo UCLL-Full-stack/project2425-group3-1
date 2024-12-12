@@ -34,6 +34,20 @@ const getScheduleById = async (scheduleId: number): Promise<Schedule | null> => 
         throw new Error(`Failed to fetch schedule with ID ${scheduleId}`);
     }
 };
+const deleteSchedule = async (scheduleId: number): Promise<Schedule | null> => {
+    try {
+        const schedulePrisma = await database.schedule.delete({
+            where: { id: scheduleId },
+            include: {
+                workouts: true,
+            },
+        });
+        return schedulePrisma ? Schedule.from(schedulePrisma) : null;
+    } catch (error) {
+        console.error(`Error deleting schedule with ID ${scheduleId}:`, error);
+        throw new Error(`Failed to delete schedule with ID ${scheduleId}`);
+    }
+};
 
 const addSchedule = async (schedule: Schedule): Promise<Schedule> => {
     try {
@@ -89,4 +103,10 @@ const addWorkoutsToSchedule = async (scheduleId: number, workoutIds: number[]) =
     }
 };
 
-export default { getAllSchedules, getScheduleById, addWorkoutsToSchedule, addSchedule };
+export default {
+    getAllSchedules,
+    getScheduleById,
+    addWorkoutsToSchedule,
+    addSchedule,
+    deleteSchedule,
+};

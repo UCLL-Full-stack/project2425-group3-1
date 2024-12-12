@@ -141,8 +141,23 @@ scheduleRouter.post('/', async (req: Request, res: Response, next: NextFunction)
         const schedule = <ScheduleInput>req.body;
         const result = await scheduleService.addSchedule(schedule);
         res.status(200).json(result);
-    } catch (erorr) {
-        res.status(400).json({ status: 'error' });
+    } catch (error) {
+        const err = error as Error;
+        res.status(400).json({ message: err.message });
+    }
+});
+
+scheduleRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const scheduleId = parseInt(req.params.id);
+        const result = await scheduleService.deleteSchedule(scheduleId);
+        return res.status(200).json(result);
+    } catch (error) {
+        const err = error as Error;
+        res.status(400).json({
+            status: 'Error, could not delete the schedule',
+            message: err.message,
+        });
     }
 });
 
