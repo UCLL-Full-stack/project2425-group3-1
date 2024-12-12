@@ -48,9 +48,6 @@ export class Bmi {
         if (!bmi.bmiValue || bmi.bmiValue <= 0) {
             throw new Error('BMI value must be a positive number.');
         }
-        if (bmi.bmiValue > 100) {
-            throw new Error('BMI value seems unrealistic; it must be below 100.');
-        }
     }
 
  
