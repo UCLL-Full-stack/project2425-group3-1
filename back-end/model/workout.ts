@@ -1,4 +1,3 @@
-import { Prisma } from '@prisma/client';
 import { Workout as WorkoutPrisma } from '@prisma/client';
 
 export class Workout {
@@ -21,6 +20,7 @@ export class Workout {
         id?: number;
         muscleImage: string;
     }) {
+        this.validate(workout); 
         this.id = workout.id;
         this.location = workout.location;
         this.level = workout.level;
@@ -31,7 +31,16 @@ export class Workout {
         this.muscleImage = workout.muscleImage;
     }
 
-    static from({ id, location, level, time, name, calorie, muscle, muscleImage }: WorkoutPrisma) {
+    static from({
+        id,
+        location,
+        level,
+        time,
+        name,
+        calorie,
+        muscle,
+        muscleImage,
+    }: WorkoutPrisma) {
         return new Workout({
             id,
             location,
@@ -43,6 +52,8 @@ export class Workout {
             muscleImage,
         });
     }
+
+
     getId(): number | undefined {
         return this.id;
     }
@@ -69,6 +80,43 @@ export class Workout {
 
     getCalorie(): number {
         return this.calorie;
+    }
+
+
+    private validate(workout: {
+        location: string;
+        level: number;
+        time: number;
+        name: string;
+        calorie: number;
+        muscle: string;
+        id?: number;
+        muscleImage: string;
+    }): void {
+ 
+        if (!workout.location || workout.location.trim().length === 0) {
+            throw new Error('Location is required.');
+        }
+
+        if (workout.level < 1 || workout.level > 5) {
+            throw new Error('Level must be between 1 and 5.');
+        }
+
+        if (workout.time <= 0) {
+            throw new Error('Time must be greater than zero.');
+        }
+
+        if (!workout.name || workout.name.trim().length === 0) {
+            throw new Error('Name is required.');
+        }
+
+        if (workout.calorie <= 0) {
+            throw new Error('Calorie count must be greater than zero.');
+        }
+
+        if (!workout.muscle || workout.muscle.trim().length === 0) {
+            throw new Error('Muscle is required.');
+        }
     }
 
     equals(workout: Workout): boolean {

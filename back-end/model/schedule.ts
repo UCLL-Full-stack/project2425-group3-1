@@ -1,5 +1,6 @@
 import { Workout } from './workout';
 import { Schedule as SchedulePrisma, Workout as WorkoutPrisma } from '@prisma/client';
+
 export class Schedule {
     private id?: number;
     private date: Date;
@@ -14,10 +15,11 @@ export class Schedule {
         id?: number;
         workouts: Workout[];
     }) {
+        this.validate(schedule); 
+        this.id = schedule.id;
         this.date = schedule.date;
         this.calorieBurn = schedule.calorieBurn;
         this.totalTime = schedule.totalTime;
-        this.id = schedule.id;
         this.workouts = schedule.workouts;
     }
 
@@ -41,6 +43,7 @@ export class Schedule {
         this.workouts.push(workout);
     }
 
+ 
     getId(): number | undefined {
         return this.id;
     }
@@ -59,6 +62,27 @@ export class Schedule {
 
     getWorkouts(): Workout[] {
         return this.workouts;
+    }
+
+    private validate(schedule: {
+        date: Date;
+        calorieBurn: number;
+        totalTime: number;
+        id?: number;
+        workouts: Workout[];
+    }): void {
+ 
+        if (!schedule.date || isNaN(schedule.date.getTime())) {
+            throw new Error('A valid date is required.');
+        }
+
+        if (schedule.calorieBurn <= 0) {
+            throw new Error('Calorie burn must be above zero.');
+        }
+
+        if (schedule.totalTime <= 0) {
+            throw new Error('Total time must b above zero.');
+        }
     }
 
     equals(schedule: Schedule): boolean {
