@@ -58,13 +58,13 @@ const Workouts: React.FC = () => {
     }
 
     setLoading(true);
-    const token = sessionStorage.getItem('jwtToken');
+    // const token = sessionStorage.getItem('jwtToken');
 
-    if (!token) {
-      setMessage("No authorization token found.");
-      setLoading(false);
-      return;
-    }
+    // if (!token) {
+    //   setMessage("No authorization token found.");
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       const response = await fetch(
@@ -73,7 +73,7 @@ const Workouts: React.FC = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            // Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             scheduleId: selectedSchedule.id,
