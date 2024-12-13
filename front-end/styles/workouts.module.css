@@ -29,6 +29,7 @@
   text-align: center;
   color: black;
   vertical-align: middle;
+  padding-bottom: 0.35vh;
 }
 
 .workoutsTable tr:hover {

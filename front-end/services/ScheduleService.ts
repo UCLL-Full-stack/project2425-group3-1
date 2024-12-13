@@ -16,21 +16,6 @@ const getAllSchedules = () => {
   });
 };
 
-const addWorkoutsToSchedule = (scheduleId: number, workouts: Workout[]) => {
-  const token = sessionStorage.getItem("jwtToken");
-  return fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/schedules/add/${scheduleId}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(workouts),
-    }
-  );
-};
-
 const ScheduleService = {
   getAllSchedules,
 };

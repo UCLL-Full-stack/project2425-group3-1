@@ -32,12 +32,12 @@ const Schedules: React.FC = () => {
         <section>
           <h2 className={styles.description}>Schedules Overview</h2>
           <p className={styles.instructionText}>
-           Click on a schedule in the table below to view the workouts.
+            Click on a schedule in the table below to view the workouts.
           </p>
           {schedules && (
             <ScheduleTable
               schedules={schedules}
-              selectedSchedule={setSelectedSchedule} 
+              selectedSchedule={setSelectedSchedule}
             />
           )}
         </section>
