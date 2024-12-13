@@ -3,6 +3,7 @@ import userDB from '../repository/user.db';
 import { AuthenticationResponse, UserInput } from '../types';
 import { generateJwtToken } from '../util/jwt';
 import { User } from '../model/user';
+import { Bmi } from '../model/bmi';
 
 const getAllUsers = async (): Promise<User[]> => userDB.getAllUsers();
 
@@ -50,4 +51,6 @@ const createUser = async ({
     return await userDB.createUser(user);
 };
 
-export default { getUserByUsername, createUser, getAllUsers, authenticate };
+
+
+export default { getUserByUsername, createUser, getAllUsers, authenticate};

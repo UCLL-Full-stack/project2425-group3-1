@@ -8,4 +8,5 @@ const getAllBmi = async (): Promise<Bmi[]> => {
     return await bmiDb.getAllBmi();
 };
 
+
 export default { addBmi, getAllBmi };

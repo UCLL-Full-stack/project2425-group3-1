@@ -1,5 +1,6 @@
 import { User as UserPrisma } from '@prisma/client';
 import { Role } from '../types';
+import { Bmi } from './bmi'; // Zorg ervoor dat je de juiste import voor de Bmi-klasse hebt
 
 export class User {
     private id?: number;
@@ -9,6 +10,7 @@ export class User {
     private email: string;
     private password: string;
     private role: Role;
+    private bmi?: Bmi; // Optionele relatie naar Bmi
 
     constructor(user: {
         id?: number;
@@ -18,6 +20,7 @@ export class User {
         email: string;
         password: string;
         role: Role;
+        bmi?: Bmi;
     }) {
         this.validate(user);
 
@@ -28,6 +31,7 @@ export class User {
         this.email = user.email;
         this.password = user.password;
         this.role = user.role;
+        this.bmi = user.bmi;
     }
 
     getId(): number | undefined {
@@ -58,6 +62,17 @@ export class User {
         return this.role;
     }
 
+    getBmi(): Bmi | undefined {
+        return this.bmi;
+    }
+
+    setBmi(bmi: Bmi): void {
+        if (!bmi) {
+            throw new Error('BMI cannot be null or undefined.');
+        }
+        this.bmi = bmi;
+    }
+
     validate(user: {
         username: string;
         firstName: string;
@@ -65,6 +80,7 @@ export class User {
         email: string;
         password: string;
         role: Role;
+        bmi?: Bmi;
     }) {
         if (!user.username?.trim()) {
             throw new Error('Username is required');
@@ -86,18 +102,7 @@ export class User {
         }
     }
 
-    equals(user: User): boolean {
-        return (
-            this.username === user.getUsername() &&
-            this.firstName === user.getFirstName() &&
-            this.lastName === user.getLastName() &&
-            this.email === user.getEmail() &&
-            this.password === user.getPassword() &&
-            this.role === user.getRole()
-        );
-    }
-
-    static from({ id, username, firstName, lastName, email, password, role }: UserPrisma) {
+    static from({ id, username, firstName, lastName, email, password, role, bmi }: UserPrisma & { bmi?: Bmi }): User {
         return new User({
             id,
             username,
@@ -106,6 +111,20 @@ export class User {
             email,
             password,
             role: role as Role,
+            bmi,
         });
     }
+
+    equals(user: User): boolean {
+        return (
+            this.username === user.getUsername() &&
+            this.firstName === user.getFirstName() &&
+            this.lastName === user.getLastName() &&
+            this.email === user.getEmail() &&
+            this.password === user.getPassword() &&
+            this.role === user.getRole() &&
+            (this.bmi?.equals(user.getBmi()!) ?? false)
+        );
+    }
+    
 }

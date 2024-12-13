@@ -8,10 +8,11 @@ datasource db {
 }
 
 model Bmi {
-  id     Int   @id @default(autoincrement())
-  length Float
-  weight Float
-  bmiValue  Float
+  id       Int    @id @default(autoincrement())
+  length   Float
+  weight   Float
+  bmiValue Float
+  users    User[]
 }
 
 model Goal {
@@ -47,12 +48,14 @@ model Schedule {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
+  id       Int    @id @default(autoincrement())
+  username String
   firstName String
   lastName  String
-  email     String    @unique
-  role      String
+  email     String
   password  String
+  role      String
+  bmiId     Int? @unique
+  bmi       Bmi?    @relation(fields: [bmiId], references: [id])
 }
 

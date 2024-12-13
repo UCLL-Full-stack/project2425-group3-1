@@ -56,9 +56,31 @@ const createUser = async (user: User): Promise<User> => {
     }
 };
 
+const updateUser = async (user: User): Promise<User> => {
+    try {
+        const userPrisma = await database.user.update({
+            where: { id: user.getId() },  
+            data: {
+                username: user.getUsername(),
+                password: user.getPassword(),
+                firstName: user.getFirstName(),
+                lastName: user.getLastName(),
+                email: user.getEmail(),
+                role: user.getRole(),
+            },
+        });
+        return User.from(userPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+
+
 export default {
     getAllUsers,
     createUser,
     getUserById,
     getUserByUsername,
+    updateUser,
 };

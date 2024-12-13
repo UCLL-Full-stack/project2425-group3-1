@@ -1,23 +1,24 @@
-import { Bmi as BmiPrisma } from '@prisma/client';
+import { Bmi as BmiPrisma, User } from '@prisma/client';
 
 export class Bmi {
     private id?: number;
     private length: number;
     private weight: number;
     private bmiValue: number;
+    private users: User[] = []; 
 
-    constructor(bmi: { id?: number; length: number; weight: number; bmiValue: number }) {
+    constructor(bmi: { id?: number; length: number; weight: number; bmiValue: number; users?: User[] }) {
         this.validate(bmi); 
         this.id = bmi.id;
         this.length = bmi.length;
         this.weight = bmi.weight;
         this.bmiValue = bmi.bmiValue;
+        this.users = bmi.users || [];
     }
 
-    static from({ id, length, weight, bmiValue }: BmiPrisma) {
-        return new Bmi({ id, length, weight, bmiValue });
+    static from({ id, length, weight, bmiValue, users }: BmiPrisma & { users?: User[] }): Bmi {
+        return new Bmi({ id, length, weight, bmiValue, users });
     }
-
 
     getId(): number | undefined {
         return this.id;
@@ -35,8 +36,18 @@ export class Bmi {
         return this.bmiValue;
     }
 
+    getUsers(): User[] {
+        return this.users;
+    }
 
-    private validate(bmi: { id?: number; length: number; weight: number; bmiValue: number }): void {
+    addUser(user: User): void {
+        if (!user) {
+            throw new Error('User cannot be null or undefined.');
+        }
+        this.users.push(user);
+    }
+
+    private validate(bmi: { id?: number; length: number; weight: number; bmiValue: number; users?: User[] }): void {
         if (!bmi.length || bmi.length <= 0) {
             throw new Error('Length must be positive.');
         }
@@ -50,12 +61,13 @@ export class Bmi {
         }
     }
 
- 
     equals(bmi: Bmi): boolean {
         return (
             this.length === bmi.getLength() &&
             this.weight === bmi.getWeight() &&
-            this.bmiValue === bmi.getBmiValue()
+            this.bmiValue === bmi.getBmiValue() &&
+            this.users.length === bmi.getUsers().length &&
+            this.users.every(user => bmi.getUsers().some(u => u.id === user.id))
         );
     }
 }
