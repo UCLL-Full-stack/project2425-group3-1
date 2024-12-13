@@ -51,6 +51,8 @@ const Workouts: React.FC = () => {
         : [...prevSelected, id]
     );
   };
+
+  
   const handleAddToSchedule = async () => {
     if (!selectedSchedule) {
       setMessage("Please select a Schedule");
@@ -98,6 +100,8 @@ const Workouts: React.FC = () => {
       setLoading(false);
     }
   };
+
+
 
   const handleScheduleChange = (schedule: Schedule) => {
     setSelectedSchedule(schedule);

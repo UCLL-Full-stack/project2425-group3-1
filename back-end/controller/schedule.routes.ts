@@ -13,6 +13,8 @@
  *              format: date-time
  *            calorieburn:
  *              type: number
+ *            totalTime:
+ *              type: number
  *            workouts:
  *              type: array
  *              items:
@@ -20,13 +22,12 @@
  *      ScheduleInput:
  *          type: object
  *          properties:
- *            id:
- *              type: number
- *              format: int64
  *            date:
  *              type: string
  *              format: date-time
  *            calorieburn:
+ *              type: number
+ *            totalTime:
  *              type: number
  *            workouts:
  *              type: array
@@ -147,6 +148,38 @@ scheduleRouter.post('/', async (req: Request, res: Response, next: NextFunction)
     }
 });
 
+/**
+ * @swagger
+ * /schedules/{id}:
+ *   delete:
+ *     summary: Delete a schedule by ID
+ *     description: This endpoint deletes a schedule based on schedule ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the schedule to be deleted.
+ *         schema:
+ *           type: integer
+ *           format: int64
+ *     responses:
+ *       200:
+ *         description: Schedule deleted successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Schedule deleted successfully"
+ *       400:
+ *         description: Invalid schedule ID,could not delete the schedule.
+ *       404:
+ *         description: Schedule not found.
+ *       500:
+ *         description: Internal server error.
+ */
 scheduleRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const scheduleId = parseInt(req.params.id);
