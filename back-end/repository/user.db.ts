@@ -1,5 +1,6 @@
 import { User } from '../model/user';
 import database from '../util/database';
+import bmiDB from '../repository/bmi.db'
 
 const getAllUsers = async (): Promise<User[]> => {
     try {
@@ -57,23 +58,19 @@ const createUser = async (user: User): Promise<User> => {
 };
 
 const updateUser = async (user: User): Promise<User> => {
-    try {
-        const userPrisma = await database.user.update({
-            where: { id: user.getId() },  
-            data: {
-                username: user.getUsername(),
-                password: user.getPassword(),
-                firstName: user.getFirstName(),
-                lastName: user.getLastName(),
-                email: user.getEmail(),
-                role: user.getRole(),
-            },
-        });
-        return User.from(userPrisma);
-    } catch (error) {
-        console.error(error);
-        throw new Error('Database error. See server log for details.');
-    }
+    const updatedUser = await database.user.update({
+        where: { id: user.getId() },
+        data: {
+            username: user.getUsername(),
+            firstName: user.getFirstName(),
+            lastName: user.getLastName(),
+            email: user.getEmail(),
+            password: user.getPassword(),
+            role: user.getRole(),
+            bmiId: user.getBmi() ? user.getBmi()?.getId() : undefined,
+        },
+    });
+    return User.from(updatedUser);
 };
 
 
@@ -82,5 +79,5 @@ export default {
     createUser,
     getUserById,
     getUserByUsername,
-    updateUser,
+    updateUser
 };

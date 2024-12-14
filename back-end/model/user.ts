@@ -1,6 +1,6 @@
 import { User as UserPrisma } from '@prisma/client';
 import { Role } from '../types';
-import { Bmi } from './bmi'; // Zorg ervoor dat je de juiste import voor de Bmi-klasse hebt
+import { Bmi } from './bmi';
 
 export class User {
     private id?: number;
@@ -10,7 +10,8 @@ export class User {
     private email: string;
     private password: string;
     private role: Role;
-    private bmi?: Bmi; // Optionele relatie naar Bmi
+    private bmiId?: number | null; // bmiId kan nu null zijn
+    private bmi?: Bmi;
 
     constructor(user: {
         id?: number;
@@ -20,6 +21,7 @@ export class User {
         email: string;
         password: string;
         role: Role;
+        bmiId?: number | null;
         bmi?: Bmi;
     }) {
         this.validate(user);
@@ -31,6 +33,7 @@ export class User {
         this.email = user.email;
         this.password = user.password;
         this.role = user.role;
+        this.bmiId = user.bmiId ?? null;  // bmiId kan null zijn
         this.bmi = user.bmi;
     }
 
@@ -62,6 +65,10 @@ export class User {
         return this.role;
     }
 
+    getBmiId(): number | null | undefined {
+        return this.bmiId;
+    }
+
     getBmi(): Bmi | undefined {
         return this.bmi;
     }
@@ -71,6 +78,7 @@ export class User {
             throw new Error('BMI cannot be null or undefined.');
         }
         this.bmi = bmi;
+        this.bmiId = bmi.getId(); // Set bmiId when a BMI is assigned
     }
 
     validate(user: {
@@ -80,6 +88,7 @@ export class User {
         email: string;
         password: string;
         role: Role;
+        bmiId?: number | null;
         bmi?: Bmi;
     }) {
         if (!user.username?.trim()) {
@@ -102,7 +111,17 @@ export class User {
         }
     }
 
-    static from({ id, username, firstName, lastName, email, password, role, bmi }: UserPrisma & { bmi?: Bmi }): User {
+    static from({
+        id,
+        username,
+        firstName,
+        lastName,
+        email,
+        password,
+        role,
+        bmiId,
+        bmi,
+    }: UserPrisma & { bmiId?: number | null; bmi?: Bmi }): User {
         return new User({
             id,
             username,
@@ -111,6 +130,7 @@ export class User {
             email,
             password,
             role: role as Role,
+            bmiId: bmiId ?? null, // Zorg ervoor dat bmiId null kan zijn
             bmi,
         });
     }
@@ -126,5 +146,4 @@ export class User {
             (this.bmi?.equals(user.getBmi()!) ?? false)
         );
     }
-    
 }

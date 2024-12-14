@@ -2,8 +2,8 @@ import { Bmi as BmiPrisma, User } from '@prisma/client';
 
 export class Bmi {
     private id?: number;
-    private length: number;
-    private weight: number;
+    private length?: number;
+    private weight?: number;
     private bmiValue: number;
     private users: User[] = []; 
 
@@ -24,14 +24,13 @@ export class Bmi {
         return this.id;
     }
 
-    getLength(): number {
+    getLength(): number | undefined {
         return this.length;
     }
 
-    getWeight(): number {
+    getWeight(): number | undefined {
         return this.weight;
     }
-
     getBmiValue(): number {
         return this.bmiValue;
     }
@@ -47,15 +46,7 @@ export class Bmi {
         this.users.push(user);
     }
 
-    private validate(bmi: { id?: number; length: number; weight: number; bmiValue: number; users?: User[] }): void {
-        if (!bmi.length || bmi.length <= 0) {
-            throw new Error('Length must be positive.');
-        }
-
-        if (!bmi.weight || bmi.weight <= 0) {
-            throw new Error('Weight must be positive.');
-        }
-
+    private validate(bmi: { id?: number; length?: number; weight?: number; bmiValue: number; users?: User[] }): void {
         if (!bmi.bmiValue || bmi.bmiValue <= 0) {
             throw new Error('BMI value must be a positive number.');
         }

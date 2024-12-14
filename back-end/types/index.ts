@@ -36,6 +36,7 @@ type EnrollmentInput = {
 };
 
 type AuthenticationResponse = {
+    userId: any;
     role: Role;
     token: string;
     username: string;

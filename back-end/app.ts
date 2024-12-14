@@ -29,6 +29,7 @@ app.use(
         '/status',
         '/api-docs',
         /^\/api-docs\/.*/,
+        '/bmi'
       ],
     })
   );

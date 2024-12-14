@@ -89,13 +89,13 @@ bmiRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
  * @swagger
  * /bmi:
  *    get:
- *     summary: Retrieve all BMI entries.
- *     description: Returns a list of all BMI records stored in the database.
+ *     summary: Retrieve all BMI entries, including associated users.
+ *     description: Returns a list of all BMI records stored in the database, along with the users who are associated with each BMI.
  *     tags:
  *       - BMI
  *     responses:
  *       200:
- *         description: Successfully retrieved list of BMI entries.
+ *         description: Successfully retrieved list of BMI entries with associated users.
  *         content:
  *           application/json:
  *             schema:
@@ -105,7 +105,6 @@ bmiRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
  *       500:
  *         description: Internal server error.
  */
-
 bmiRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const bmiRecords = await bmiService.getAllBmi();

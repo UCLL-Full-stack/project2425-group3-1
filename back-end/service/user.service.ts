@@ -4,6 +4,8 @@ import { AuthenticationResponse, UserInput } from '../types';
 import { generateJwtToken } from '../util/jwt';
 import { User } from '../model/user';
 import { Bmi } from '../model/bmi';
+import bmiDb from '../repository/bmi.db';
+import userDb from '../repository/user.db';
 
 const getAllUsers = async (): Promise<User[]> => userDB.getAllUsers();
 
@@ -28,6 +30,7 @@ const authenticate = async ({ username, password }: UserInput): Promise<Authenti
         username: username,
         fullname: `${user.getFirstName()} ${user.getLastName()}`,
         role: user.getRole(),
+        userId: user.getId(),
     };
 };
 
@@ -52,5 +55,64 @@ const createUser = async ({
 };
 
 
+const updateUserBmi = async (userId: number, bmiValue: number): Promise<User> => {
+  
+    const user = await userDb.getUserById({ id: userId });
+    if (!user) {
+        throw new Error('User not found');
+    }
 
-export default { getUserByUsername, createUser, getAllUsers, authenticate};
+    let bmi: Bmi;
+
+
+    if (user.getBmi()) {
+        bmi = user.getBmi()!;
+
+ 
+        if (bmi.getBmiValue() !== bmiValue) {
+      
+            const existingBmi = await bmiDb.getBmiByValue(bmiValue);
+            
+            if (existingBmi) {
+           
+                bmi = existingBmi;
+            } else {
+       
+                const bmiId = bmi.getId();
+                if (typeof bmiId !== 'number' || isNaN(bmiId)) {
+                    throw new Error('BMI ID is invalid');
+                }
+
+          
+                bmi = await bmiDb.updateBmi(bmiId, bmiValue); 
+            }
+        }
+    } else {
+  
+        const existingBmi = await bmiDb.getBmiByValue(bmiValue);
+
+        if (existingBmi) {
+       
+            bmi = existingBmi;
+        } else {
+      
+            bmi = await bmiDb.addBmi({ bmiValue });
+        }
+    }
+
+
+    const bmiId = bmi.getId();
+    if (typeof bmiId !== 'number' || isNaN(bmiId)) {
+        throw new Error('BMI ID is invalid');
+    }
+
+
+    user.setBmi(bmi);
+
+ 
+    await userDb.updateUser(user);
+
+    return user;
+};
+
+export default { getUserByUsername, createUser, getAllUsers, authenticate, updateUserBmi};
