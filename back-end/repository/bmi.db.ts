@@ -7,8 +7,8 @@ const addBmi = async (data: { bmiValue: number }): Promise<Bmi> => {
     const bmiPrisma = await prisma.bmi.create({
         data: {
             bmiValue: data.bmiValue,
-            length: 0, 
-            weight: 0, 
+            length: 0,
+            weight: 0,
         },
     });
 
@@ -19,7 +19,7 @@ const getAllBmi = async () => {
     try {
         const bmiPrisma = await prisma.bmi.findMany({
             include: {
-                users: true, 
+                users: true,
             },
         });
 
@@ -33,10 +33,10 @@ const getAllBmi = async () => {
 const getBmiByValue = async (bmiValue: number): Promise<Bmi | null> => {
     const bmiPrisma = await prisma.bmi.findFirst({
         where: {
-            bmiValue: bmiValue,  
+            bmiValue: bmiValue,
         },
         include: {
-            users: true, 
+            users: true,
         },
     });
 
@@ -62,25 +62,22 @@ const updateBmi = async (userId: number, bmiValue: number): Promise<Bmi> => {
     const existingBmi = await getBmiByValue(bmiValue);
 
     if (existingBmi) {
-       
         const bmiId = existingBmi.getId();
         if (typeof bmiId !== 'number' || isNaN(bmiId)) {
             throw new Error('BMI ID is invalid');
         }
 
-        await addUserToBmi(bmiId, userId); 
+        await addUserToBmi(bmiId, userId);
         return existingBmi;
     } else {
-     
         const newBmi = await addBmi({ bmiValue });
 
-    
         const newBmiId = newBmi.getId();
         if (typeof newBmiId !== 'number' || isNaN(newBmiId)) {
             throw new Error('New BMI creation failed, invalid ID');
         }
 
-        await addUserToBmi(newBmiId, userId); 
+        await addUserToBmi(newBmiId, userId);
         return newBmi;
     }
 };
@@ -90,7 +87,7 @@ const bmiService = {
     getAllBmi,
     getBmiByValue,
     addUserToBmi,
-    updateBmi
+    updateBmi,
 };
 
 export default bmiService;

@@ -11,7 +11,7 @@
  *            date:
  *              type: string
  *              format: date-time
- *            calorieburn:
+ *            calorieBurn:
  *              type: number
  *            totalTime:
  *              type: number
@@ -25,7 +25,7 @@
  *            date:
  *              type: string
  *              format: date-time
- *            calorieburn:
+ *            calorieBurn:
  *              type: number
  *            totalTime:
  *              type: number
@@ -46,6 +46,8 @@ const scheduleRouter = express.Router();
  * @swagger
  * /schedules:
  *    get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of all schedules.
  *     description: Returns an array of the schedules.
  *     tags:
@@ -74,6 +76,8 @@ scheduleRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
  * @swagger
  * /schedules/addWorkout:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Add selected workouts to a schedule
  *     description: This endpoint adds a list of selected workouts to a schedule by its ID.
  *     requestBody:
@@ -122,20 +126,22 @@ scheduleRouter.post('/addWorkout', async (req: Request, res: Response, next: Nex
  * @swagger
  * /schedules:
  *   post:
- *      summary: Create a new schedule.
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/ScheduleInput'
- *      responses:
- *         200:
- *            description: The created schedule.
- *            content:
- *              application/json:
- *                schema:
- *                  $ref: '#/components/schemas/Schedule'
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Create a new schedule.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ScheduleInput'
+ *     responses:
+ *       200:
+ *         description: The created schedule.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Schedule'
  */
 scheduleRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -152,6 +158,8 @@ scheduleRouter.post('/', async (req: Request, res: Response, next: NextFunction)
  * @swagger
  * /schedules/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Delete a schedule by ID
  *     description: This endpoint deletes a schedule based on schedule ID.
  *     parameters:
