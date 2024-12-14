@@ -2,8 +2,10 @@ import { StatusMessage } from "@/types";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { useTranslation } from "next-i18next";
 import styles from "@/styles/login.module.css";
 import UserService from "@/services/UserService"; 
+
 
 const UserLoginForm: React.FC = () => {
   const [name, setName] = useState("");
@@ -12,6 +14,7 @@ const UserLoginForm: React.FC = () => {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [statusMessages, setStatusMessages] = useState<StatusMessage[]>([]);
   const router = useRouter();
+  const { t } = useTranslation(); 
 
   const clearErrors = () => {
     setNameError(null);
@@ -20,19 +23,20 @@ const UserLoginForm: React.FC = () => {
   };
 
   const validate = (): boolean => {
-    let isValid = true;
+    let result = true;
 
+  
     if (!name.trim()) {
-      setNameError("Username is required.");
-      isValid = false;
+      setNameError(t('login.validate.name')); 
+      result = false;
     }
 
     if (!password.trim()) {
-      setPasswordError("Password is required.");
-      isValid = false;
+      setPasswordError(t('login.validate.password')); 
+      result = false;
     }
 
-    return isValid;
+    return result;
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -40,47 +44,43 @@ const UserLoginForm: React.FC = () => {
 
     clearErrors();
 
-    if (!validate()) return;
+    if (!validate()) {
+      return;
+    }
 
     try {
-        const user = { username: name, password }; 
-        const response = await UserService.loginUser(user);
+      const user = { username: name, password }; 
+      const response = await UserService.loginUser(user);
 
+      if (response.token) {
+        sessionStorage.setItem("jwtToken", response.token);
+        setStatusMessages([{
+          message: t('login.success'),  
+          type: "success",
+        }]);
+        sessionStorage.setItem("loggedInUser", name);
+        sessionStorage.setItem('userId', response.userId);
 
-        if (response.token) {
-          sessionStorage.setItem("jwtToken", response.token);
-            setStatusMessages([
-                {
-                    message: "Login successful!",
-                    type: "success",
-                },
-            ]);
-            sessionStorage.setItem("loggedInUser", name);
-            sessionStorage.setItem('userId', response.userId);
-            setTimeout(() => {
-                router.push("/"); 
-            }, 2000);
-        } else {
-            setStatusMessages([
-                {
-                    message: "Login failed. Please check your credentials.",
-                    type: "error",
-                },
-            ]);
-        }
+        setTimeout(() => {
+          router.push("/"); 
+        }, 2000);
+      } else {
+        setStatusMessages([{
+          message: t('general.error'),  
+          type: "error",
+        }]);
+      }
     } catch (error) {
-        setStatusMessages([
-            {
-                message: "An error occurred during login.",
-                type: "error",
-            },
-        ]);
+      setStatusMessages([{
+        message: t('general.error'),  
+        type: "error",
+      }]);
     }
-};
+  };
 
   return (
     <div className={styles.formContainer}>
-      <h3 className={styles.title}>Login</h3>
+      <h3 className={styles.title}>{t('login.title')}</h3>
       {statusMessages.length > 0 && (
         <div className={styles.statusMessageContainer}>
           <ul className={styles.statusMessageList}>
@@ -100,7 +100,7 @@ const UserLoginForm: React.FC = () => {
       )}
       <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="nameInput" className={styles.label}>
-          Username
+          {t('login.label.username')} 
         </label>
         <input
           id="nameInput"
@@ -112,7 +112,7 @@ const UserLoginForm: React.FC = () => {
         {nameError && <div className={styles.errorMessage}>{nameError}</div>}
 
         <label htmlFor="passwordInput" className={styles.label}>
-          Password
+          {t('login.label.password')} 
         </label>
         <input
           id="passwordInput"
@@ -124,11 +124,12 @@ const UserLoginForm: React.FC = () => {
         {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
 
         <button type="submit" className={styles.submitButton}>
-          Login
+          {t('login.button')} 
         </button>
       </form>
     </div>
   );
 };
+
 
 export default UserLoginForm;

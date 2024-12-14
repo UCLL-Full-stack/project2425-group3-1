@@ -2,11 +2,12 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/workouts.module.css";
 import Header from "@/components/header";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Home: React.FC = () => {
-  const { t } = useTranslation("common");
+  const { t} = useTranslation();
+
 
   return (
     <>
@@ -39,7 +40,7 @@ const Home: React.FC = () => {
     </>
   );
 };
-export const getServerSideProps = async (context: { locale: any; }) => {
+export const getServerSideProps = async (context) => {
   const { locale } = context;
   return {
     props: {

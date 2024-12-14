@@ -10,21 +10,20 @@ import Head from "next/head";
 import ScheduleService from "@/services/ScheduleService";
 import { useRouter } from "next/router";
 import ScheduleDropdown from "@/components/workouts/ScheduleDropdown";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
 
 const Workouts: React.FC = () => {
+  const { t } = useTranslation();
   const [message, setMessage] = useState<string | null>(null);
   const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
-  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
-    null
-  );
+  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(null);
   const [schedulesData, setSchedulesData] = useState<Schedule[]>([]);
-  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
-    null
-  );
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(null);
   const [loading, setLoading] = useState<Boolean>(false);
 
-  // voor router push te laten werken
   const router = useRouter();
 
   useEffect(() => {
@@ -54,13 +53,13 @@ const Workouts: React.FC = () => {
 
   const handleAddToSchedule = async () => {
     if (!selectedSchedule) {
-      setMessage("Please select a Schedule");
+      setMessage(t("workouts.selectSchedule"));
       return;
     }
     setLoading(true);
     const token = sessionStorage.getItem("jwtToken");
     if (!token) {
-      setMessage("No authorization token found.");
+      setMessage(t("workouts.noToken"));
       setLoading(false);
       return;
     }
@@ -69,6 +68,7 @@ const Workouts: React.FC = () => {
       router.push("/schedules");
     }, 2000);
   };
+
   const handleScheduleChange = (schedule: Schedule) => {
     setSelectedSchedule(schedule);
   };
@@ -80,11 +80,11 @@ const Workouts: React.FC = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Workouts</title>
+        <title>{t("workouts.title")}</title>
       </Head>
       <Header />
       <div className={styles.content}>
-        <h1>Workouts</h1>
+        <h1>{t("workouts.title")}</h1>
         <WorkoutsTable
           workouts={workoutsData}
           selectedWorkouts={selectedWorkouts}
@@ -96,24 +96,24 @@ const Workouts: React.FC = () => {
         {selectedMuscleImage ? (
           <Image
             src={selectedMuscleImage}
-            alt="Muscle Group"
+            alt={t("workouts.showMuscleImageMessage")}
             className={styles.image}
             width={200}
             height={200}
           />
         ) : (
-          <p>Click on 'show' to view a picture of the muscle group</p>
+          <p>{t("workouts.showMuscleImageMessage")}</p>
         )}
       </div>
       <p className={styles.p}>
-        Select the schedule you want the workout to be in:
+        {t("workouts.selectScheduleMessage")}
       </p>
       <div className={styles.dropDown}>
         <ScheduleDropdown
           schedules={schedulesData}
           selectedSchedule={selectedSchedule}
           onChange={handleScheduleChange}
-        ></ScheduleDropdown>
+        />
       </div>
       <div className={styles.buttonContainer}>
         <button
@@ -126,12 +126,21 @@ const Workouts: React.FC = () => {
           onClick={handleAddToSchedule}
           disabled={selectedWorkouts.length === 0}
         >
-          Add to Schedule
+          {t("workouts.addToSchedule")}
         </button>
         <div>{message && <p className={styles.p}>{message}</p>}</div>
       </div>
     </div>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  const { locale } = context;
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    },
+  };
 };
 
 export default Workouts;

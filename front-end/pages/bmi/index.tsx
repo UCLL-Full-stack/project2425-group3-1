@@ -4,8 +4,11 @@ import styles from "@/styles/bmi.module.css";
 import BmiForm from "@/components/bmi/BmiForm";
 import Header from "@/components/header";
 import BmiService from "@/services/BmiService";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const BMICalculator: React.FC = () => {
+  const { t } = useTranslation();
   const [bmi, setBMI] = useState<number | null>(null);
   const [category, setCategory] = useState<string>("");
   const [recommendedLevel, setRecommendedLevel] = useState<number | null>(null);
@@ -106,5 +109,15 @@ const BMICalculator: React.FC = () => {
     </div>
   );
 };
+
+export const getServerSideProps = async (context) => {
+  const { locale } = context;
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    },
+  };
+};
+
 
 export default BMICalculator;

@@ -1,5 +1,7 @@
 {
-  "app.title": "FitNest",
+  "app": {
+    "title": "FitNest"
+  },
   "header": {
     "welcome": "Welcome",
     "nav": {
@@ -12,7 +14,9 @@
       "signup": "Signup"
     }
   },
-  "general.error": "An error occurred. Please try again later.",
+  "general": {
+    "error": "An error occurred. Please try again later."
+  },
   "login": {
     "title": "Login",
     "button": "Login",
@@ -29,7 +33,37 @@
   "home": {
     "title": "Fitnest",
     "metaDescription": "Your Personalized Fitness Journey Starts Here.",
-    "about": "Welcome to FitNest! Manage your workouts and nutrition efficiently. FitNest helps you track your fitness progress and stay motivated with personalized workout plans and meal guides.",
+    "about": "Welkom bij FitNest! Hier kun je je trainingen en voeding op een efficiënte manier beheren en optimaliseren. Of je nu een beginnende sporter bent of een doorgewinterde atleet, FitNest biedt je de tools die je nodig hebt om je fitnessdoelen te bereiken. Onze gebruiksvriendelijke platform stelt je in staat om je dagelijkse workouts bij te houden, je voedingsinname te monitoren en een op maat gemaakt plan te creëren dat bij jouw levensstijl past. Of je nu wilt afvallen, spiermassa wilt opbouwen, of gewoon fitter wilt worden. FitNest – jouw partner in een gezonder en fitter leven! ",
     "homepageImageAlt": "Homepage illustration showing workouts, nutrition, and fitness progress."
+  },
+  "signup": {
+    "title": "Sign Up",
+    "button": "Sign Up",
+    "success": "Sign up successful. Redirecting to login page...",
+    "validate": {
+      "username": "Username is required.",
+      "password": "Password is required.",
+      "firstName": "First Name is required.",
+      "lastName": "Last Name is required.",
+      "email": "Email is required."
+    },
+    "label": {
+      "username": "Username:",
+      "password": "Password:",
+      "firstName": "First Name:",
+      "lastName": "Last Name:",
+      "email": "Email:"
+    },
+    "error": {
+      "signup": "Signup failed. Please try again."
+    }
+  },
+  "workouts": {
+    "title": "Workouts",
+    "selectScheduleMessage": "Select the schedule you want the workout to be in:",
+    "showMuscleImageMessage": "Click on 'show' to view a picture of the muscle group",
+    "selectSchedule": "Please select a Schedule",
+    "noToken": "No authorization token found.",
+    "addToSchedule": "Add to Schedule"
   }
 }

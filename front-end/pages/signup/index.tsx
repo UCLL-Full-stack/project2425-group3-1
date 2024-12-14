@@ -1,13 +1,17 @@
 import Head from "next/head";
 import Header from "@/components/header";
-import styles from "@/styles/signup.module.css";
 import UserSignUpForm from "@/components/users/UserSignUpForm";
+import styles from "@/styles/signup.module.css";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const Signup: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Head>
-        <title>User Signup</title>
+        <title>{t("signup.title")}</title>
       </Head>
       <Header />
       <main className={styles.main}>
@@ -17,6 +21,15 @@ const Signup: React.FC = () => {
       </main>
     </>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  const { locale } = context;
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    },
+  };
 };
 
 export default Signup;

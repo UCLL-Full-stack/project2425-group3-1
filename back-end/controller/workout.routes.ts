@@ -28,7 +28,9 @@ const workoutRouter = express.Router();
 /**
  * @swagger
  * /workouts:
- *    get:
+ *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of all workouts.
  *     description: Returns an array of the workouts.
  *     tags:

@@ -2,10 +2,12 @@ import { StatusMessage } from "@/types";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { useTranslation } from "next-i18next";
 import styles from "@/styles/signup.module.css";
 import UserService from "@/services/UserService"; 
 
 const UserSignUpForm: React.FC = () => {
+  const { t } = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -35,27 +37,27 @@ const UserSignUpForm: React.FC = () => {
     let result = true;
 
     if (!username.trim()) {
-      setUsernameError("Username is required.");
+      setUsernameError(t("signup.validate.username"));
       result = false;
     }
 
     if (!password.trim()) {
-      setPasswordError("Password is required.");
+      setPasswordError(t("signup.validate.password"));
       result = false;
     }
 
     if (!firstName.trim()) {
-      setFirstNameError("First Name is required.");
+      setFirstNameError(t("signup.validate.firstName"));
       result = false;
     }
 
     if (!lastName.trim()) {
-      setLastNameError("Last Name is required.");
+      setLastNameError(t("signup.validate.lastName"));
       result = false;
     }
 
     if (!email.trim()) {
-      setEmailError("Email is required.");
+      setEmailError(t("signup.validate.email"));
       result = false;
     }
 
@@ -96,7 +98,7 @@ const UserSignUpForm: React.FC = () => {
     } catch (err) {
         console.error("Signup error:", err);
         setStatusMessages([{
-            message: "Signup failed. Please try again.",
+            message: t("signup.error.signup"),
             type: "error",
         }]);
     }
@@ -104,7 +106,7 @@ const UserSignUpForm: React.FC = () => {
 
   return (
     <div className={styles.formContainer}>
-      <h3 className={styles.title}>Sign Up</h3>
+      <h3 className={styles.title}>{t("signup.title")}</h3>
       {statusMessages.length > 0 && (
         <div className={styles.statusMessageContainer}>
           <ul className={styles.statusMessageList}>
@@ -123,7 +125,7 @@ const UserSignUpForm: React.FC = () => {
         </div>
       )}
       <form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="usernameInput" className={styles.label}>Username</label>
+        <label htmlFor="usernameInput" className={styles.label}>{t("signup.label.username")}</label>
         <input
           id="usernameInput"
           type="text"
@@ -135,7 +137,7 @@ const UserSignUpForm: React.FC = () => {
         />
         {usernameError && <div className={styles.errorMessage}>{usernameError}</div>}
 
-        <label htmlFor="passwordInput" className={styles.label}>Password</label>
+        <label htmlFor="passwordInput" className={styles.label}>{t("signup.label.password")}</label>
         <input
           id="passwordInput"
           type="password"
@@ -147,7 +149,7 @@ const UserSignUpForm: React.FC = () => {
         />
         {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
 
-        <label htmlFor="firstNameInput" className={styles.label}>First Name</label>
+        <label htmlFor="firstNameInput" className={styles.label}>{t("signup.label.firstName")}</label>
         <input
           id="firstNameInput"
           type="text"
@@ -159,7 +161,7 @@ const UserSignUpForm: React.FC = () => {
         />
         {firstNameError && <div className={styles.errorMessage}>{firstNameError}</div>}
 
-        <label htmlFor="lastNameInput" className={styles.label}>Last Name</label>
+        <label htmlFor="lastNameInput" className={styles.label}>{t("signup.label.lastName")}</label>
         <input
           id="lastNameInput"
           type="text"
@@ -171,7 +173,7 @@ const UserSignUpForm: React.FC = () => {
         />
         {lastNameError && <div className={styles.errorMessage}>{lastNameError}</div>}
 
-        <label htmlFor="emailInput" className={styles.label}>Email</label>
+        <label htmlFor="emailInput" className={styles.label}>{t("signup.label.email")}</label>
         <input
           id="emailInput"
           type="email"
@@ -183,7 +185,7 @@ const UserSignUpForm: React.FC = () => {
         />
         {emailError && <div className={styles.errorMessage}>{emailError}</div>}
 
-        <button type="submit" className={styles.submitButton}>Sign Up</button>
+        <button type="submit" className={styles.submitButton}>{t("signup.button")}</button>
       </form>
     </div>
   );

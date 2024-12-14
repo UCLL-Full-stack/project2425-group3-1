@@ -1,37 +1,69 @@
 {
-    "app.title": "FitNest",
-    "header": {
-      "welcome": "Bem-vindo",
-      "nav": {
-        "home": "Início",
-        "workouts": "Treinos",
-        "schedules": "Horários",
-        "bmi": "Calculadora de IMC",
-        "login": "Entrar",
-        "logout": "Sair",
-        "signup": "Cadastrar"
-      }
-    },
-    "general.error": "Ocorreu um erro. Tente novamente mais tarde.",
-    "login": {
-      "title": "Entrar",
-      "button": "Entrar",
-      "success": "Login bem-sucedido. Redirecionando para a página inicial...",
-      "validate": {
-        "name": "Nome é obrigatório",
-        "password": "Senha é obrigatória"
-      },
-      "label": {
-        "username": "Usuário:",
-        "password": "Senha:"
-      }
-    },
-    "home": {
-      "title": "FitNest",
-      "metaDescription": "Sua jornada de fitness personalizada começa aqui.",
-      "welcomeMessage": "Bem-vindo ao FitNest! Gerencie seus treinos e nutrição de forma eficiente.",
-      "about": "O FitNest ajuda você a acompanhar seu progresso físico e a se manter motivado com planos de treino e guias de alimentação personalizados.",
-      "homepageImageAlt": "Ilustração da página inicial mostrando treinos, nutrição e progresso físico."
+  "app": {
+    "title": "FitNest"
+  },
+  "header": {
+    "welcome": "Bem-vindo",
+    "nav": {
+      "home": "Início",
+      "workouts": "Treinos",
+      "schedules": "Horários",
+      "bmi": "Calculadora de IMC",
+      "login": "Entrar",
+      "logout": "Sair",
+      "signup": "Cadastrar"
     }
+  },
+  "general": {
+    "error": "Ocorreu um erro. Por favor, tente novamente mais tarde."
+  },
+  "login": {
+    "title": "Entrar",
+    "button": "Entrar",
+    "success": "Login bem-sucedido. Redirecionando para a página inicial...",
+    "validate": {
+      "name": "Nome é obrigatório",
+      "password": "Senha é obrigatória"
+    },
+    "label": {
+      "username": "Nome de usuário:",
+      "password": "Senha:"
+    }
+  },
+  "home": {
+    "title": "FitNest",
+    "metaDescription": "Sua jornada fitness personalizada começa aqui.",
+    "about": "Bem-vindo ao FitNest! Aqui você pode gerenciar e otimizar seus treinos e alimentação de maneira eficiente. Seja você um iniciante ou um atleta experiente, o FitNest oferece as ferramentas necessárias para alcançar seus objetivos fitness. Nossa plataforma fácil de usar permite acompanhar seus treinos diários, monitorar sua ingestão de alimentos e criar um plano personalizado que se adapte ao seu estilo de vida. Seja para perder peso, ganhar massa muscular ou simplesmente melhorar sua forma física, o FitNest é o seu parceiro para uma vida mais saudável e em forma!",
+    "homepageImageAlt": "Ilustração da página inicial mostrando treinos, nutrição e progresso fitness."
+  },
+  "signup": {
+    "title": "Cadastrar",
+    "button": "Cadastrar",
+    "success": "Cadastro bem-sucedido. Redirecionando para a página de login...",
+    "validate": {
+      "username": "Nome de usuário é obrigatório.",
+      "password": "Senha é obrigatória.",
+      "firstName": "Nome é obrigatório.",
+      "lastName": "Sobrenome é obrigatório.",
+      "email": "Email é obrigatório."
+    },
+    "label": {
+      "username": "Nome de usuário:",
+      "password": "Senha:",
+      "firstName": "Nome:",
+      "lastName": "Sobrenome:",
+      "email": "Email:"
+    },
+    "error": {
+      "signup": "Falha no cadastro. Por favor, tente novamente."
+    }
+  },
+  "workouts": {
+    "title": "Treinos",
+    "selectScheduleMessage": "Selecione o horário que deseja adicionar o treino:",
+    "showMuscleImageMessage": "Clique em 'mostrar' para ver a imagem do grupo muscular",
+    "selectSchedule": "Por favor, selecione um horário",
+    "noToken": "Token de autorização não encontrado.",
+    "addToSchedule": "Adicionar ao horário"
   }
-  
+}

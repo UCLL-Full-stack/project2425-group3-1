@@ -6,7 +6,11 @@ import React, { useEffect, useState } from "react";
 import styles from "../../styles/workouts.module.css";
 import ScheduleService from "@/services/ScheduleService";
 import WorkoutOverviewTable from "@/components/workouts/WorkoutOverviewTable";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
 const Schedules: React.FC = () => {
+  const { t } = useTranslation();
   const [schedules, setSchedules] = useState<Array<Schedule>>();
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
@@ -72,5 +76,15 @@ const Schedules: React.FC = () => {
     </>
   );
 };
+
+export const getServerSideProps = async (context) => {
+  const { locale } = context;
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    },
+  };
+};
+
 
 export default Schedules;
