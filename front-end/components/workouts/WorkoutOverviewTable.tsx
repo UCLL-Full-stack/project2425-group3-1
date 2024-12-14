@@ -3,9 +3,23 @@ import styles from "../../styles/workouts.module.css";
 
 type Props = {
   schedule: Schedule;
+  onDelete: () => void;
 };
 
-const WorkoutOverviewTable: React.FC<Props> = ({ schedule }: Props) => {
+const WorkoutOverviewTable: React.FC<Props> = ({
+  schedule,
+  onDelete,
+}: Props) => {
+  const handleScheduleDelete = () => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the schedule at ${new Date(
+        schedule.date
+      ).toLocaleDateString()}?`
+    );
+    if (confirmDelete) {
+      onDelete();
+    }
+  };
   return (
     <>
       <table className={styles.workoutsTable}>
@@ -32,6 +46,12 @@ const WorkoutOverviewTable: React.FC<Props> = ({ schedule }: Props) => {
           ))}
         </tbody>
       </table>
+      <div>
+        <button
+          onClick={handleScheduleDelete}
+          className={styles.button}
+        ></button>
+      </div>
     </>
   );
 };

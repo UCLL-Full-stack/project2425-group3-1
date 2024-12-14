@@ -18,6 +18,21 @@ const Schedules: React.FC = () => {
     setSchedules(schedules);
   };
 
+  const deleteSchedule = async (scheduleId: number) => {
+    try {
+      await ScheduleService.deleteSchedule(scheduleId);
+      alert("Schedule deleted succesfully!");
+      console.log(`deleted schedule with id ${scheduleId}`);
+      setSchedules((prev) =>
+        prev?.filter((schedule) => schedule.id !== scheduleId)
+      );
+      setSelectedSchedule(null);
+    } catch (error) {
+      console.log("Failed to delete schedule", error);
+      throw new Error("Error deleting schedule, try again");
+    }
+  };
+
   useEffect(() => {
     getSchedules();
   }, [schedules]);
@@ -47,7 +62,10 @@ const Schedules: React.FC = () => {
               Workouts planned on{" "}
               {new Date(selectedSchedule.date).toLocaleDateString()}:
             </h2>
-            <WorkoutOverviewTable schedule={selectedSchedule} />
+            <WorkoutOverviewTable
+              schedule={selectedSchedule}
+              onDelete={() => deleteSchedule(selectedSchedule.id!)}
+            />
           </section>
         )}
       </main>
