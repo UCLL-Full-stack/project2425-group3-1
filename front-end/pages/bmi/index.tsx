@@ -72,7 +72,7 @@ const BMICalculator: React.FC = () => {
         )}
 
         <div className={styles.updateBmi}>
-          <h2>Update your own BMI</h2>
+          <h2>Update your own profile's BMI</h2>
           <form
             onSubmit={(e) => {
               e.preventDefault();

@@ -1,5 +1,6 @@
 /**
  * @swagger
+ * 
  *   components:
  *    schemas:
  *      Schedule:
@@ -41,6 +42,7 @@ import { error } from 'console';
 import { ScheduleInput } from '../types';
 
 const scheduleRouter = express.Router();
+
 
 /**
  * @swagger

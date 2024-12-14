@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 import styles from "../styles/header.module.css";
+import Language from "./language/Language"; // Import the Language component
 
 const Header: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const userData = sessionStorage.getItem("loggedInUser");
@@ -19,40 +22,43 @@ const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>FitNest</h1>
+      <h1 className={styles.title}>{t("app.title")}</h1>
       <nav className={styles.nav}>
         <Link href="/" className={styles.link}>
-          Home
+          {t("header.nav.home")}
         </Link>
         <Link href="/workouts" className={styles.link}>
-          Workouts
+          {t("header.nav.workouts")}
         </Link>
         <Link href="/schedules" className={styles.link}>
-          Schedules
+          {t("header.nav.schedules")}
         </Link>
         <Link href="/bmi" className={styles.link}>
-          BMI Calculator
+          {t("header.nav.bmi")}
         </Link>
         {!loggedInUser && (
           <>
             <Link href="/login" className={styles.link}>
-              Login
+              {t("header.nav.login")}
             </Link>
             <Link href="/signup" className={styles.link}>
-              Signup
+              {t("header.nav.signup")}
             </Link>
           </>
         )}
         {loggedInUser && (
           <>
             <a onClick={handleLogout} className={styles.link}>
-              Logout
+              {t("header.nav.logout")}
             </a>
             <div className={styles.welcomeMessage}>
-              Welcome, {loggedInUser}!
+              {t("header.welcome")}, {loggedInUser}!
             </div>
           </>
         )}
+        <div className={styles.languageSelector}>
+          <Language /> 
+        </div>
       </nav>
     </header>
   );

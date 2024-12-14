@@ -1,0 +1,35 @@
+{
+  "app.title": "FitNest",
+  "header": {
+    "welcome": "Welcome",
+    "nav": {
+      "home": "Home",
+      "workouts": "Workouts",
+      "schedules": "Schedules",
+      "bmi": "BMI Calculator",
+      "login": "Login",
+      "logout": "Logout",
+      "signup": "Signup"
+    }
+  },
+  "general.error": "An error occurred. Please try again later.",
+  "login": {
+    "title": "Login",
+    "button": "Login",
+    "success": "Login successful. Redirecting to home page...",
+    "validate": {
+      "name": "Name is required",
+      "password": "Password is required"
+    },
+    "label": {
+      "username": "Username:",
+      "password": "Password:"
+    }
+  },
+  "home": {
+    "title": "Fitnest",
+    "metaDescription": "Your Personalized Fitness Journey Starts Here.",
+    "about": "Welcome to FitNest! Manage your workouts and nutrition efficiently. FitNest helps you track your fitness progress and stay motivated with personalized workout plans and meal guides.",
+    "homepageImageAlt": "Homepage illustration showing workouts, nutrition, and fitness progress."
+  }
+}

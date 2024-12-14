@@ -31,3 +31,8 @@
 .welcomeMessage {
   margin-left: 1rem; 
 }
+
+.languageSelector {
+  position: absolute; 
+  right: 20px; 
+}

@@ -1,0 +1,37 @@
+{
+    "app.title": "FitNest",
+    "header": {
+      "welcome": "Bem-vindo",
+      "nav": {
+        "home": "Início",
+        "workouts": "Treinos",
+        "schedules": "Horários",
+        "bmi": "Calculadora de IMC",
+        "login": "Entrar",
+        "logout": "Sair",
+        "signup": "Cadastrar"
+      }
+    },
+    "general.error": "Ocorreu um erro. Tente novamente mais tarde.",
+    "login": {
+      "title": "Entrar",
+      "button": "Entrar",
+      "success": "Login bem-sucedido. Redirecionando para a página inicial...",
+      "validate": {
+        "name": "Nome é obrigatório",
+        "password": "Senha é obrigatória"
+      },
+      "label": {
+        "username": "Usuário:",
+        "password": "Senha:"
+      }
+    },
+    "home": {
+      "title": "FitNest",
+      "metaDescription": "Sua jornada de fitness personalizada começa aqui.",
+      "welcomeMessage": "Bem-vindo ao FitNest! Gerencie seus treinos e nutrição de forma eficiente.",
+      "about": "O FitNest ajuda você a acompanhar seu progresso físico e a se manter motivado com planos de treino e guias de alimentação personalizados.",
+      "homepageImageAlt": "Ilustração da página inicial mostrando treinos, nutrição e progresso físico."
+    }
+  }
+  
