@@ -65,6 +65,38 @@
   }
   
   .button:hover {
-    background-color: #005bb5;
+    background-color: #003f7f;
+  }
+
+
+  .updateBmi {
+    margin-top: 20px;
+    padding: 20px;
+    width: 400px;
+    border: 2px solid black;
+    border-radius: 8px;
+    color: black;
+    text-align: center;
+  }
+  
+  .updateBmi h2 {
+    color: black; 
+  }
+  
+  .updateBmi label {
+    color: black;
+  }
+  
+  .updateBmi .input {
+    background-color: white; 
+    border: 1px solid #ccc;
+  }
+  
+  .updateBmi .button {
+    background-color: #3d628d; 
+  }
+  
+  .updateBmi .button:hover {
+    background-color: #003f7f; 
   }
   

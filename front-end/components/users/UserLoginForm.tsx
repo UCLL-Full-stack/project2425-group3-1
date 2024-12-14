@@ -56,6 +56,7 @@ const UserLoginForm: React.FC = () => {
                 },
             ]);
             sessionStorage.setItem("loggedInUser", name);
+            sessionStorage.setItem('userId', response.userId);
             setTimeout(() => {
                 router.push("/"); 
             }, 2000);
