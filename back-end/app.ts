@@ -20,8 +20,8 @@ app.use(bodyParser.json());
 
 app.use(
     expressjwt({
-      secret: process.env.JWT_SECRET || 'default_secret',
-      algorithms: ['HS256'],
+        secret: process.env.JWT_SECRET || 'default_secret',
+        algorithms: ['HS256'],
     }).unless({
       path: [
         '/users/login',
@@ -32,7 +32,7 @@ app.use(
         '/bmi'
       ],
     })
-  );
+);
 
 app.use('/workouts', workoutRouter);
 app.use('/schedules', scheduleRouter);
