@@ -1,6 +1,7 @@
 import { Schedule } from "@/types";
 import styles from "../../styles/workouts.module.css";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 type Props = {
   schedules: Array<Schedule>;
   selectedSchedule: (shcedule: Schedule) => void;
@@ -8,6 +9,13 @@ type Props = {
 
 const ScheduleTable: React.FC<Props> = ({ schedules }: Props) => {
   const router = useRouter();
+  useEffect(() => {
+    const token = sessionStorage.getItem("jwtToken");
+    if (!token) {
+      alert("You are not logged in, redirecting...");
+      router.push("/login");
+    }
+  }, [router]);
   const handleDetailsButton = (scheduleId: number) => {
     router.push(`/schedules/${scheduleId}`);
   };

@@ -13,15 +13,18 @@ import ScheduleDropdown from "@/components/workouts/ScheduleDropdown";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
-
 const Workouts: React.FC = () => {
   const { t } = useTranslation();
   const [message, setMessage] = useState<string | null>(null);
   const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
-  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(null);
+  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
+    null
+  );
   const [schedulesData, setSchedulesData] = useState<Schedule[]>([]);
-  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(null);
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
+    null
+  );
   const [loading, setLoading] = useState<Boolean>(false);
 
   const router = useRouter();
@@ -66,7 +69,7 @@ const Workouts: React.FC = () => {
     workoutService.addWorkoutToSchedule(selectedSchedule.id!, selectedWorkouts);
     setTimeout(() => {
       router.push("/schedules");
-    }, 2000);
+    }, 1000);
   };
 
   const handleScheduleChange = (schedule: Schedule) => {
@@ -105,9 +108,7 @@ const Workouts: React.FC = () => {
           <p>{t("workouts.showMuscleImageMessage")}</p>
         )}
       </div>
-      <p className={styles.p}>
-        {t("workouts.selectScheduleMessage")}
-      </p>
+      <p className={styles.p}>{t("workouts.selectScheduleMessage")}</p>
       <div className={styles.dropDown}>
         <ScheduleDropdown
           schedules={schedulesData}

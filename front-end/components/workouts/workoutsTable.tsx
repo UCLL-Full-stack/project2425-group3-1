@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "@/styles/workouts.module.css";
 import { Workout } from "@/types";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 type WorkoutsTableProps = {
   workouts: Workout[];
@@ -8,13 +10,21 @@ type WorkoutsTableProps = {
   onCheckboxChange: (id: number) => void;
   onShowMuscleImage: (image: string) => void;
 };
-
 const WorkoutsTable: React.FC<WorkoutsTableProps> = ({
   workouts,
   selectedWorkouts,
   onCheckboxChange,
   onShowMuscleImage,
 }) => {
+  const router = useRouter();
+  useEffect(() => {
+    const token = sessionStorage.getItem("jwtToken");
+    if (!token) {
+      alert("You are not logged in, redirecting...");
+      router.push("/login");
+    }
+  }, [router]);
+
   return (
     <table className={styles.workoutsTable}>
       <thead>

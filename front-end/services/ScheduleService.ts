@@ -1,11 +1,8 @@
 import { Schedule, Workout } from "@/types";
+import { useRouter } from "next/router";
 
 const getAllSchedules = () => {
   const token = sessionStorage.getItem("jwtToken");
-
-  if (!token) {
-    throw new Error("No authorization token found");
-  }
 
   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedules`, {
     method: "GET",
@@ -21,6 +18,12 @@ const getScheduleById = (scheduleId: number) => {
 
   if (!token) {
     throw new Error("No authorization token found");
+  }
+
+  if (!token) {
+    alert(
+      "You must be logged in to access this page, redirecting to login now!"
+    );
   }
 
   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedules/${scheduleId}`, {
