@@ -6,10 +6,7 @@ type Props = {
   onDelete: () => void;
 };
 
-const WorkoutOverviewTable: React.FC<Props> = ({
-  schedule,
-  onDelete,
-}: Props) => {
+const WorkoutOverviewTable: React.FC<Props> = ({ schedule, onDelete }: Props) => {
   const handleScheduleDelete = () => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete the schedule at ${new Date(
@@ -20,6 +17,7 @@ const WorkoutOverviewTable: React.FC<Props> = ({
       onDelete();
     }
   };
+
   return (
     <>
       <table className={styles.workoutsTable}>
@@ -46,11 +44,12 @@ const WorkoutOverviewTable: React.FC<Props> = ({
           ))}
         </tbody>
       </table>
-      <div>
-        <button
-          onClick={handleScheduleDelete}
-          className={styles.button}
-        ></button>
+      
+
+      <div className={styles.deleteButtonWrapper}>
+        <button onClick={handleScheduleDelete} className={styles.button}>
+          Delete Schedule
+        </button>
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { Workout } from "@/types";
+import { Schedule, Workout } from "@/types";
 
 const getAllSchedules = () => {
   const token = sessionStorage.getItem("jwtToken");
@@ -32,9 +32,28 @@ const deleteSchedule = (scheduleId: number) => {
   });
 };
 
+const addSchedule = (schedule: Schedule) => {
+  const token = sessionStorage.getItem("jwtToken");
+
+  if (!token) {
+    throw new Error("No authorization token found");
+  }
+
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/schedules`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(schedule),
+  });
+};
+
+
 const ScheduleService = {
   getAllSchedules,
   deleteSchedule,
+  addSchedule,
 };
 
 export default ScheduleService;

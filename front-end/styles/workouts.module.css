@@ -1,14 +1,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   background-color: white;
 }
 
 .content {
   flex: 1;
-  padding: 20px;
-  overflow-y: auto;
 }
 
 .imageSection p {
@@ -17,7 +15,7 @@
 
 .workoutsTable {
   width: 90%;
-  max-width: 1200px;
+  max-width: 1250px;
   margin: 0 auto;
   border-collapse: collapse;
 }
@@ -40,8 +38,7 @@
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  border: none;
-  border-radius: 5px;
+
 }
 
 .inactiveButton {
@@ -120,10 +117,137 @@
   justify-content: center;
   align-items: center;
 }
-.p {
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 8px;
+
+.scheduleForm {
+  background-color: #fff; 
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  width: 100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  position: relative;
+  z-index: 10; 
 }
+
+.scheduleForm label {
+  font-size: 1rem;
+  color: black;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.scheduleForm input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: black;
+}
+
+.scheduleForm button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  background-color: #318234; 
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.scheduleForm button:hover {
+  background-color: #45a049;
+}
+
+.scheduleForm input[type="date"] {
+  color: black;           
+  border: 1px solid #000000;    
+  border-radius: 4px;        
+  padding: 10px;          
+}
+
+.scheduleForm input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);        
+}
+
+.workoutsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;  
+}
+
+.container {
+  background-color: #fff;
+}
+
+.button {
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.workoutSection {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+
+
+
+.scheduleForm {
+  border-radius: 0 !important; 
+}
+
+
+.addButton {
+  margin-left: 310px;
+  margin-top: 10px;
+  background-color: #318234;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+
+.scheduleOverviewSection {
+  position: relative;
+}
+
+
+.deleteButtonWrapper {
+  display: flex;
+  margin-top: 20px;   
+  margin-left: 310px;
+  margin-bottom: 10px;
+       
+}
+
+
+.deleteButtonWrapper .button {
+  background-color: rgb(152, 0, 0); 
+  color: white;          
+}
+
+.cancelButton {
+  margin-top: 10px;
+  margin-left: 310px;
+  background-color: grey; 
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+
+}
+
+.cancelButton:hover {
+  background-color: darkgrey;
+}
+
