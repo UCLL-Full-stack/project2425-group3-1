@@ -10,11 +10,11 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",  // Zorg ervoor dat je de juiste JSX-omzetting hebt
     "incremental": true,
     "paths": {
       "@/*": [
