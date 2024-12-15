@@ -5,6 +5,7 @@ import { scheduleRouter } from '../controller/schedule.routes';
 import { Workout } from '../model/workout';
 import database from '../util/database';
 import { secondsInDay } from 'date-fns';
+import { ScheduleInput } from '../types';
 
 const getAllSchedules = async (): Promise<Schedule[]> => {
     try {

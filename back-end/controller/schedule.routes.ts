@@ -1,6 +1,6 @@
 /**
  * @swagger
- * 
+ *
  *   components:
  *    schemas:
  *      Schedule:
@@ -43,7 +43,6 @@ import { ScheduleInput } from '../types';
 
 const scheduleRouter = express.Router();
 
-
 /**
  * @swagger
  * /schedules:
@@ -71,6 +70,46 @@ scheduleRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
         res.status(200).json(schedules);
     } catch (error) {
         next(error);
+    }
+});
+
+/**
+ * @swagger
+ * /schedules/{id}:
+ *    get:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Get a list a schedule by ID
+ *     description: Returns the schedule with the corresponding ID
+ *     tags:
+ *       - Schedules
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the schedule to be shown.
+ *         schema:
+ *           type: integer
+ *           format: int64
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved schedule.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *       500:
+ *         description: Internal server error.
+ */
+
+scheduleRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const scheduleId = parseInt(req.params.id, 10);
+        const schedule = await scheduleService.getScheduleById(scheduleId);
+        res.status(200).json(schedule);
+    } catch (error) {
+        const err = error as Error;
+        res.status(400).json({ message: err.message });
     }
 });
 

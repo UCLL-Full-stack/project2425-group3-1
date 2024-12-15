@@ -1,6 +1,6 @@
 import { Workout } from '@prisma/client';
 
-type Role = 'admin' | 'guest' | 'user';
+type Role = 'admin' | 'trainer' | 'user' | 'guest';
 
 type UserInput = {
     id?: number;
