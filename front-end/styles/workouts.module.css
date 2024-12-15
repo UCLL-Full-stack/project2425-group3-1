@@ -9,6 +9,20 @@
   flex: 1;
 }
 
+.pError {
+  color: red;
+  font-size: 3.5vh;
+  display: flex;
+  justify-content: center;
+}
+.h1 {
+  color: black;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
 .imageSection p {
   color: black;
 }

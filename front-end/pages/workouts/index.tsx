@@ -87,7 +87,6 @@ const Workouts: React.FC = () => {
       </Head>
       <Header />
       <div className={styles.content}>
-        <h1>{t("workouts.title")}</h1>
         <WorkoutsTable
           workouts={workoutsData}
           selectedWorkouts={selectedWorkouts}
