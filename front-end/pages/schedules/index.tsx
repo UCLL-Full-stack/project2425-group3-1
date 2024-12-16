@@ -10,6 +10,7 @@ import { useTranslation } from "next-i18next";
 import AddScheduleForm from "@/components/schedules/AddScheduleForm";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import AuthErrorMessage from "@/components/error/AuthErrorMessage";
 
 const Schedules: React.FC = () => {
   const { t } = useTranslation();
@@ -55,12 +56,8 @@ const Schedules: React.FC = () => {
       </Head>
       <Header />
       <main className={styles.container}>
-        {!sessionToken ? (
-          <div>
-            <p className={styles.pError}>
-              You must be logged in to be able to view this page
-            </p>
-          </div>
+      {!sessionToken ? (
+  <AuthErrorMessage />
         ) : (
           <section className={styles.scheduleOverviewSection}>
             <h2 className={styles.description}>Schedules Overview</h2>

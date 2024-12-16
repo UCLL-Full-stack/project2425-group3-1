@@ -7,6 +7,7 @@ import BmiService from "@/services/BmiService";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { GetServerSideProps } from "next";
+import AuthErrorMessage from "@/components/error/AuthErrorMessage";
 
 const BMICalculator: React.FC = () => {
   const { t } = useTranslation();
@@ -71,12 +72,8 @@ const BMICalculator: React.FC = () => {
       <Header />
 
       {!sessionToken ? (
-        <div>
-          <p className={styles.pError}>
-            You must be logged in to be able to view this page
-          </p>
-        </div>
-      ) : (
+     <AuthErrorMessage />
+        ) : (
         <main className={styles.centeredMain}>
           <h1>BMI Calculator</h1>
 

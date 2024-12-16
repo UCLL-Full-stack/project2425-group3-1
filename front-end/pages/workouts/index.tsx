@@ -13,6 +13,7 @@ import ScheduleDropdown from "@/components/workouts/ScheduleDropdown";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { GetServerSideProps } from "next";
+import AuthErrorMessage from "@/components/error/AuthErrorMessage";
 
 const Workouts: React.FC = () => {
   const { t } = useTranslation();
@@ -92,12 +93,8 @@ const Workouts: React.FC = () => {
       </Head>
       <Header />
       {!sessionToken ? (
-        <div>
-          <p className={styles.pError}>
-            You must be logged in to be able to view this page
-          </p>
-        </div>
-      ) : (
+      <AuthErrorMessage />
+          ) : (
         <>
           <div className={styles.content}>
             <WorkoutsTable
