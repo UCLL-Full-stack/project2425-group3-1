@@ -1,5 +1,5 @@
 const addBMI = (length: number, weight: number) => {
-  const token = sessionStorage.getItem("jwtToken"); 
+  const token = sessionStorage.getItem("jwtToken");
   if (!token) {
     throw new Error("No authorization token found.");
   }
@@ -8,18 +8,18 @@ const addBMI = (length: number, weight: number) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`, 
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ length, weight }),
   });
 };
 
 const updateBMI = (userId: number, bmiValue: number, token: string) => {
-  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}/bmi`, {  
+  return fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}/bmi`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ bmiValue }),
   }).then((response) => {

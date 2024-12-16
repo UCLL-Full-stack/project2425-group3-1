@@ -9,6 +9,20 @@
   flex: 1;
 }
 
+.pError {
+  color: red;
+  font-size: 3.5vh;
+  display: flex;
+  justify-content: center;
+}
+.h1 {
+  color: black;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
 .imageSection p {
   color: black;
 }
@@ -38,7 +52,6 @@
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-
 }
 
 .inactiveButton {
@@ -119,7 +132,7 @@
 }
 
 .scheduleForm {
-  background-color: #fff; 
+  background-color: #fff;
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -129,7 +142,7 @@
   margin-right: auto;
   text-align: left;
   position: relative;
-  z-index: 10; 
+  z-index: 10;
 }
 
 .scheduleForm label {
@@ -154,7 +167,7 @@
   width: 100%;
   padding: 12px;
   font-size: 1.1rem;
-  background-color: #318234; 
+  background-color: #318234;
   color: white;
   border: none;
   cursor: pointer;
@@ -166,23 +179,19 @@
 }
 
 .scheduleForm input[type="date"] {
-  color: black;           
-  border: 1px solid #000000;    
-  border-radius: 4px;        
-  padding: 10px;          
+  color: black;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  padding: 10px;
 }
 
 .scheduleForm input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);        
+  filter: invert(1);
 }
 
 .workoutsTable {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;  
-}
-
-.container {
   background-color: #fff;
 }
 
@@ -198,15 +207,11 @@
   position: relative;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
 }
-
-
 
 .scheduleForm {
-  border-radius: 0 !important; 
+  border-radius: 0 !important;
 }
-
 
 .addButton {
   margin-left: 310px;
@@ -217,37 +222,31 @@
   border-radius: 4px;
 }
 
-
 .scheduleOverviewSection {
   position: relative;
 }
 
-
 .deleteButtonWrapper {
   display: flex;
-  margin-top: 20px;   
+  margin-top: 20px;
   margin-left: 310px;
   margin-bottom: 10px;
-       
 }
 
-
 .deleteButtonWrapper .button {
-  background-color: rgb(152, 0, 0); 
-  color: white;          
+  background-color: rgb(152, 0, 0);
+  color: white;
 }
 
 .cancelButton {
   margin-top: 10px;
   margin-left: 310px;
-  background-color: grey; 
+  background-color: grey;
   color: white;
   padding: 10px;
   font-size: 16px;
-
 }
 
 .cancelButton:hover {
   background-color: darkgrey;
 }
-

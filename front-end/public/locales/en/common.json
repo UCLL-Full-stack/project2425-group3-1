@@ -30,12 +30,12 @@
       "password": "Password:"
     }
   },
-"home": {
-  "title": "Fitnest",
-  "metaDescription": "Your Personalized Fitness Journey Starts Here.",
-  "about": "Welcome to FitNest! Here, you can efficiently manage and optimize yourer or an experienced athlete, FitNest provides the tools you need to achieve your fitness goals. Our user-friendly platform allows you to track your daily workouts, monitor your nutritional intake, and create a personalized plan that fits your lifestyle. Whether you want to lose weight, build muscle, or simply get fitter, FitNest – your partner in a healthier and fitter life!",
-  "homepageImageAlt": "Homepage illustration icon."
-},
+  "home": {
+    "title": "Fitnest",
+    "metaDescription": "Your Personalized Fitness Journey Starts Here.",
+    "about": "Welcome to FitNest! Here, you can efficiently manage and optimize yourer or an experienced athlete, FitNest provides the tools you need to achieve your fitness goals. Our user-friendly platform allows you to track your daily workouts, monitor your nutritional intake, and create a personalized plan that fits your lifestyle. Whether you want to lose weight, build muscle, or simply get fitter, FitNest – your partner in a healthier and fitter life!",
+    "homepageImageAlt": "Homepage illustration icon."
+  },
   "signup": {
     "title": "Sign Up",
     "button": "Sign Up",

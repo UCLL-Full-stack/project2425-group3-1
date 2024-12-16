@@ -33,7 +33,7 @@ export class User {
         this.email = user.email;
         this.password = user.password;
         this.role = user.role;
-        this.bmiId = user.bmiId ?? null;  // bmiId kan null zijn
+        this.bmiId = user.bmiId ?? null; // bmiId kan null zijn
         this.bmi = user.bmi;
     }
 

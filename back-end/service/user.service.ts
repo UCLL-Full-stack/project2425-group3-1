@@ -1,11 +1,14 @@
 import bcrypt from 'bcrypt';
 import userDB from '../repository/user.db';
-import { AuthenticationResponse, UserInput } from '../types';
+import { AuthenticationResponse, Role, UserInput } from '../types';
 import { generateJwtToken } from '../util/jwt';
 import { User } from '../model/user';
 import { Bmi } from '../model/bmi';
 import bmiDb from '../repository/bmi.db';
 import userDb from '../repository/user.db';
+import scheduleDb from '../repository/schedule.db';
+import { UnauthorizedError } from 'express-jwt';
+import { error } from 'console';
 
 const getAllUsers = async (): Promise<User[]> => userDB.getAllUsers();
 
@@ -54,9 +57,7 @@ const createUser = async ({
     return await userDB.createUser(user);
 };
 
-
 const updateUserBmi = async (userId: number, bmiValue: number): Promise<User> => {
-  
     const user = await userDb.getUserById({ id: userId });
     if (!user) {
         throw new Error('User not found');
@@ -64,55 +65,62 @@ const updateUserBmi = async (userId: number, bmiValue: number): Promise<User> =>
 
     let bmi: Bmi;
 
-
     if (user.getBmi()) {
         bmi = user.getBmi()!;
 
- 
         if (bmi.getBmiValue() !== bmiValue) {
-      
             const existingBmi = await bmiDb.getBmiByValue(bmiValue);
-            
+
             if (existingBmi) {
-           
                 bmi = existingBmi;
             } else {
-       
                 const bmiId = bmi.getId();
                 if (typeof bmiId !== 'number' || isNaN(bmiId)) {
                     throw new Error('BMI ID is invalid');
                 }
 
-          
-                bmi = await bmiDb.updateBmi(bmiId, bmiValue); 
+                bmi = await bmiDb.updateBmi(bmiId, bmiValue);
             }
         }
     } else {
-  
         const existingBmi = await bmiDb.getBmiByValue(bmiValue);
 
         if (existingBmi) {
-       
             bmi = existingBmi;
         } else {
-      
             bmi = await bmiDb.addBmi({ bmiValue });
         }
     }
-
 
     const bmiId = bmi.getId();
     if (typeof bmiId !== 'number' || isNaN(bmiId)) {
         throw new Error('BMI ID is invalid');
     }
 
-
     user.setBmi(bmi);
 
- 
     await userDb.updateUser(user);
 
     return user;
 };
 
-export default { getUserByUsername, createUser, getAllUsers, authenticate, updateUserBmi};
+const getDataForRole = async (userId: number, role: Role) => {
+    if (role === 'admin') {
+        return await userDB.getAllUsers();
+    } else if (role === 'trainer') {
+        return await bmiDb.getAllBmi();
+    } else {
+        throw new UnauthorizedError('credentials_required', {
+            message: 'you are not authorized to access this page',
+        });
+    }
+};
+
+export default {
+    getUserByUsername,
+    createUser,
+    getAllUsers,
+    authenticate,
+    updateUserBmi,
+    getDataForRole,
+};

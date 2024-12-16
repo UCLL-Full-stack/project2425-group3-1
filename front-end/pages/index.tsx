@@ -6,8 +6,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Home: React.FC = () => {
-  const { t} = useTranslation();
-
+  const { t } = useTranslation();
 
   return (
     <>
@@ -24,7 +23,7 @@ const Home: React.FC = () => {
           <div className={styles.description}>
             <p>{t("home.about")}</p>
           </div>
-          
+
           <div className={styles.description}>
             <Image
               src="/homepagepic.png"
@@ -34,7 +33,6 @@ const Home: React.FC = () => {
               className={styles.homepageImage}
             />
           </div>
-          
         </main>
       </div>
     </>
@@ -44,7 +42,7 @@ export const getServerSideProps = async (context) => {
   const { locale } = context;
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common"])), 
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };
 };

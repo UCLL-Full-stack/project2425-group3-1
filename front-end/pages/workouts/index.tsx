@@ -12,21 +12,29 @@ import { useRouter } from "next/router";
 import ScheduleDropdown from "@/components/workouts/ScheduleDropdown";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-
+import { GetServerSideProps } from "next";
 
 const Workouts: React.FC = () => {
   const { t } = useTranslation();
   const [message, setMessage] = useState<string | null>(null);
   const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
-  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(null);
+  const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
+    null
+  );
   const [schedulesData, setSchedulesData] = useState<Schedule[]>([]);
-  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(null);
+  const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
+    null
+  );
   const [loading, setLoading] = useState<Boolean>(false);
-
+  const [sessionToken, setSessionToken] = useState<String | null>(null);
   const router = useRouter();
 
   useEffect(() => {
+    const fetchToken = async () => {
+      setSessionToken(sessionStorage.getItem("jwtToken")!);
+    };
+    fetchToken();
     const fetchWorkouts = async () => {
       const response = await workoutService.getAllWorkouts();
       const workouts = await response.json();
@@ -66,7 +74,7 @@ const Workouts: React.FC = () => {
     workoutService.addWorkoutToSchedule(selectedSchedule.id!, selectedWorkouts);
     setTimeout(() => {
       router.push("/schedules");
-    }, 2000);
+    }, 1000);
   };
 
   const handleScheduleChange = (schedule: Schedule) => {
@@ -83,58 +91,65 @@ const Workouts: React.FC = () => {
         <title>{t("workouts.title")}</title>
       </Head>
       <Header />
-      <div className={styles.content}>
-        <h1>{t("workouts.title")}</h1>
-        <WorkoutsTable
-          workouts={workoutsData}
-          selectedWorkouts={selectedWorkouts}
-          onCheckboxChange={handleCheckboxChange}
-          onShowMuscleImage={handleShowMuscleImage}
-        />
-      </div>
-      <div className={styles.imageSection}>
-        {selectedMuscleImage ? (
-          <Image
-            src={selectedMuscleImage}
-            alt={t("workouts.showMuscleImageMessage")}
-            className={styles.image}
-            width={200}
-            height={200}
-          />
-        ) : (
-          <p>{t("workouts.showMuscleImageMessage")}</p>
-        )}
-      </div>
-      <p className={styles.p}>
-        {t("workouts.selectScheduleMessage")}
-      </p>
-      <div className={styles.dropDown}>
-        <ScheduleDropdown
-          schedules={schedulesData}
-          selectedSchedule={selectedSchedule}
-          onChange={handleScheduleChange}
-        />
-      </div>
-      <div className={styles.buttonContainer}>
-        <button
-          className={classNames(
-            styles.button,
-            selectedWorkouts.length > 0
-              ? styles.activeButton
-              : styles.inactiveButton
-          )}
-          onClick={handleAddToSchedule}
-          disabled={selectedWorkouts.length === 0}
-        >
-          {t("workouts.addToSchedule")}
-        </button>
-        <div>{message && <p className={styles.p}>{message}</p>}</div>
-      </div>
+      {!sessionToken ? (
+        <div>
+          <p className={styles.pError}>
+            You must be logged in to be able to view this page
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className={styles.content}>
+            <WorkoutsTable
+              workouts={workoutsData}
+              selectedWorkouts={selectedWorkouts}
+              onCheckboxChange={handleCheckboxChange}
+              onShowMuscleImage={handleShowMuscleImage}
+            />
+          </div>
+          <div className={styles.imageSection}>
+            {selectedMuscleImage ? (
+              <Image
+                src={selectedMuscleImage}
+                alt={t("workouts.showMuscleImageMessage")}
+                className={styles.image}
+                width={200}
+                height={200}
+              />
+            ) : (
+              <p>{t("workouts.showMuscleImageMessage")}</p>
+            )}
+          </div>
+          <p className={styles.p}>{t("workouts.selectScheduleMessage")}</p>
+          <div className={styles.dropDown}>
+            <ScheduleDropdown
+              schedules={schedulesData}
+              selectedSchedule={selectedSchedule}
+              onChange={handleScheduleChange}
+            />
+          </div>
+          <div className={styles.buttonContainer}>
+            <button
+              className={classNames(
+                styles.button,
+                selectedWorkouts.length > 0
+                  ? styles.activeButton
+                  : styles.inactiveButton
+              )}
+              onClick={handleAddToSchedule}
+              disabled={selectedWorkouts.length === 0}
+            >
+              {t("workouts.addToSchedule")}
+            </button>
+            <div>{message && <p className={styles.p}>{message}</p>}</div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context;
   return {
     props: {
