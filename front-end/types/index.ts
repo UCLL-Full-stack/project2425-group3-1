@@ -2,6 +2,7 @@ export type Bmi = {
   id?: number;
   length: number;
   weight: number;
+  bmiValue: number;
 };
 
 export type Goal = {
