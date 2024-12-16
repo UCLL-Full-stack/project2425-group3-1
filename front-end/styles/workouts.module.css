@@ -23,6 +23,14 @@
   padding-top: 50px;
 }
 
+.h1Err {
+  color: red;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
 .imageSection p {
   color: black;
 }
@@ -250,7 +258,6 @@
 .cancelButton:hover {
   background-color: darkgrey;
 }
-
 
 .errorContainer {
   text-align: center;

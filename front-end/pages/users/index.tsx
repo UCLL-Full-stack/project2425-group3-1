@@ -3,14 +3,19 @@ import UserService from "@/services/UserService";
 import Head from "next/head";
 import Header from "@/components/header";
 import styles from "../../styles/users.module.css";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { GetServerSideProps } from "next";
 
 import { useEffect, useState } from "react";
 import UserDataTable from "@/components/users/UserDataTable";
 import BmiDataTable from "@/components/bmi/BmiDataTable";
+import RoleErrorMessage from "@/components/error/RoleErrorMessage";
 const usersData: React.FC = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [data, setData] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchRoleAndData = async () => {
@@ -56,16 +61,19 @@ const usersData: React.FC = () => {
           </section>
         )}
 
-        {userRole === "user" && (
-          <section>
-            <h2 className={styles.h2}>
-              You are not authorized to access this page!
-            </h2>
-          </section>
-        )}
+        {userRole === "user" && <RoleErrorMessage></RoleErrorMessage>}
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context;
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+    },
+  };
 };
 
 export default usersData;

@@ -4,6 +4,7 @@ import UserSignUpForm from "@/components/users/UserSignUpForm";
 import styles from "@/styles/signup.module.css";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { GetServerSideProps } from "next";
 
 const Signup: React.FC = () => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ const Signup: React.FC = () => {
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context;
   return {
     props: {

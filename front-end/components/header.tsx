@@ -3,11 +3,13 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import styles from "../styles/header.module.css";
 import Language from "./language/Language";
+import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
   const [loggedInUser, setLoggedInUser] = useState<string | null>(null);
   const [isHydrated, setIsHydrated] = useState(false);
   const { t } = useTranslation();
+  const router = useRouter();
 
   useEffect(() => {
     setIsHydrated(true);
@@ -21,7 +23,9 @@ const Header: React.FC = () => {
     sessionStorage.removeItem("jwtToken");
     sessionStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
-    window.location.reload();
+    router.push("/login");
+
+    // window.location.reload();
   };
 
   return (
