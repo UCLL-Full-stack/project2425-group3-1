@@ -110,3 +110,27 @@
 .logoutLink {
   margin-right: 1rem;
 }
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 15px;
+  border: 1px solid black;
+  color: black;
+  text-align: left;
+}
+
+
+.table th {
+  color: black;
+}
+
+
+.section {
+  margin-top: 250px;
+}

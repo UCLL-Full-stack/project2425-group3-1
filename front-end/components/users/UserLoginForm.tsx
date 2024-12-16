@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useTranslation } from "next-i18next";
 import styles from "@/styles/login.module.css";
 import UserService from "@/services/UserService";
+import UserDataTable from "./UserDataTable";
 
 const UserLoginForm: React.FC = () => {
   const [name, setName] = useState("");

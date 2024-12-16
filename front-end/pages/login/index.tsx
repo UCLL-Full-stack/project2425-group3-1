@@ -4,6 +4,7 @@ import UserLoginForm from "@/components/users/UserLoginForm";
 import styles from "@/styles/login.module.css"; 
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import UsersHardcoded from "@/components/users/UsersHardcoded";
 
 const Login: React.FC = () => {
     const { t } = useTranslation(); 
@@ -14,9 +15,13 @@ const Login: React.FC = () => {
             </Head>
             <Header />
             <main className={styles.main}>
+       
                 <section className={styles.section}> 
                     <UserLoginForm />
+                    <UsersHardcoded />
                 </section>
+
+
             </main>
         </>
     );
