@@ -3,6 +3,11 @@ import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
+const hashPassword = async (password: string): Promise<string> => {
+    const saltRounds = 12;
+    return await bcrypt.hash(password, saltRounds);
+};
+
 const main = async () => {
     await prisma.schedule.deleteMany();
     await prisma.workout.deleteMany();
@@ -21,37 +26,36 @@ const main = async () => {
 
     const axl = await prisma.user.create({
         data: {
-          username: "axl123",
-          firstName: "Axl",
-          lastName: "nuyens",
-          email: "axl.nuyens@example.com",
-          password: "password123",
-          role: "user",
+            username: "axl123",
+            firstName: "Axl",
+            lastName: "nuyens",
+            email: "axl.nuyens@example.com",
+            password: await hashPassword("password123"),
+            role: "user",
         },
-      });
-    
-      const fleur = await prisma.user.create({
+    });
+
+    const fleur = await prisma.user.create({
         data: {
-          username: "fleur123",
-          firstName: "Fleur",
-          lastName: "loisen",
-          email: "fleur.loisen@example.com",
-          password: "password123",
-          role: "trainer",
+            username: "fleur123",
+            firstName: "Fleur",
+            lastName: "loisen",
+            email: "fleur.loisen@example.com",
+            password: await hashPassword("password123"),
+            role: "trainer",
         },
-      });
-    
-      const jeroen = await prisma.user.create({
+    });
+
+    const jeroen = await prisma.user.create({
         data: {
-          username: "jeroen123",
-          firstName: "Jeroen",
-          lastName: "VanDijk",
-          email: "jeroen.vandijk@example.com",
-          password: "password123",
-          role: "admin",
+            username: "jeroen123",
+            firstName: "Jeroen",
+            lastName: "VanDijk",
+            email: "jeroen.vandijk@example.com",
+            password: await hashPassword("password123"),
+            role: "admin",
         },
-      });
-    
+    });
 
     const bmi1 = await prisma.bmi.create({
         data: {
@@ -61,17 +65,16 @@ const main = async () => {
         },
     });
 
-
-  const bmi2 = await prisma.bmi.create({
-    data: {
-      bmiValue: 19.0,
-      length: 1.65,
-      weight: 52,
-      users: {
-        connect: { id: fleur.id },
-      },
-    },
-  });
+    const bmi2 = await prisma.bmi.create({
+        data: {
+            bmiValue: 19.0,
+            length: 1.65,
+            weight: 52,
+            users: {
+                connect: { id: fleur.id },
+            },
+        },
+    });
 
     const goal1 = await prisma.goal.create({
         data: {
@@ -87,7 +90,7 @@ const main = async () => {
             name: 'Full Body Strength',
             calorie: 300,
             muscle: 'Arms, Legs, Core',
-            muscleImage: '/images/homepagepic.png',
+            muscleImage: 'images/homepagepic.png',
         },
     });
 
@@ -99,7 +102,7 @@ const main = async () => {
             name: 'Quick Cardio Blast',
             calorie: 150,
             muscle: 'Cardio',
-            muscleImage: '/images/homepagepic.png',
+            muscleImage: 'images/homepagepic.png',
         },
     });
 
@@ -111,7 +114,7 @@ const main = async () => {
             name: 'Leg Day Intensive',
             calorie: 500,
             muscle: 'Legs',
-            muscleImage: '/images/homepagepic.png',
+            muscleImage: 'images/homepagepic.png',
         },
     });
 
@@ -123,7 +126,7 @@ const main = async () => {
             name: 'Basic core',
             calorie: 150,
             muscle: 'Core Muscles',
-            muscleImage: '/images/homepagepic.png',
+            muscleImage: 'images/homepagepic.png',
         },
     });
 
@@ -135,7 +138,7 @@ const main = async () => {
             name: 'Interval run',
             calorie: 600,
             muscle: 'Legs/cardio',
-            muscleImage: '/images/homepagepic.png',
+            muscleImage: 'images/homepagepic.png',
         },
     });
 
@@ -157,6 +160,17 @@ const main = async () => {
             totalTime: 60,
             workouts: {
                 connect: [{ id: workout3.id }],
+            },
+        },
+    });
+
+    const schedule3 = await prisma.schedule.create({
+        data: {
+            date: new Date('2025-01-30'),
+            calorieBurn: 260,
+            totalTime: 30,
+            workouts: {
+                connect: [{ id: workout1.id }, { id: workout3.id }, { id: workout5.id }, { id: workout2.id }],
             },
         },
     });
