@@ -50,10 +50,21 @@ const main = async () => {
         data: {
             username: "jeroen123",
             firstName: "Jeroen",
-            lastName: "VanDijk",
-            email: "jeroen.vandijk@example.com",
+            lastName: "Rombouts",
+            email: "jeroen.rombouts@example.com",
             password: await hashPassword("password123"),
             role: "admin",
+        },
+    });
+
+    const johan = await prisma.user.create({
+        data: {
+            username: "johan123",
+            firstName: "johan",
+            lastName: "pieck",
+            email: "johan.pieck@example.com",
+            password: await hashPassword("password123"),
+            role: "trainer",
         },
     });
 
