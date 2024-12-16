@@ -21,6 +21,7 @@ const Header: React.FC = () => {
     sessionStorage.removeItem("jwtToken");
     sessionStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
+    window.location.reload();
   };
 
   return (

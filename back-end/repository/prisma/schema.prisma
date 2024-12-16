@@ -30,7 +30,7 @@ model Profile {
 model Workout {
   id          Int        @id @default(autoincrement())
   location    String
-  level       Int
+  level       Int 
   time        Int
   name        String
   calorie     Int

@@ -14,7 +14,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",  // Zorg ervoor dat je de juiste JSX-omzetting hebt
+    "jsx": "preserve", // Zorg ervoor dat je de juiste JSX-omzetting hebt
     "incremental": true,
     "paths": {
       "@/*": [
