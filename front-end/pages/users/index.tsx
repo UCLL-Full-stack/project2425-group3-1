@@ -6,6 +6,7 @@ import styles from "../../styles/users.module.css";
 
 import { useEffect, useState } from "react";
 import UserDataTable from "@/components/users/UserDataTable";
+import BmiDataTable from "@/components/bmi/BmiDataTable";
 const usersData: React.FC = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [data, setData] = useState<any>(null);
@@ -46,6 +47,11 @@ const usersData: React.FC = () => {
         {userRole === "admin" && data && (
           <section>
             <UserDataTable users={data} />
+          </section>
+        )}
+        {userRole === "trainer" && data && (
+          <section>
+            <BmiDataTable bmis={data} />
           </section>
         )}
       </main>
