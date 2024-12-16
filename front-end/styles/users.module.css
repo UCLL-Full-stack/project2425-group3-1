@@ -11,6 +11,15 @@
   padding-bottom: 50px;
   padding-top: 50px;
 }
+
+.h2 {
+  color: red;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+  padding-top: 50px;
+  font-size: 75px;
+}
 .userDataTable {
   width: 90%;
   max-width: 1250px;

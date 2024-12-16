@@ -10,6 +10,7 @@ import BmiDataTable from "@/components/bmi/BmiDataTable";
 const usersData: React.FC = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [data, setData] = useState<any>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRoleAndData = async () => {
@@ -52,6 +53,14 @@ const usersData: React.FC = () => {
         {userRole === "trainer" && data && (
           <section>
             <BmiDataTable bmis={data} />
+          </section>
+        )}
+
+        {userRole === "user" && (
+          <section>
+            <h2 className={styles.h2}>
+              You are not authorized to access this page!
+            </h2>
           </section>
         )}
       </main>
