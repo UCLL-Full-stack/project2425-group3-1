@@ -11,9 +11,6 @@ const ScheduleTable: React.FC<Props> = ({ schedules }: Props) => {
   const router = useRouter();
   const [sessionToken, setSessionToken] = useState<String | null>(null);
 
-  useEffect(() => {
-    setSessionToken(sessionStorage.getItem("jwtToken")!);
-  }, []);
   const handleDetailsButton = (scheduleId: number) => {
     router.push(`/schedules/${scheduleId}`);
   };

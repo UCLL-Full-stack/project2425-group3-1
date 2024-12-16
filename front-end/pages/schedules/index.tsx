@@ -8,6 +8,8 @@ import ScheduleService from "@/services/ScheduleService";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import AddScheduleForm from "@/components/schedules/AddScheduleForm";
+import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
 const Schedules: React.FC = () => {
   const { t } = useTranslation();
@@ -17,11 +19,8 @@ const Schedules: React.FC = () => {
   );
   const [showAddForm, setShowAddForm] = useState(false);
 
-  const getSchedules = async () => {
-    const response = await ScheduleService.getAllSchedules();
-    const schedules = await response.json();
-    setSchedules(schedules);
-  };
+  const router = useRouter();
+  const [sessionToken, setSessionToken] = useState<String | null>(null);
 
   const handleAddSchedule = async (newSchedule: Schedule) => {
     try {
@@ -35,6 +34,17 @@ const Schedules: React.FC = () => {
   };
 
   useEffect(() => {
+    const fetchToken = async () => {
+      setSessionToken(sessionStorage.getItem("jwtToken")!);
+    };
+    fetchToken();
+
+    const getSchedules = async () => {
+      const response = await ScheduleService.getAllSchedules();
+      const schedules = await response.json();
+      setSchedules(schedules);
+    };
+
     getSchedules();
   }, [schedules]);
 
@@ -45,31 +55,41 @@ const Schedules: React.FC = () => {
       </Head>
       <Header />
       <main className={styles.container}>
-        <section className={styles.scheduleOverviewSection}>
-          <h2 className={styles.description}>Schedules Overview</h2>
-          <p className={styles.instructionText}>
-            Click on the details button to see your planned workouts.
-          </p>
-          {schedules && (
-            <ScheduleTable
-              schedules={schedules}
-              selectedSchedule={setSelectedSchedule}
-            />
-          )}
-          <button
-            className={showAddForm ? styles.cancelButton : styles.addButton}
-            onClick={() => setShowAddForm(!showAddForm)}
-          >
-            {showAddForm ? "Cancel" : "Add Schedule"}
-          </button>
-          {showAddForm && <AddScheduleForm onAddSchedule={handleAddSchedule} />}
-        </section>
+        {!sessionToken ? (
+          <div>
+            <p className={styles.pError}>
+              You must be logged in to be able to view this page
+            </p>
+          </div>
+        ) : (
+          <section className={styles.scheduleOverviewSection}>
+            <h2 className={styles.description}>Schedules Overview</h2>
+            <p className={styles.instructionText}>
+              Click on the details button to see your planned workouts.
+            </p>
+            {schedules && (
+              <ScheduleTable
+                schedules={schedules}
+                selectedSchedule={setSelectedSchedule}
+              />
+            )}
+            <button
+              className={showAddForm ? styles.cancelButton : styles.addButton}
+              onClick={() => setShowAddForm(!showAddForm)}
+            >
+              {showAddForm ? "Cancel" : "Add Schedule"}
+            </button>
+            {showAddForm && (
+              <AddScheduleForm onAddSchedule={handleAddSchedule} />
+            )}
+          </section>
+        )}
       </main>
     </>
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context;
   return {
     props: {

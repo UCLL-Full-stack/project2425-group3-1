@@ -105,8 +105,9 @@
  */
 import express, { NextFunction, Request, Response } from 'express';
 import userService from '../service/user.service';
-import { UserInput } from '../types/index';
+import { Role, UserInput } from '../types/index';
 import bmiService from '../service/bmi.service';
+import { ro } from 'date-fns/locale';
 
 const userRouter = express.Router();
 
@@ -166,6 +167,7 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
                 username: response.username,
                 fullname: response.fullname,
                 userId: response.userId,
+                role: response.role,
             });
         }
         return res.status(401).json({ message: 'Invalid credentials' });
@@ -244,29 +246,68 @@ userRouter.post('/signup', async (req: Request, res: Response, next: NextFunctio
  */
 userRouter.put('/:userId/bmi', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = parseInt(req.params.userId); 
-        const { bmiValue } = req.body; 
+        const userId = parseInt(req.params.userId);
+        const { bmiValue } = req.body;
 
-    
         if (!bmiValue || bmiValue <= 0) {
             return res.status(400).json({ message: 'Invalid BMI value.' });
         }
 
-  
         const updatedUser = await userService.updateUserBmi(userId, bmiValue);
 
-      
         res.status(200).json({
-            id: updatedUser.getId(),               
-            username: updatedUser.getUsername(),    
-            firstName: updatedUser.getFirstName(),  
-            lastName: updatedUser.getLastName(),    
-            email: updatedUser.getEmail(),          
-            role: updatedUser.getRole(),            
-            bmi: { bmiValue: updatedUser.getBmi()?.getBmiValue() }, 
+            id: updatedUser.getId(),
+            username: updatedUser.getUsername(),
+            firstName: updatedUser.getFirstName(),
+            lastName: updatedUser.getLastName(),
+            email: updatedUser.getEmail(),
+            role: updatedUser.getRole(),
+            bmi: { bmiValue: updatedUser.getBmi()?.getBmiValue() },
         });
     } catch (error) {
         next(error);
     }
 });
+
+/**
+ * @swagger
+ * /users/roleData:
+ *   get:
+ *     summary: Get data based on role
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - User
+ *     responses:
+ *       200:
+ *         description: Data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       500:
+ *         description: Internal server error
+ *       401:
+ *         description: Unauthorized
+ */
+userRouter.get('/roleData', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const request = req as Request & { auth: { userId: number; role: Role } };
+        const { userId, role } = request.auth;
+
+        const data = await userService.getDataForRole(userId, role);
+        return res.status(200).json({
+            data,
+        });
+    } catch (error) {
+        console.error('Error retrieving data:', error);
+        return res.status(500).json({ message: 'Failed to retrieve data' });
+    }
+});
+
 export { userRouter };

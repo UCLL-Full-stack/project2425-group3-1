@@ -25,6 +25,7 @@ export type Schedule = {
 };
 
 export type User = {
+  id?: number;
   firstName?: string;
   lastName?: string;
   fullname?: string;
@@ -49,5 +50,3 @@ export type StatusMessage = {
   message: string;
   type: "error" | "success";
 };
-
-

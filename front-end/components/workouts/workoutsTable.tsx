@@ -23,64 +23,50 @@ const WorkoutsTable: React.FC<WorkoutsTableProps> = ({
   const [sessionToken, setSessionToken] = useState<String | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    setSessionToken(sessionStorage.getItem("jwtToken")!);
-  }, []);
-
   return (
-    <div>
-      {!sessionToken ? (
-        <div>
-          <p className={styles.pError}>
-            You must be logged in to be able to view this page
-          </p>
-        </div>
-      ) : (
-        <>
-          <h1 className={styles.h1}>{t("workouts.title")}</h1>
+    <>
+      <h1 className={styles.h1}>{t("workouts.title")}</h1>
 
-          <table className={styles.workoutsTable}>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Time</th>
-                <th>Level</th>
-                <th>Muscle</th>
-                <th>Muscle Image</th>
-              </tr>
-            </thead>
-            <tbody>
-              {workouts.map((workout) => (
-                <tr key={workout.id}>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedWorkouts.includes(workout.id)}
-                      onChange={() => onCheckboxChange(workout.id)}
-                    />
-                  </td>
-                  <td>{workout.name}</td>
-                  <td>{workout.location}</td>
-                  <td>{workout.time}</td>
-                  <td>{workout.level}</td>
-                  <td>{workout.muscle}</td>
-                  <td>
-                    <button
-                      onClick={() => onShowMuscleImage(workout.muscleImage)}
-                      className={styles.showButton}
-                    >
-                      Show
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
-    </div>
+      <table className={styles.workoutsTable}>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Time</th>
+            <th>Level</th>
+            <th>Muscle</th>
+            <th>Muscle Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          {workouts.map((workout) => (
+            <tr key={workout.id}>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={selectedWorkouts.includes(workout.id)}
+                  onChange={() => onCheckboxChange(workout.id)}
+                />
+              </td>
+              <td>{workout.name}</td>
+              <td>{workout.location}</td>
+              <td>{workout.time}</td>
+              <td>{workout.level}</td>
+              <td>{workout.muscle}</td>
+              <td>
+                <button
+                  onClick={() => onShowMuscleImage(workout.muscleImage)}
+                  className={styles.showButton}
+                >
+                  Show
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 

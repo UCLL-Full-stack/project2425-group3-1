@@ -24,6 +24,7 @@
  */
 import express, { NextFunction, Request, Response } from 'express';
 import bmiService from '../service/bmi.service';
+import { Role } from '../types';
 
 const bmiRouter = express.Router();
 
@@ -31,6 +32,8 @@ const bmiRouter = express.Router();
  * @swagger
  * /bmi:
  *    post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Calculate and save BMI data.
  *     description: Accepts height and weight, calculates BMI, and stores it in the database.
  *     tags:
@@ -89,10 +92,10 @@ bmiRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
  * @swagger
  * /bmi:
  *    get:
- *     summary: Retrieve all BMI entries, including associated users.
- *     description: Returns a list of all BMI records stored in the database, along with the users who are associated with each BMI.
- *     tags:
- *       - BMI
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Retrieve all BMI entries when trainer, get all users when admin.
+ *     description: Retrieve all BMI entries when trainer, get all users when admin.
  *     responses:
  *       200:
  *         description: Successfully retrieved list of BMI entries with associated users.
@@ -107,8 +110,8 @@ bmiRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
  */
 bmiRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const bmiRecords = await bmiService.getAllBmi();
-        res.status(200).json(bmiRecords);
+        const request = req as Request & { auth: { role: Role } };
+        const { role } = request.auth;
     } catch (error) {
         next(error);
     }

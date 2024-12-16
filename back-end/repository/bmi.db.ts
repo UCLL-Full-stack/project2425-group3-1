@@ -1,5 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import { Bmi } from '../model/bmi';
+import { UnauthorizedError } from 'express-jwt';
+import userDb from './user.db';
+import bmiDb from './bmi.db';
+import { Role } from '../types';
 
 const prisma = new PrismaClient();
 
@@ -82,12 +86,4 @@ const updateBmi = async (userId: number, bmiValue: number): Promise<Bmi> => {
     }
 };
 
-const bmiService = {
-    addBmi,
-    getAllBmi,
-    getBmiByValue,
-    addUserToBmi,
-    updateBmi,
-};
-
-export default bmiService;
+export default { addBmi, getAllBmi, getBmiByValue, addUserToBmi, updateBmi };

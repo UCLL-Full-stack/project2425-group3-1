@@ -7,23 +7,22 @@ const UpdateBmiForm: React.FC = () => {
 
   const handleBmiUpdate = async (newBmiValue: number) => {
     const token = sessionStorage.getItem("jwtToken");
-  
+
     if (!token) {
       alert("User is not authenticated. Please log in again.");
       return;
     }
-  
-    const userId = parseInt(sessionStorage.getItem("userId") || ""); 
-  
+
+    const userId = parseInt(sessionStorage.getItem("userId") || "");
+
     if (!userId) {
       alert("User ID is missing.");
       return;
     }
-  
+
     try {
-   
-      const response = await BmiService.updateBMI(userId, newBmiValue, token); 
-      setUpdatedBmi(response.bmi.bmiValue); 
+      const response = await BmiService.updateBMI(userId, newBmiValue, token);
+      setUpdatedBmi(response.bmi.bmiValue);
       alert("BMI successfully updated!");
     } catch (error) {
       alert("Failed to update BMI. Please try again.");

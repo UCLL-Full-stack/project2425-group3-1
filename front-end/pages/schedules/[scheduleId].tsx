@@ -8,6 +8,7 @@ import styles from "../../styles/workouts.module.css";
 import WorkoutOverviewTable from "@/components/workouts/WorkoutOverviewTable";
 import { scheduler } from "timers/promises";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetServerSideProps } from "next";
 
 const ScheduleById = () => {
   const [schedule, setSchedule] = useState<Schedule | null>(null);
@@ -69,7 +70,7 @@ const ScheduleById = () => {
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context;
   return {
     props: {
