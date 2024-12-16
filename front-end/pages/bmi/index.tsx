@@ -8,7 +8,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { GetServerSideProps } from "next";
 import AuthErrorMessage from "@/components/error/AuthErrorMessage";
-
+import FetchUserButton from "@/components/users/fetchUserButton";
 const BMICalculator: React.FC = () => {
   const { t } = useTranslation();
   const [bmi, setBMI] = useState<number | null>(null);
@@ -72,8 +72,8 @@ const BMICalculator: React.FC = () => {
       <Header />
 
       {!sessionToken ? (
-     <AuthErrorMessage />
-        ) : (
+        <AuthErrorMessage />
+      ) : (
         <main className={styles.centeredMain}>
           <h1>BMI Calculator</h1>
 
@@ -120,10 +120,7 @@ const BMICalculator: React.FC = () => {
               </button>
             </form>
           </div>
-
-          <div>
-            <button className={styles.button}>fetch user data</button>
-          </div>
+          <FetchUserButton></FetchUserButton>
         </main>
       )}
     </div>
