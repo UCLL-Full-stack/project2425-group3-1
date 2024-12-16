@@ -19,6 +19,40 @@ const main = async () => {
         },
     });
 
+    const axl = await prisma.user.create({
+        data: {
+          username: "axl123",
+          firstName: "Axl",
+          lastName: "nuyens",
+          email: "axl.nuyens@example.com",
+          password: "password123",
+          role: "user",
+        },
+      });
+    
+      const fleur = await prisma.user.create({
+        data: {
+          username: "fleur123",
+          firstName: "Fleur",
+          lastName: "loisen",
+          email: "fleur.loisen@example.com",
+          password: "password123",
+          role: "trainer",
+        },
+      });
+    
+      const jeroen = await prisma.user.create({
+        data: {
+          username: "jeroen123",
+          firstName: "Jeroen",
+          lastName: "VanDijk",
+          email: "jeroen.vandijk@example.com",
+          password: "password123",
+          role: "admin",
+        },
+      });
+    
+
     const bmi1 = await prisma.bmi.create({
         data: {
             length: 1.75,
@@ -26,6 +60,18 @@ const main = async () => {
             bmiValue: 19,
         },
     });
+
+
+  const bmi2 = await prisma.bmi.create({
+    data: {
+      bmiValue: 19.0,
+      length: 1.65,
+      weight: 52,
+      users: {
+        connect: { id: fleur.id },
+      },
+    },
+  });
 
     const goal1 = await prisma.goal.create({
         data: {
