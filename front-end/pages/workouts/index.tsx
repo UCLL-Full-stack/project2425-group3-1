@@ -14,11 +14,13 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { GetServerSideProps } from "next";
 import AuthErrorMessage from "@/components/error/AuthErrorMessage";
+import useSWR, { mutate } from "swr";
+import useInterval from "use-interval";
 
 const Workouts: React.FC = () => {
   const { t } = useTranslation();
   const [message, setMessage] = useState<string | null>(null);
-  const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
+  // const [workoutsData, setWorkoutsData] = useState<Workout[]>([]);
   const [selectedWorkouts, setSelectedWorkouts] = useState<number[]>([]);
   const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
     null
@@ -36,21 +38,22 @@ const Workouts: React.FC = () => {
       setSessionToken(sessionStorage.getItem("jwtToken")!);
     };
     fetchToken();
-    const fetchWorkouts = async () => {
-      const response = await workoutService.getAllWorkouts();
-      const workouts = await response.json();
-      setWorkoutsData(workouts);
-    };
-
-    const fetchSchedules = async () => {
-      const response = await ScheduleService.getAllSchedules();
-      const schedules = await response.json();
-      setSchedulesData(schedules);
-    };
-
-    fetchWorkouts();
-    fetchSchedules();
   }, []);
+  const fetchWorkouts = async () => {
+    const response = await workoutService.getAllWorkouts();
+    const workouts = await response.json();
+    if (response.ok) {
+      return workouts;
+    } else {
+      throw new Error(workouts.message);
+    }
+  };
+
+  const { data, isLoading, error } = useSWR("getWorkouts", fetchWorkouts);
+
+  useInterval(() => {
+    mutate("getWorkouts", fetchWorkouts);
+  }, 1000);
 
   const handleCheckboxChange = (id: number) => {
     setSelectedWorkouts((prevSelected) =>
@@ -93,12 +96,12 @@ const Workouts: React.FC = () => {
       </Head>
       <Header />
       {!sessionToken ? (
-      <AuthErrorMessage />
-          ) : (
+        <AuthErrorMessage />
+      ) : (
         <>
           <div className={styles.content}>
             <WorkoutsTable
-              workouts={workoutsData}
+              workouts={data}
               selectedWorkouts={selectedWorkouts}
               onCheckboxChange={handleCheckboxChange}
               onShowMuscleImage={handleShowMuscleImage}
@@ -140,6 +143,7 @@ const Workouts: React.FC = () => {
             </button>
             <div>{message && <p className={styles.p}>{message}</p>}</div>
           </div>
+          <div>{error && <p>{error.message}</p>}</div>
         </>
       )}
     </div>

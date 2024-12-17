@@ -11,10 +11,12 @@ import AddScheduleForm from "@/components/schedules/AddScheduleForm";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import AuthErrorMessage from "@/components/error/AuthErrorMessage";
+import useSWR, { mutate } from "swr";
+import useInterval from "use-interval";
 
 const Schedules: React.FC = () => {
   const { t } = useTranslation();
-  const [schedules, setSchedules] = useState<Array<Schedule>>([]);
+  // const [schedules, setSchedules] = useState<Array<Schedule>>([]);
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
   );
@@ -27,27 +29,34 @@ const Schedules: React.FC = () => {
     try {
       const response = await ScheduleService.addSchedule(newSchedule);
       const createdSchedule = await response.json();
-      setSchedules((prev) => [...prev, createdSchedule]);
+      // setSchedules((prev) => [...prev, createdSchedule]);
       setShowAddForm(false);
     } catch (error) {
       console.error("Error adding schedule", error);
     }
   };
+  const fetchToken = async () => {
+    setSessionToken(sessionStorage.getItem("jwtToken")!);
+  };
 
   useEffect(() => {
-    const fetchToken = async () => {
-      setSessionToken(sessionStorage.getItem("jwtToken")!);
-    };
     fetchToken();
+  }, []);
 
-    const getSchedules = async () => {
-      const response = await ScheduleService.getAllSchedules();
-      const schedules = await response.json();
-      setSchedules(schedules);
-    };
+  const getSchedules = async () => {
+    const response = await ScheduleService.getAllSchedules();
+    const schedules = await response.json();
 
-    getSchedules();
-  }, [schedules]);
+    if (response.ok) {
+      return schedules;
+    }
+  };
+
+  const { data, isLoading, error } = useSWR("getSchedules", getSchedules);
+
+  useInterval(() => {
+    mutate("getSchedules", getSchedules);
+  }, 1000);
 
   return (
     <>
@@ -64,9 +73,9 @@ const Schedules: React.FC = () => {
             <p className={styles.instructionText}>
               Click on the details button to see your planned workouts.
             </p>
-            {schedules && (
+            {data && (
               <ScheduleTable
-                schedules={schedules}
+                schedules={data}
                 selectedSchedule={setSelectedSchedule}
               />
             )}
