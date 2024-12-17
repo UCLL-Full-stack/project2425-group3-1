@@ -52,10 +52,10 @@ const Schedules: React.FC = () => {
     }
   };
 
-  const { data, isLoading, error } = useSWR("getSchedules", getSchedules);
+  const { data, isLoading, error } = useSWR("fetchSchedules", getSchedules);
 
   useInterval(() => {
-    mutate("getSchedules", getSchedules);
+    mutate("fetchSchedules", getSchedules);
   }, 1000);
 
   return (

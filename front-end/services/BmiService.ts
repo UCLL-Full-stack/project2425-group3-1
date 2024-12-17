@@ -1,3 +1,5 @@
+import { Router } from "next/router";
+
 const addBMI = (length: number, weight: number) => {
   const token = sessionStorage.getItem("jwtToken");
   if (!token) {
@@ -32,9 +34,7 @@ const updateBMI = (userId: number, bmiValue: number, token: string) => {
 
 const getDataForRole = () => {
   const token = sessionStorage.getItem("jwtToken");
-  if (!token) {
-    throw new Error("No authorization token found.");
-  }
+
   return fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/roleData`, {
     method: "GET",
     headers: {

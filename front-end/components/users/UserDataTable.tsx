@@ -5,11 +5,15 @@ import { useRouter } from "next/router";
 import styles from "../../styles/users.module.css";
 
 type Props = {
-  users: Array<User>;
+  users: User[] | null | undefined;
 };
 
 const UserDataTable: React.FC<Props> = ({ users }: Props) => {
   const router = useRouter();
+
+  if (!users || !Array.isArray(users) || users.length === 0) {
+    return <p className={styles.pError}>No users found</p>;
+  }
   return (
     <>
       <h1 className={styles.h1}>All Users</h1>
@@ -25,15 +29,16 @@ const UserDataTable: React.FC<Props> = ({ users }: Props) => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td> {user.username}</td>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-              </tr>
-            ))}
+            {users &&
+              users.map((user) => (
+                <tr key={user.id}>
+                  <td> {user.username}</td>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       )}

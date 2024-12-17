@@ -11,37 +11,37 @@ import { useEffect, useState } from "react";
 import UserDataTable from "@/components/users/UserDataTable";
 import BmiDataTable from "@/components/bmi/BmiDataTable";
 import RoleErrorMessage from "@/components/error/RoleErrorMessage";
+import useSWR, { mutate } from "swr";
+import useInterval from "use-interval";
 const usersData: React.FC = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+  // const [data, setData] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { t } = useTranslation();
 
   useEffect(() => {
-    const fetchRoleAndData = async () => {
+    const fetchRole = async () => {
       const userRole = sessionStorage.getItem("userRole");
       console.log("Fetched user role:", userRole);
-
       setUserRole(userRole);
-
-      if (userRole) {
-        await fetchData(userRole);
-      }
     };
 
-    fetchRoleAndData();
+    fetchRole();
   }, []);
 
-  const fetchData = async (role: string) => {
-    try {
-      const response = await BmiService.getDataForRole();
-      const result = await response.json();
-      console.log("Fetched data:", result.data);
-      setData(result.data);
-    } catch (error: any) {
-      console.log(error);
+  const getData = async () => {
+    const response = await BmiService.getDataForRole();
+    const result = await response.json();
+
+    if (response.ok) {
+      return result.data;
     }
   };
+
+  const { data, isLoading, error } = useSWR("fetchData", getData);
+  useInterval(() => {
+    mutate("fetchData", getData);
+  }, 1000);
 
   return (
     <>

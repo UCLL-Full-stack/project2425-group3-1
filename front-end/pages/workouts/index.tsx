@@ -25,7 +25,7 @@ const Workouts: React.FC = () => {
   const [selectedMuscleImage, setSelectedMuscleImage] = useState<string | null>(
     null
   );
-  const [schedulesData, setSchedulesData] = useState<Schedule[]>([]);
+  // const [schedulesData, setSchedulesData] = useState<Schedule[]>([]);
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
   );
@@ -39,21 +39,29 @@ const Workouts: React.FC = () => {
     };
     fetchToken();
   }, []);
-  const fetchWorkouts = async () => {
-    const response = await workoutService.getAllWorkouts();
-    const workouts = await response.json();
-    if (response.ok) {
-      return workouts;
-    } else {
-      throw new Error(workouts.message);
+  const getWorkoutsAndSchedules = async () => {
+    const responses = await Promise.all([
+      workoutService.getAllWorkouts(),
+      ScheduleService.getAllSchedules(),
+    ]);
+
+    const [workoutsResponse, scheduleResponse] = responses;
+
+    if (workoutsResponse.ok && scheduleResponse.ok) {
+      const workouts = await workoutsResponse.json();
+      const schedules = await scheduleResponse.json();
+      return { workouts, schedules };
     }
   };
 
-  const { data, isLoading, error } = useSWR("getWorkouts", fetchWorkouts);
+  const { data, isLoading, error } = useSWR(
+    "workoutsAndStudents",
+    getWorkoutsAndSchedules
+  );
 
   useInterval(() => {
-    mutate("getWorkouts", fetchWorkouts);
-  }, 1000);
+    mutate("workoutsAndStudents", getWorkoutsAndSchedules());
+  }, 3000);
 
   const handleCheckboxChange = (id: number) => {
     setSelectedWorkouts((prevSelected) =>
@@ -101,7 +109,7 @@ const Workouts: React.FC = () => {
         <>
           <div className={styles.content}>
             <WorkoutsTable
-              workouts={data}
+              workouts={data?.workouts}
               selectedWorkouts={selectedWorkouts}
               onCheckboxChange={handleCheckboxChange}
               onShowMuscleImage={handleShowMuscleImage}
@@ -123,7 +131,7 @@ const Workouts: React.FC = () => {
           <p className={styles.p}>{t("workouts.selectScheduleMessage")}</p>
           <div className={styles.dropDown}>
             <ScheduleDropdown
-              schedules={schedulesData}
+              schedules={data?.schedules}
               selectedSchedule={selectedSchedule}
               onChange={handleScheduleChange}
             />

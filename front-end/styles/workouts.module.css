@@ -8,6 +8,13 @@
 .content {
   flex: 1;
 }
+.p {
+  color: black;
+  font-size: 1.8vh;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
 
 .pError {
   color: red;
