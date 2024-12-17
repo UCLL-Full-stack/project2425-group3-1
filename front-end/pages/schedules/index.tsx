@@ -56,11 +56,11 @@ const Schedules: React.FC = () => {
       </Head>
       <Header />
       <main className={styles.container}>
-      {!sessionToken ? (
-  <AuthErrorMessage />
+        {!sessionToken ? (
+          <AuthErrorMessage />
         ) : (
           <section className={styles.scheduleOverviewSection}>
-            <h2 className={styles.description}>Schedules Overview</h2>
+            <h2 className={styles.ScheduleDescription}>Schedules Overview</h2>
             <p className={styles.instructionText}>
               Click on the details button to see your planned workouts.
             </p>

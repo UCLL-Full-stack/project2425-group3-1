@@ -172,7 +172,11 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
         }
         return res.status(401).json({ message: 'Invalid credentials' });
     } catch (error) {
-        next(error);
+        console.error('Error in /login endpoint:', error);
+        res.status(500).json({
+            message: 'Unexpected server error',
+            error,
+        });
     }
 });
 /**

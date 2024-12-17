@@ -73,7 +73,7 @@ const UserLoginForm: React.FC = () => {
       } else {
         setStatusMessages([
           {
-            message: t("general.error"),
+            message: t("login.validate.credentials"),
             type: "error",
           },
         ]);
@@ -81,7 +81,7 @@ const UserLoginForm: React.FC = () => {
     } catch (error) {
       setStatusMessages([
         {
-          message: t("general.error"),
+          message: t("login.validate.credentials"),
           type: "error",
         },
       ]);

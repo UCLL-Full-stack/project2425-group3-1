@@ -13,14 +13,14 @@ const loginUser = async (user: User) => {
         body: JSON.stringify(user),
       }
     );
+    const responseData = await response.json(); // Read response body once
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Login failed");
+      console.log("Wrong credentials");
+      return false;
     }
 
-    const data = await response.json();
-    return data;
+    return responseData;
   } catch (error) {
     console.error("Login error:", error);
     throw error;

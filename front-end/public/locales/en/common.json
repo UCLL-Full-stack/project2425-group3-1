@@ -22,6 +22,7 @@
     "button": "Login",
     "success": "Login successful. Redirecting to home page...",
     "validate": {
+      "credentials": "username/password is incorrect",
       "name": "Name is required",
       "password": "Password is required"
     },

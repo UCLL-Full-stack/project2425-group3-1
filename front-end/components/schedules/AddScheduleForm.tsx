@@ -19,7 +19,7 @@ const AddScheduleForm: React.FC<Props> = ({ onAddSchedule }) => {
     }
 
     const newSchedule: Schedule = {
-      id: Math.random(), 
+      id: Math.random(),
       date: new Date(date),
       calorieBurn: Number(calorieBurn),
       totalTime: Number(totalTime),

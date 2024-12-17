@@ -4,6 +4,7 @@ import styles from "../styles/workouts.module.css";
 import Header from "@/components/header";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetServerSideProps } from "next";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -20,17 +21,18 @@ const Home: React.FC = () => {
         <Header />
 
         <main>
-          <div className={styles.description}>
-            <p>{t("home.about")}</p>
+          <div className={styles.descriptionWrapper}>
+            <div className={styles.description}>
+              <p>{t("home.about")}</p>
+            </div>
           </div>
 
-          <div className={styles.description}>
+          <div className={styles.homepageImage}>
             <Image
               src="/homepagepic.png"
               alt={t("home.homepageImageAlt")}
               width={350}
               height={350}
-              className={styles.homepageImage}
             />
           </div>
         </main>
@@ -38,7 +40,7 @@ const Home: React.FC = () => {
     </>
   );
 };
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale } = context;
   return {
     props: {

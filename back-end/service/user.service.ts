@@ -22,6 +22,9 @@ const getUserByUsername = async ({ username }: { username: string }): Promise<Us
 
 const authenticate = async ({ username, password }: UserInput): Promise<AuthenticationResponse> => {
     const user = await getUserByUsername({ username });
+    if (!user) {
+        throw new Error('User not found.');
+    }
 
     const isValidPassword = await bcrypt.compare(password, user.getPassword());
 

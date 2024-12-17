@@ -22,6 +22,7 @@
     "button": "Entrar",
     "success": "Login bem-sucedido. Redirecionando para a página inicial...",
     "validate": {
+      "credentials": "nome de usuário/senha está incorreto",
       "name": "Nome é obrigatório",
       "password": "Senha é obrigatória"
     },

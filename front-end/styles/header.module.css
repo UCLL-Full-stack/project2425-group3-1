@@ -1,9 +1,9 @@
 .header {
   display: flex;
-  align-items: center; 
+  align-items: center;
   padding: 20px;
-  background-color: #153a65; 
-  color: white; 
+  background-color: #153a65;
+  color: white;
 }
 
 .title {
@@ -12,28 +12,26 @@
 }
 
 .nav {
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
   flex: 1;
 }
 
 .link {
-  color: white; 
-  text-decoration: none; 
-  font-size: 18px; 
-  margin: 0 45px; 
-
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 0 45px;
 }
 .link:hover {
-  text-decoration: underline; 
+  text-decoration: underline;
 }
 
 .welcomeMessage {
-  margin-left: 1rem; 
+  margin-left: 1rem;
 }
 
 .languageSelector {
-  position: absolute; 
-  right: 20px; 
+  position: absolute;
+  right: 20px;
 }
-
