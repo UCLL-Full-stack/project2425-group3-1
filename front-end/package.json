@@ -9,6 +9,7 @@
   "dependencies": {
     "@types/react": "^18.0.36",
     "bootstrap": "5.2.3",
+    "chart.js": "^4.4.7",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
     "i18next": "^23.16.8",

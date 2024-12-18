@@ -15,7 +15,7 @@ import useSWR, { mutate } from "swr";
 import useInterval from "use-interval";
 const usersData: React.FC = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
-  // const [data, setData] = useState<any>(null);
+
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { t } = useTranslation();
 

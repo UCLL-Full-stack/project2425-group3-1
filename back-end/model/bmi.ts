@@ -5,15 +5,25 @@ export class Bmi {
     private length?: number;
     private weight?: number;
     private bmiValue: number;
-    private users: User[] = []; 
+    private users: User[] = [];
 
-    constructor(bmi: { id?: number; length: number; weight: number; bmiValue: number; users?: User[] }) {
-        this.validate(bmi); 
+    constructor(bmi: {
+        id?: number;
+        length: number;
+        weight: number;
+        bmiValue: number;
+        users?: User[];
+    }) {
+        this.validate(bmi);
         this.id = bmi.id;
         this.length = bmi.length;
         this.weight = bmi.weight;
         this.bmiValue = bmi.bmiValue;
         this.users = bmi.users || [];
+    }
+
+    updateBmiValue(newBmiValue: number) {
+        this.bmiValue = newBmiValue;
     }
 
     static from({ id, length, weight, bmiValue, users }: BmiPrisma & { users?: User[] }): Bmi {
@@ -46,7 +56,13 @@ export class Bmi {
         this.users.push(user);
     }
 
-    private validate(bmi: { id?: number; length?: number; weight?: number; bmiValue: number; users?: User[] }): void {
+    private validate(bmi: {
+        id?: number;
+        length?: number;
+        weight?: number;
+        bmiValue: number;
+        users?: User[];
+    }): void {
         if (!bmi.bmiValue || bmi.bmiValue <= 0) {
             throw new Error('BMI value must be a positive number.');
         }
@@ -58,7 +74,7 @@ export class Bmi {
             this.weight === bmi.getWeight() &&
             this.bmiValue === bmi.getBmiValue() &&
             this.users.length === bmi.getUsers().length &&
-            this.users.every(user => bmi.getUsers().some(u => u.id === user.id))
+            this.users.every((user) => bmi.getUsers().some((u) => u.id === user.id))
         );
     }
 }

@@ -40,3 +40,11 @@
 .userDataTable tr:hover {
   background-color: lightgrey;
 }
+
+.h1Graph {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: black;
+}

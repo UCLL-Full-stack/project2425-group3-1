@@ -8,7 +8,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { GetServerSideProps } from "next";
 import AuthErrorMessage from "@/components/error/AuthErrorMessage";
-import FetchUserButton from "@/components/users/fetchUserButton";
+import FetchUserButton from "@/components/users/FetchUserButton";
 const BMICalculator: React.FC = () => {
   const { t } = useTranslation();
   const [bmi, setBMI] = useState<number | null>(null);
@@ -111,6 +111,7 @@ const BMICalculator: React.FC = () => {
                     onChange={(e) => setUpdatedBmi(Number(e.target.value))}
                     required
                     min="0"
+                    step={0.1}
                     className={styles.input}
                   />
                 </label>
