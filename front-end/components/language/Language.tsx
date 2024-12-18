@@ -5,11 +5,11 @@ const Language: React.FC = () => {
   const { locale, pathname, asPath, query } = router;
 
   const handleLanguageChange = (event: { target: { value: string } }) => {
-    const newLocale= event.target.value;
-    const { pathname, asPath, query} = router;
-    router.push({ pathname, query}, asPath, { locale: newLocale}); //herlaad pagina met die nieuwe geselecteerde path en locale
+    const newLocale = event.target.value;
+    const { pathname, asPath, query } = router;
+
+    router.push({ pathname, query }, asPath, { locale: newLocale });
   };
-  
 
   return (
     <div className="ml-6">
@@ -17,8 +17,8 @@ const Language: React.FC = () => {
         Language
       </label>
       <select
-       id="language"
-       className="ml-2 p-1"
+        id="language"
+        className="ml-2 p-1"
         value={locale}
         onChange={handleLanguageChange}
       >

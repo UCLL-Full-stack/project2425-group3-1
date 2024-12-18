@@ -207,6 +207,15 @@ userRouter.post('/signup', async (req: Request, res: Response, next: NextFunctio
             user: user,
         });
     } catch (error) {
+        if (error instanceof Error) {
+            console.error('Error during signup:', error.message);
+            if (error.message.includes('already registered')) {
+                return res.status(409).json({ message: error.message });
+            }
+            return res
+                .status(500)
+                .json({ message: 'An unexpected error occurred during user registration.' });
+        }
         next(error);
     }
 });

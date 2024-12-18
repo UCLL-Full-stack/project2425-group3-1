@@ -1,5 +1,4 @@
 import BmiService from "@/services/BmiService";
-import UserService from "@/services/UserService";
 import Head from "next/head";
 import Header from "@/components/header";
 import styles from "../../styles/users.module.css";

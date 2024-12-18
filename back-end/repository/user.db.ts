@@ -42,6 +42,19 @@ const getUserByUsername = async ({ username }: { username: string }): Promise<Us
     }
 };
 
+const getUserByEmail = async ({ email }: { email: string }): Promise<User | null> => {
+    try {
+        const userPrisma = await prisma.user.findFirst({
+            where: { email },
+        });
+
+        return userPrisma ? User.from(userPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+
 const createUser = async (user: User): Promise<User> => {
     try {
         const userPrisma = await prisma.user.create({
@@ -82,5 +95,6 @@ export default {
     createUser,
     getUserById,
     getUserByUsername,
+    getUserByEmail,
     updateUser,
 };

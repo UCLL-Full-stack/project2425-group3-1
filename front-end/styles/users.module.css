@@ -25,20 +25,29 @@
   max-width: 1250px;
   margin: 0 auto;
   border-collapse: collapse;
+  box-shadow: 3px 4px 30px rgb(127, 189, 247);
 }
 
-.userDataTable th,
+.userDataTable th {
+  background-color: #04459a;
+  color: white;
+  padding: 10px;
+}
 .userDataTable td {
   border: 1px solid #b0aeae;
   padding: 10px;
   text-align: center;
   color: black;
   vertical-align: middle;
-  padding-bottom: 0.35vh;
+  padding-bottom: 10px;
+}
+
+.userDataTable tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 .userDataTable tr:hover {
-  background-color: lightgrey;
+  background-color: rgb(127, 189, 247);
 }
 
 .h1Graph {

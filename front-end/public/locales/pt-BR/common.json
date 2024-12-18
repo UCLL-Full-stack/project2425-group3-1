@@ -46,7 +46,8 @@
       "password": "Senha é obrigatória.",
       "firstName": "Nome é obrigatório.",
       "lastName": "Sobrenome é obrigatório.",
-      "email": "Email é obrigatório."
+      "email": "Email é obrigatório.",
+      "sameCredentials": "O nome de usuário/e-mail já está cadastrado, tente fazer login."
     },
     "label": {
       "username": "Nome de usuário:",

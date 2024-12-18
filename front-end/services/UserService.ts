@@ -43,7 +43,8 @@ const signupUser = async (user: User) => {
     const responseData = await response.json();
 
     if (!response.ok) {
-      throw new Error(responseData.message || "Signup failed");
+      console.log("Credentials already registered");
+      return false;
     }
 
     if (responseData.token) {

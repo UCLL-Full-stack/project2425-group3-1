@@ -46,7 +46,8 @@
       "password": "Password is required.",
       "firstName": "First Name is required.",
       "lastName": "Last Name is required.",
-      "email": "Email is required."
+      "email": "Email is required.",
+      "sameCredentials": "Username/Email is already registered, try logging in."
     },
     "label": {
       "username": "Username:",

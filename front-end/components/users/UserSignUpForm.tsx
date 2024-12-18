@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useTranslation } from "next-i18next";
 import styles from "@/styles/signup.module.css";
-import UserService from "@/services/UserService"; 
+import UserService from "@/services/UserService";
 
 const UserSignUpForm: React.FC = () => {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ const UserSignUpForm: React.FC = () => {
     setFirstNameError(null);
     setLastNameError(null);
     setEmailError(null);
-    setStatusMessages([]); 
+    setStatusMessages([]);
   };
 
   const validate = (): boolean => {
@@ -70,39 +70,49 @@ const UserSignUpForm: React.FC = () => {
     clearErrors();
 
     if (!validate()) {
-        return;
+      return;
     }
 
     try {
-        const user = {
-            username,
-            password,
-            firstName,
-            lastName,
-            email,
-            role,
-        };
+      const user = {
+        username,
+        password,
+        firstName,
+        lastName,
+        email,
+        role,
+      };
 
-        const response = await UserService.signupUser(user);
+      const response = await UserService.signupUser(user);
 
-        if (response && response.message) {
-            setStatusMessages([{
-                message: response.message,  
-                type: "success",
-            }]);
+      if (response && response.message) {
+        setStatusMessages([
+          {
+            message: response.message,
+            type: "success",
+          },
+        ]);
 
-            setTimeout(() => {
-                router.push("/login");
-            }, 2000);
-        }
-    } catch (err) {
-        console.error("Signup error:", err);
-        setStatusMessages([{
-            message: t("signup.error.signup"),
+        setTimeout(() => {
+          router.push("/login");
+        }, 2000);
+      } else {
+        setStatusMessages([
+          {
+            message: t("signup.validate.sameCredentials"),
             type: "error",
-        }]);
+          },
+        ]);
+      }
+    } catch (error) {
+      setStatusMessages([
+        {
+          message: "azeaze",
+          type: "error",
+        },
+      ]);
     }
-};
+  };
 
   return (
     <div className={styles.formContainer}>
@@ -125,7 +135,9 @@ const UserSignUpForm: React.FC = () => {
         </div>
       )}
       <form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="usernameInput" className={styles.label}>{t("signup.label.username")}</label>
+        <label htmlFor="usernameInput" className={styles.label}>
+          {t("signup.label.username")}
+        </label>
         <input
           id="usernameInput"
           type="text"
@@ -135,9 +147,13 @@ const UserSignUpForm: React.FC = () => {
             [styles.inputError]: usernameError,
           })}
         />
-        {usernameError && <div className={styles.errorMessage}>{usernameError}</div>}
+        {usernameError && (
+          <div className={styles.errorMessage}>{usernameError}</div>
+        )}
 
-        <label htmlFor="passwordInput" className={styles.label}>{t("signup.label.password")}</label>
+        <label htmlFor="passwordInput" className={styles.label}>
+          {t("signup.label.password")}
+        </label>
         <input
           id="passwordInput"
           type="password"
@@ -147,9 +163,13 @@ const UserSignUpForm: React.FC = () => {
             [styles.inputError]: passwordError,
           })}
         />
-        {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
+        {passwordError && (
+          <div className={styles.errorMessage}>{passwordError}</div>
+        )}
 
-        <label htmlFor="firstNameInput" className={styles.label}>{t("signup.label.firstName")}</label>
+        <label htmlFor="firstNameInput" className={styles.label}>
+          {t("signup.label.firstName")}
+        </label>
         <input
           id="firstNameInput"
           type="text"
@@ -159,9 +179,13 @@ const UserSignUpForm: React.FC = () => {
             [styles.inputError]: firstNameError,
           })}
         />
-        {firstNameError && <div className={styles.errorMessage}>{firstNameError}</div>}
+        {firstNameError && (
+          <div className={styles.errorMessage}>{firstNameError}</div>
+        )}
 
-        <label htmlFor="lastNameInput" className={styles.label}>{t("signup.label.lastName")}</label>
+        <label htmlFor="lastNameInput" className={styles.label}>
+          {t("signup.label.lastName")}
+        </label>
         <input
           id="lastNameInput"
           type="text"
@@ -171,9 +195,13 @@ const UserSignUpForm: React.FC = () => {
             [styles.inputError]: lastNameError,
           })}
         />
-        {lastNameError && <div className={styles.errorMessage}>{lastNameError}</div>}
+        {lastNameError && (
+          <div className={styles.errorMessage}>{lastNameError}</div>
+        )}
 
-        <label htmlFor="emailInput" className={styles.label}>{t("signup.label.email")}</label>
+        <label htmlFor="emailInput" className={styles.label}>
+          {t("signup.label.email")}
+        </label>
         <input
           id="emailInput"
           type="email"
@@ -185,7 +213,9 @@ const UserSignUpForm: React.FC = () => {
         />
         {emailError && <div className={styles.errorMessage}>{emailError}</div>}
 
-        <button type="submit" className={styles.submitButton}>{t("signup.button")}</button>
+        <button type="submit" className={styles.submitButton}>
+          {t("signup.button")}
+        </button>
       </form>
     </div>
   );
