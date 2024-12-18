@@ -1,30 +1,32 @@
 /**
  * @swagger
- *   components:
- *    schemas:
- *      Bmi:
- *          type: object
- *          properties:
- *            id:
- *              type: number
- *              format: int64
- *              description: Unique ID of the BMI entry.
- *            length:
- *              type: number
- *              format: float
- *              description: Height in centimeters.
- *            weight:
- *              type: number
- *              format: float
- *              description: Weight in kilograms.
- *            bmiValue:
- *              type: number
- *              format: float
- *              description: Calculated BMI value.
+ * components:
+ *   schemas:
+ *     Bmi:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: int64
+ *           description: Unique ID of the BMI entry.
+ *         length:
+ *           type: number
+ *           format: float
+ *           description: Height in centimeters.
+ *         weight:
+ *           type: number
+ *           format: float
+ *           description: Weight in kilograms.
+ *         bmiValue:
+ *           type: number
+ *           format: float
+ *           description: Calculated BMI value.
  */
 import express, { NextFunction, Request, Response } from 'express';
 import bmiService from '../service/bmi.service';
 import { Role } from '../types';
+import userService from '../service/user.service';
+import { UnauthorizedError } from 'express-jwt';
 
 const bmiRouter = express.Router();
 
@@ -92,29 +94,36 @@ bmiRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
  * @swagger
  * /bmi:
  *    get:
- *     security:
- *       - bearerAuth: []
- *     summary: Retrieve all BMI entries when trainer, get all users when admin.
- *     description: Retrieve all BMI entries when trainer, get all users when admin.
- *     responses:
- *       200:
- *         description: Successfully retrieved list of BMI entries with associated users.
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Bmi'
- *       500:
- *         description: Internal server error.
+ *      security:
+ *        - bearerAuth: []
+ *      summary: Retrieve all BMI entries when trainer, get all users when admin.
+ *      description: Retrieve all BMI entries when trainer, get all users when admin.
+ *      responses:
+ *        200:
+ *          description: Successfully retrieved list of BMI entries with associated users.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: array
+ *                items:
+ *                  $ref: '#/components/schemas/Bmi'
+ *        500:
+ *          description: Internal server error.
  */
 bmiRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const request = req as Request & { auth: { role: Role } };
-        const { role } = request.auth;
+        const request = req as Request & { auth: { role: Role; userId: number } };
+        const { role, userId } = request.auth;
+
+        const data = await userService.getDataForRole(userId, role);
+
+        res.status(200).json(data);
     } catch (error) {
-        next(error);
+        if (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+        next(error); // Pass the error to the next middleware for logging or other processing
     }
 });
-
 export { bmiRouter };

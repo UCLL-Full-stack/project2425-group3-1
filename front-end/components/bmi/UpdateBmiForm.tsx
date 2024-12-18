@@ -29,7 +29,7 @@ const UpdateBmiForm: React.FC = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <div>
         <label>
           Updated BMI:

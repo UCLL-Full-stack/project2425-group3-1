@@ -20,13 +20,14 @@ const Header: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("jwtToken");
-    sessionStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
-    alert("You have been logged out!");
-    router.push("/login");
 
+    alert("You have been logged out!");
     // window.location.reload();
+    router.push("/login");
+    sessionStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem("userRole");
+    sessionStorage.removeItem("jwtToken");
   };
 
   return (

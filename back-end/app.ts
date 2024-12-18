@@ -17,11 +17,10 @@ app.use(helmet());
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            connectSrc: ['self', 'https://api.ucll.be']
-        }
+            connectSrc: ['self', 'https://api.ucll.be', 'localhost:3000'],
+        },
     })
-
-)
+);
 dotenv.config();
 const port = process.env.APP_PORT || 3000;
 

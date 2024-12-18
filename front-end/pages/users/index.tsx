@@ -62,6 +62,8 @@ const usersData: React.FC = () => {
         )}
 
         {userRole === "user" && <RoleErrorMessage></RoleErrorMessage>}
+
+        {!userRole && <RoleErrorMessage></RoleErrorMessage>}
       </main>
     </>
   );
