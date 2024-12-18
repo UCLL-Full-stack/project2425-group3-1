@@ -76,7 +76,7 @@ const ScheduleById = () => {
       <main className={styles.container}>
         {data && (
           <section className={styles.workoutSection}>
-            <h2 className={styles.description}>
+            <h2 className={styles.h2Overview}>
               Workouts planned on {new Date(data.date).toLocaleDateString()}:
             </h2>
             <WorkoutOverviewTable

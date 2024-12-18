@@ -38,6 +38,24 @@
   padding-top: 50px;
 }
 
+.h2Overview {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 130px;
+  margin-right: 130px;
+
+  color: black;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+  padding-top: 50px;
+
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 15px;
+}
+
 .imageSection p {
   color: black;
 }
@@ -49,7 +67,11 @@
   border-collapse: collapse;
 }
 
-.workoutsTable th,
+.workoutsTable th {
+  background-color: #04459a;
+  color: white;
+  padding: 10px;
+}
 .workoutsTable td {
   border: 1px solid #b0aeae;
   padding: 10px;
@@ -59,8 +81,12 @@
   padding-bottom: 0.35vh;
 }
 
+.workoutsTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 .workoutsTable tr:hover {
-  background-color: lightgrey;
+  background-color: rgb(127, 189, 247);
 }
 
 .button {
