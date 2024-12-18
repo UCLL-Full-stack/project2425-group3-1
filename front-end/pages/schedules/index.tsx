@@ -88,6 +88,7 @@ const Schedules: React.FC = () => {
             {showAddForm && (
               <AddScheduleForm onAddSchedule={handleAddSchedule} />
             )}
+            <div>{error && <p>{error.message}</p>}</div>
           </section>
         )}
       </main>

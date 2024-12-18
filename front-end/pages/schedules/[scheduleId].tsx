@@ -9,25 +9,46 @@ import WorkoutOverviewTable from "@/components/workouts/WorkoutOverviewTable";
 import { scheduler } from "timers/promises";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSideProps } from "next";
+import useSWR, { mutate } from "swr";
+import useInterval from "use-interval";
 
 const ScheduleById = () => {
-  const [schedule, setSchedule] = useState<Schedule | null>(null);
+  // const [schedule, setSchedule] = useState<Schedule | null>(null);
 
   const [schedules, setSchedules] = useState<Array<Schedule>>([]);
 
   const router = useRouter();
   const { scheduleId } = router.query;
 
+  // const getScheduleById = async () => {
+  //   const id = parseInt(scheduleId as string, 10);
+  //   try {
+  //     const schedeuleResponse = await ScheduleService.getScheduleById(id);
+  //     const schedule = await schedeuleResponse.json();
+  //     setSchedule(schedule);
+  //   } catch (error) {
+  //     console.log("Failed to fetch schedule", error);
+  //   }
+  // };
+
   const getScheduleById = async () => {
     const id = parseInt(scheduleId as string, 10);
-    try {
-      const schedeuleResponse = await ScheduleService.getScheduleById(id);
-      const schedule = await schedeuleResponse.json();
-      setSchedule(schedule);
-    } catch (error) {
-      console.log("Failed to fetch schedule", error);
+    const response = await ScheduleService.getScheduleById(id);
+    const schedules = await response.json();
+
+    if (response.ok) {
+      return schedules;
     }
   };
+
+  const { data, isLoading, error } = useSWR(
+    "fetchSchedulesById",
+    getScheduleById
+  );
+
+  useInterval(() => {
+    mutate("fetchSchedulesById", getScheduleById);
+  }, 10000);
 
   const deleteSchedule = async (scheduleId: number) => {
     try {
@@ -53,15 +74,14 @@ const ScheduleById = () => {
       </Head>
       <Header />
       <main className={styles.container}>
-        {schedule && (
+        {data && (
           <section className={styles.workoutSection}>
             <h2 className={styles.description}>
-              Workouts planned on {new Date(schedule.date).toLocaleDateString()}
-              :
+              Workouts planned on {new Date(data.date).toLocaleDateString()}:
             </h2>
             <WorkoutOverviewTable
-              schedule={schedule}
-              onDelete={() => deleteSchedule(schedule.id!)}
+              schedule={data}
+              onDelete={() => deleteSchedule(data.id!)}
             />
           </section>
         )}
