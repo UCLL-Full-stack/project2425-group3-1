@@ -26,6 +26,9 @@ const WorkoutsTable: React.FC<WorkoutsTableProps> = ({
   return (
     <>
       <h1 className={styles.h1}>{t("workouts.title")}</h1>
+      <p className={styles.instructionText}>
+        {t("workouts.showMuscleImageMessage")}
+      </p>
 
       <table className={styles.workoutsTable}>
         <thead>

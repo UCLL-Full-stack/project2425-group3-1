@@ -103,6 +103,7 @@ const Workouts: React.FC = () => {
         <title>{t("workouts.title")}</title>
       </Head>
       <Header />
+
       {!sessionToken ? (
         <AuthErrorMessage />
       ) : (
@@ -116,7 +117,7 @@ const Workouts: React.FC = () => {
             />
           </div>
           <div className={styles.imageSection}>
-            {selectedMuscleImage ? (
+            {selectedMuscleImage && (
               <Image
                 src={selectedMuscleImage}
                 alt={t("workouts.showMuscleImageMessage")}
@@ -124,11 +125,11 @@ const Workouts: React.FC = () => {
                 width={200}
                 height={200}
               />
-            ) : (
-              <p>{t("workouts.showMuscleImageMessage")}</p>
             )}
           </div>
-          <p className={styles.p}>{t("workouts.selectScheduleMessage")}</p>
+          <p className={styles.pWorkouts}>
+            {t("workouts.selectScheduleMessage")}
+          </p>
           <div className={styles.dropDown}>
             <ScheduleDropdown
               schedules={data?.schedules}
