@@ -101,7 +101,7 @@ const main = async () => {
             name: 'Full Body Strength',
             calorie: 300,
             muscle: 'Arms, Legs, Core',
-            muscleImage: 'images/homepagepic.png',
+            muscleImage: '/images/Cardio.png',
         },
     });
 
@@ -113,7 +113,7 @@ const main = async () => {
             name: 'Quick Cardio Blast',
             calorie: 150,
             muscle: 'Cardio',
-            muscleImage: 'images/homepagepic.png',
+            muscleImage: '/images/Back.png',
         },
     });
 
@@ -125,7 +125,7 @@ const main = async () => {
             name: 'Leg Day Intensive',
             calorie: 500,
             muscle: 'Legs',
-            muscleImage: 'images/homepagepic.png',
+            muscleImage: '/images/Quadriceps.png',
         },
     });
 
@@ -137,7 +137,7 @@ const main = async () => {
             name: 'Basic core',
             calorie: 150,
             muscle: 'Core Muscles',
-            muscleImage: 'images/homepagepic.png',
+            muscleImage: '/images/Abs.png',
         },
     });
 
@@ -149,7 +149,19 @@ const main = async () => {
             name: 'Interval run',
             calorie: 600,
             muscle: 'Legs/cardio',
-            muscleImage: 'images/homepagepic.png',
+            muscleImage: '/images/Quadriceps.png',
+        },
+    });
+
+    const workout6 = await prisma.workout.create({
+        data: {
+            location: 'Outside',
+            level: 5,
+            time: 120,
+            name: 'Chest intensive',
+            calorie: 600,
+            muscle: 'Chest',
+            muscleImage: '/images/Chest.png',
         },
     });
 

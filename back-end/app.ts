@@ -11,6 +11,7 @@ import { bmiRouter } from './controller/bmi.routes';
 import { userRouter } from './controller/user.routes';
 import { expressjwt } from 'express-jwt';
 import helmet from 'helmet';
+import path from 'path';
 
 const app = express();
 app.use(helmet());
@@ -32,9 +33,11 @@ app.use(
         secret: process.env.JWT_SECRET || 'default_secret',
         algorithms: ['HS256'],
     }).unless({
-        path: ['/users/login', '/users/signup', '/status', '/api-docs', /^\/api-docs\/.*/, '/bmi'],
+        path: ['/users/login', '/users/signup', '/status', '/api-docs', /^\/api-docs\/.*/, '/bmi', 'public/images', '/images', '/^\/images\/.*/'],
     })
 );
+
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 app.use('/workouts', workoutRouter);
 app.use('/schedules', scheduleRouter);
